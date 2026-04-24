@@ -1,4 +1,5 @@
-import { AlertCircle, BookOpen, Lightbulb, Sparkles } from "lucide-react";
+import { AlertCircle, BookOpen, ChevronDown, Lightbulb, Sparkles } from "lucide-react";
+import { useState } from "react";
 import type { LessonBlock } from "../types/content";
 
 interface InfoBoxProps {
@@ -41,6 +42,7 @@ const toneStyles = {
 export function InfoBox({ block }: InfoBoxProps) {
   const style = toneStyles[block.type];
   const Icon = style.Icon;
+  const [isOpen, setIsOpen] = useState(block.type !== "mistake");
 
   return (
     <aside className={`rounded-[1.75rem] border p-5 sm:p-6 ${style.className}`}>
@@ -50,24 +52,49 @@ export function InfoBox({ block }: InfoBoxProps) {
         >
           <Icon size={18} aria-hidden="true" />
         </span>
-        <div>
-          <p className="text-xs font-black uppercase tracking-[0.2em] opacity-70">{style.label}</p>
-          <h4 className="mt-1 font-display text-xl font-semibold tracking-tight">{block.title}</h4>
-          <p className="mt-3 leading-7 opacity-90">{block.body}</p>
-          {block.formula ? (
-            <code className="mt-4 block overflow-x-auto rounded-2xl bg-white/70 px-4 py-3 font-mono text-sm text-slate-900 shadow-sm">
-              {block.formula}
-            </code>
-          ) : null}
-          {block.items ? (
-            <ul className="mt-4 grid gap-2">
-              {block.items.map((item) => (
-                <li className="flex gap-2 leading-6" key={item}>
-                  <span className="mt-2 size-1.5 rounded-full bg-current opacity-70" aria-hidden="true" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+        <div className="min-w-0 flex-1">
+          <button
+            className="group flex w-full items-start justify-between gap-4 text-left"
+            type="button"
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen((value) => !value)}
+          >
+            <span>
+              <span className="block text-xs font-black uppercase tracking-[0.2em] opacity-70">
+                {style.label}
+              </span>
+              <span className="mt-1 block font-display text-xl font-semibold tracking-tight">
+                {block.title}
+              </span>
+            </span>
+            <ChevronDown
+              className={`mt-1 shrink-0 transition duration-200 ${isOpen ? "rotate-180" : ""}`}
+              size={20}
+              aria-hidden="true"
+            />
+          </button>
+          {isOpen ? (
+            <div className="mt-3">
+              <p className="leading-7 opacity-90">{block.body}</p>
+              {block.formula ? (
+                <code className="mt-4 block overflow-x-auto rounded-2xl bg-white/70 px-4 py-3 font-mono text-sm text-slate-900 shadow-sm">
+                  {block.formula}
+                </code>
+              ) : null}
+              {block.items ? (
+                <ul className="mt-4 grid gap-2">
+                  {block.items.map((item) => (
+                    <li className="flex gap-2 leading-6" key={item}>
+                      <span
+                        className="mt-2 size-1.5 rounded-full bg-current opacity-70"
+                        aria-hidden="true"
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
           ) : null}
         </div>
       </div>

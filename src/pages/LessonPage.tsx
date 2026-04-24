@@ -3,10 +3,22 @@ import { ArrowRight, ChevronLeft, Home, List } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { InfoBox } from "../components/InfoBox";
+import {
+  DerivativeIntegralToggle,
+  IntegralRectanglesExplorer,
+  SecantTangentExplorer,
+} from "../components/InteractiveDiagrams";
+import {
+  GlossaryGrid,
+  InteractiveTimeline,
+  NewtonLeibnizComparison,
+  ReviewQuiz,
+  SummaryCards,
+} from "../components/LessonExtras";
 import { LessonVisual } from "../components/LessonVisual";
 import { ReadingProgress } from "../components/ReadingProgress";
 import { getCategoryById, getContentById } from "../data/content";
-import type { LessonSection } from "../types/content";
+import type { LessonContent, LessonSection } from "../types/content";
 
 export function LessonPage() {
   const { contentId } = useParams();
@@ -129,7 +141,7 @@ export function LessonPage() {
                     Tempo: {content.estimatedTime}
                   </span>
                   <span className="rounded-full border border-slate-200 bg-white px-4 py-2">
-                    Aula v1: 3 seções
+                    Aula completa: {content.sections.length} seções
                   </span>
                 </div>
               </div>
@@ -141,18 +153,18 @@ export function LessonPage() {
           </div>
         </header>
 
-        <div className="mx-auto grid max-w-5xl gap-8 px-4 py-8 sm:px-6 lg:px-8 xl:max-w-[94rem] xl:grid-cols-[15rem_minmax(0,62rem)_15rem] xl:items-start xl:gap-8">
-          <aside className="xl:sticky xl:top-24 xl:self-start">
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-xl shadow-slate-900/5">
-              <div className="mb-3 flex items-center gap-2 px-2 text-sm font-black uppercase tracking-[0.18em] text-slate-500">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+          <aside className="mb-8">
+            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-3 shadow-xl shadow-slate-900/5">
+              <div className="mb-2 flex items-center gap-2 px-3 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
                 <List size={16} aria-hidden="true" />
                 Sumário
               </div>
-              <nav className="grid gap-1" aria-label="Seções da aula">
+              <nav className="flex gap-2 overflow-x-auto pb-1" aria-label="Seções da aula">
                 {content.sections.map((section, index) => (
                   <a
                     className={[
-                      "rounded-2xl px-4 py-3 text-sm font-bold transition",
+                      "shrink-0 rounded-full px-4 py-2 text-sm font-bold transition",
                       activeSection === section.id
                         ? "bg-slate-950 text-white"
                         : "text-slate-600 hover:bg-slate-50 hover:text-slate-950",
@@ -168,9 +180,10 @@ export function LessonPage() {
             </div>
           </aside>
 
-          <div className="grid gap-10 xl:col-start-2">
+          <div className="grid gap-10">
             {content.sections.map((section, index) => (
               <LessonSectionView
+                content={content}
                 index={index}
                 key={section.id}
                 section={section}
@@ -180,8 +193,6 @@ export function LessonPage() {
               />
             ))}
           </div>
-
-          <div className="hidden xl:block" aria-hidden="true" />
         </div>
       </article>
     </>
@@ -189,6 +200,7 @@ export function LessonPage() {
 }
 
 interface LessonSectionViewProps {
+  content: LessonContent;
   section: LessonSection;
   index: number;
   totalSections: number;
@@ -197,6 +209,7 @@ interface LessonSectionViewProps {
 }
 
 function LessonSectionView({
+  content,
   section,
   index,
   totalSections,
@@ -246,6 +259,8 @@ function LessonSectionView({
         </div>
       ) : null}
 
+      <LessonInteraction content={content} section={section} />
+
       <div className="mt-10 flex flex-col justify-between gap-3 border-t border-slate-100 pt-6 sm:flex-row">
         {previousSection ? (
           <a
@@ -283,4 +298,81 @@ function LessonSectionView({
       </div>
     </motion.section>
   );
+}
+
+interface LessonInteractionProps {
+  content: LessonContent;
+  section: LessonSection;
+}
+
+function LessonInteraction({ content, section }: LessonInteractionProps) {
+  if (!section.interactive) {
+    return null;
+  }
+
+  if (section.interactive === "secant-tangent") {
+    return (
+      <div className="mt-8">
+        <SecantTangentExplorer />
+      </div>
+    );
+  }
+
+  if (section.interactive === "integral-rectangles") {
+    return (
+      <div className="mt-8">
+        <IntegralRectanglesExplorer />
+      </div>
+    );
+  }
+
+  if (section.interactive === "derivative-integral-toggle") {
+    return (
+      <div className="mt-8">
+        <DerivativeIntegralToggle />
+      </div>
+    );
+  }
+
+  if (section.interactive === "newton-leibniz-comparison" && content.comparisonRows) {
+    return (
+      <div className="mt-8">
+        <NewtonLeibnizComparison rows={content.comparisonRows} />
+      </div>
+    );
+  }
+
+  if (section.interactive === "timeline" && content.timeline) {
+    return (
+      <div className="mt-8">
+        <InteractiveTimeline events={content.timeline} />
+      </div>
+    );
+  }
+
+  if (section.interactive === "quiz" && content.quiz) {
+    return (
+      <div className="mt-8">
+        <ReviewQuiz questions={content.quiz} />
+      </div>
+    );
+  }
+
+  if (section.interactive === "glossary" && content.glossary) {
+    return (
+      <div className="mt-8">
+        <GlossaryGrid terms={content.glossary} />
+      </div>
+    );
+  }
+
+  if (section.interactive === "summary-cards" && content.summaryCards) {
+    return (
+      <div className="mt-8">
+        <SummaryCards cards={content.summaryCards} />
+      </div>
+    );
+  }
+
+  return null;
 }

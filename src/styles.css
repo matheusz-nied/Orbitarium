@@ -48,6 +48,10 @@ a:focus-visible {
   transform-origin: center;
 }
 
+.diagram-swap {
+  animation: diagram-swap 2.4s ease-in-out infinite;
+}
+
 @keyframes orbit-pulse {
   0%,
   100% {
@@ -58,5 +62,16 @@ a:focus-visible {
   50% {
     opacity: 1;
     transform: translateX(12px);
+  }
+}
+
+@keyframes diagram-swap {
+  0%,
+  100% {
+    transform: translateX(-2px);
+  }
+
+  50% {
+    transform: translateX(2px);
   }
 }

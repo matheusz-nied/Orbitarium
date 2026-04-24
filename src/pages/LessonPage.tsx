@@ -141,8 +141,8 @@ export function LessonPage() {
           </div>
         </header>
 
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[280px_1fr] lg:px-8">
-          <aside className="lg:sticky lg:top-24 lg:self-start">
+        <div className="mx-auto grid max-w-5xl gap-8 px-4 py-8 sm:px-6 lg:px-8 xl:max-w-[94rem] xl:grid-cols-[15rem_minmax(0,62rem)_15rem] xl:items-start xl:gap-8">
+          <aside className="xl:sticky xl:top-24 xl:self-start">
             <div className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-xl shadow-slate-900/5">
               <div className="mb-3 flex items-center gap-2 px-2 text-sm font-black uppercase tracking-[0.18em] text-slate-500">
                 <List size={16} aria-hidden="true" />
@@ -168,7 +168,7 @@ export function LessonPage() {
             </div>
           </aside>
 
-          <div className="grid gap-10">
+          <div className="grid gap-10 xl:col-start-2">
             {content.sections.map((section, index) => (
               <LessonSectionView
                 index={index}
@@ -180,6 +180,8 @@ export function LessonPage() {
               />
             ))}
           </div>
+
+          <div className="hidden xl:block" aria-hidden="true" />
         </div>
       </article>
     </>

@@ -6,7 +6,7 @@ import type {
   QuizQuestion,
   SummaryCard,
   TimelineEvent,
-} from "../types/content";
+} from "../../types/content";
 
 interface TimelineProps {
   events: TimelineEvent[];

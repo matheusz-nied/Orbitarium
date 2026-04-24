@@ -1,4 +1,4 @@
-import type { LessonContent } from "../../../../types/content";
+import type { LessonContent } from "../../../types/content";
 
 export const radiacaoCosmicaDeFundoContent: LessonContent = {
   id: "radiacao-cosmica-de-fundo",
@@ -18,6 +18,50 @@ export const radiacaoCosmicaDeFundoContent: LessonContent = {
     "Cosmologia",
     "Micro-ondas",
     "Anisotropias",
+  ],
+  learningObjectives: [
+    "Entender por que a Radiação Cósmica de Fundo é uma janela para o universo jovem.",
+    "Explicar a passagem de um universo opaco para um universo transparente durante a recombinação.",
+    "Relacionar expansão cósmica, resfriamento e redshift da luz primordial.",
+    "Interpretar anisotropias da CMB como pequenas variações ligadas às sementes das estruturas cósmicas.",
+    "Reconhecer o papel de missões como COBE, WMAP e Planck na cosmologia observacional.",
+  ],
+  prerequisites: [
+    "Noções gerais de luz, temperatura e radiação eletromagnética.",
+    "Ideia básica de que observar objetos distantes também significa observar o passado.",
+    "Familiaridade introdutória com o modelo do Big Bang.",
+  ],
+  references: [
+    {
+      title: "Planck and the cosmic microwave background",
+      source: "ESA",
+      url: "https://www.esa.int/Science_Exploration/Space_Science/Planck/Planck_and_the_cosmic_microwave_background",
+      note: "Explicação da CMB, recombinação, anisotropias e missão Planck.",
+    },
+    {
+      title: "Cosmic Microwave Background",
+      source: "NASA",
+      url: "https://www.nasa.gov/cosmic-microwave-background/",
+      note: "Galeria e material institucional da NASA sobre a radiação cósmica de fundo.",
+    },
+    {
+      title: "WMAP",
+      source: "NASA Science",
+      url: "https://science.nasa.gov/mission/wmap/",
+      note: "Página oficial da missão WMAP e sua medição das anisotropias da CMB.",
+    },
+    {
+      title: "WMAP Overview",
+      source: "NASA Science",
+      url: "https://science.nasa.gov/mission/wmap/wmap-overview/",
+      note: "Visão geral científica sobre mapas de céu inteiro e pequenas diferenças de temperatura.",
+    },
+    {
+      title: "Planck overview",
+      source: "ESA",
+      url: "https://www.esa.int/Science_Exploration/Space_Science/Planck_overview",
+      note: "Resumo oficial da missão Planck e seus objetivos cosmológicos.",
+    },
   ],
   theme: { variant: "cosmic" },
   heroVisual: "cmb-hero",
@@ -251,19 +295,6 @@ export const radiacaoCosmicaDeFundoContent: LessonContent = {
       paragraphs: [
         "A história do universo começa em um estado quente e denso, passa por uma fase de plasma primordial, torna-se transparente na recombinação e depois forma estrelas, galáxias e sistemas planetários.",
         "A CMB surge cedo em escala cosmológica, mas não no instante inicial. Ela é a luz liberada quando os fótons puderam viajar livremente.",
-      ],
-    },
-    {
-      id: "antes-depois",
-      eyebrow: "Comparação",
-      title: "Antes e depois: o universo muda de comportamento",
-      lead:
-        "A recombinação separa duas fases com comportamentos muito diferentes: um universo opaco e um universo transparente.",
-      visual: "cmb-recombination",
-      interactive: "cmb-recombination-before-after",
-      paragraphs: [
-        "Antes da recombinação, o universo era quente, ionizado e opaco. Fótons eram espalhados por elétrons livres e não viajavam livremente.",
-        "Depois da recombinação, átomos neutros reduziram drasticamente o espalhamento. Os fótons passaram a viajar pelo espaço e se tornaram a radiação de fundo que observamos hoje.",
       ],
     },
     {

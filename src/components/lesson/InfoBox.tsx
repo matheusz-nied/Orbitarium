@@ -1,6 +1,6 @@
 import { AlertCircle, BookOpen, ChevronDown, Lightbulb, Sparkles } from "lucide-react";
 import { useState } from "react";
-import type { LessonBlock } from "../types/content";
+import type { LessonBlock } from "../../types/content";
 
 interface InfoBoxProps {
   block: LessonBlock;

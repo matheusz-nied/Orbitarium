@@ -2,37 +2,17 @@ import { motion } from "motion/react";
 import { ArrowRight, ChevronLeft, Home, List } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { InfoBox } from "../components/InfoBox";
-import {
-  CMBTemperatureMapDemo,
-  CosmicTimeline,
-  CosmologyMeasurementMap,
-  MissionCards,
-  RecombinationBeforeAfter,
-  RedshiftExpansionSlider,
-  StructureGrowthSlider,
-  UniverseCoolingSlider,
-} from "../components/CosmicInteractions";
-import {
-  DerivativeIntegralToggle,
-  IntegralRectanglesExplorer,
-  SecantTangentExplorer,
-} from "../components/InteractiveDiagrams";
-import {
-  GlossaryGrid,
-  InteractiveTimeline,
-  NewtonLeibnizComparison,
-  ReviewQuiz,
-  SummaryCards,
-} from "../components/LessonExtras";
-import { LessonVisual } from "../components/LessonVisual";
+import { InfoBox } from "../components/lesson/InfoBox";
+import { LessonInteraction } from "../components/lesson/LessonInteraction";
+import { LessonVisual } from "../components/lesson/LessonVisual";
 import { ReadingProgress } from "../components/ReadingProgress";
-import { getCategoryById, getContentById } from "../data/content";
-import type { LessonContent, LessonSection } from "../types/content";
+import { getCategoryById, getLessonModuleById } from "../data/content";
+import type { LessonModule, LessonSection } from "../types/content";
 
 export function LessonPage() {
   const { contentId } = useParams();
-  const content = contentId ? getContentById(contentId) : undefined;
+  const lessonModule = contentId ? getLessonModuleById(contentId) : undefined;
+  const content = lessonModule?.content;
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
 
   useEffect(() => {
@@ -172,7 +152,7 @@ export function LessonPage() {
                   ? "border-sky-400/20 bg-white/8 shadow-sky-950/30"
                   : "border-slate-200 bg-white shadow-slate-900/10"
               }`}>
-                <LessonVisual visual={content.heroVisual ?? "newton-motion"} />
+                <LessonVisual visualId={content.heroVisual} visuals={lessonModule.visuals} />
               </div>
             </div>
 
@@ -195,6 +175,19 @@ export function LessonPage() {
                 ))}
               </div>
             ) : null}
+
+            <div className="mt-10 grid gap-5 lg:grid-cols-2">
+              <StudyList
+                isCosmic={isCosmic}
+                items={content.learningObjectives}
+                title="Objetivos de aprendizagem"
+              />
+              <StudyList
+                isCosmic={isCosmic}
+                items={content.prerequisites}
+                title="Pré-requisitos"
+              />
+            </div>
           </div>
         </header>
 
@@ -268,6 +261,7 @@ export function LessonPage() {
               content={content}
               index={activeSectionIndex}
               key={activeSection.id}
+              lessonModule={lessonModule}
               section={activeSection}
               totalSections={content.sections.length}
               previousSection={previousSection}
@@ -278,13 +272,102 @@ export function LessonPage() {
             />
           </div>
         </div>
+
+        <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
+          <div
+            className={`rounded-[2rem] border p-6 shadow-xl sm:p-8 ${
+              isCosmic
+                ? "border-sky-400/20 bg-[#0b1026] shadow-sky-950/20"
+                : "border-slate-200 bg-white shadow-slate-900/5"
+            }`}
+          >
+            <p
+              className={`text-sm font-black uppercase tracking-[0.22em] ${
+                isCosmic ? "text-sky-300" : "text-blue-700"
+              }`}
+            >
+              Fontes
+            </p>
+            <h2
+              className={`mt-3 font-display text-3xl font-semibold tracking-tight ${
+                isCosmic ? "text-slate-50" : "text-slate-950"
+              }`}
+            >
+              Referências confiáveis
+            </h2>
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {content.references.map((reference) => (
+                <a
+                  className={`rounded-[1.5rem] border p-5 transition ${
+                    isCosmic
+                      ? "border-sky-400/20 bg-white/8 text-slate-100 hover:bg-white/12"
+                      : "border-slate-200 bg-slate-50 text-slate-950 hover:bg-white"
+                  }`}
+                  href={reference.url}
+                  key={reference.url}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  <span
+                    className={`text-xs font-black uppercase tracking-[0.18em] ${
+                      isCosmic ? "text-sky-300" : "text-slate-500"
+                    }`}
+                  >
+                    {reference.source}
+                  </span>
+                  <span className="mt-2 block font-display text-xl font-semibold tracking-tight">
+                    {reference.title}
+                  </span>
+                  {reference.note ? (
+                    <span
+                      className={`mt-3 block text-sm leading-6 ${
+                        isCosmic ? "text-slate-300" : "text-slate-600"
+                      }`}
+                    >
+                      {reference.note}
+                    </span>
+                  ) : null}
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
       </article>
     </>
   );
 }
 
+interface StudyListProps {
+  title: string;
+  items: string[];
+  isCosmic: boolean;
+}
+
+function StudyList({ title, items, isCosmic }: StudyListProps) {
+  return (
+    <section
+      className={`rounded-[1.75rem] border p-6 ${
+        isCosmic
+          ? "border-sky-400/20 bg-white/8 text-slate-100"
+          : "border-slate-200 bg-white text-slate-950"
+      }`}
+    >
+      <h2 className="font-display text-2xl font-semibold tracking-tight">{title}</h2>
+      <ul className={`mt-4 grid gap-3 text-sm leading-6 ${isCosmic ? "text-slate-300" : "text-slate-600"}`}>
+        {items.map((item) => (
+          <li className="flex gap-3" key={item}>
+            <span className="mt-2 size-1.5 shrink-0 rounded-full bg-current opacity-70" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 interface LessonSectionViewProps {
-  content: LessonContent;
+  content: LessonModule["content"];
+  lessonModule: LessonModule;
   section: LessonSection;
   index: number;
   totalSections: number;
@@ -297,6 +380,7 @@ interface LessonSectionViewProps {
 
 function LessonSectionView({
   content,
+  lessonModule,
   section,
   index,
   totalSections,
@@ -335,7 +419,7 @@ function LessonSectionView({
 
       {section.visual ? (
         <div className="mt-8">
-          <LessonVisual visual={section.visual} />
+          <LessonVisual visualId={section.visual} visuals={lessonModule.visuals} />
         </div>
       ) : null}
 
@@ -353,7 +437,12 @@ function LessonSectionView({
         </div>
       ) : null}
 
-      <LessonInteraction content={content} section={section} />
+      <LessonInteraction
+        content={content}
+        isCosmic={isCosmic}
+        lessonModule={lessonModule}
+        section={section}
+      />
 
       <div className={`mt-10 flex flex-col justify-between gap-3 border-t pt-6 sm:flex-row ${isCosmic ? "border-white/10" : "border-slate-100"}`}>
         {previousSection ? (
@@ -406,153 +495,4 @@ function LessonSectionView({
       </div>
     </motion.section>
   );
-}
-
-interface LessonInteractionProps {
-  content: LessonContent;
-  section: LessonSection;
-}
-
-function LessonInteraction({ content, section }: LessonInteractionProps) {
-  if (!section.interactive) {
-    return null;
-  }
-
-  if (section.interactive === "secant-tangent") {
-    return (
-      <div className="mt-8">
-        <SecantTangentExplorer />
-      </div>
-    );
-  }
-
-  if (section.interactive === "integral-rectangles") {
-    return (
-      <div className="mt-8">
-        <IntegralRectanglesExplorer />
-      </div>
-    );
-  }
-
-  if (section.interactive === "derivative-integral-toggle") {
-    return (
-      <div className="mt-8">
-        <DerivativeIntegralToggle />
-      </div>
-    );
-  }
-
-  if (section.interactive === "newton-leibniz-comparison" && content.comparisonRows) {
-    return (
-      <div className="mt-8">
-        <NewtonLeibnizComparison rows={content.comparisonRows} />
-      </div>
-    );
-  }
-
-  if (section.interactive === "timeline" && content.timeline) {
-    return (
-      <div className="mt-8">
-        <InteractiveTimeline events={content.timeline} />
-      </div>
-    );
-  }
-
-  if (section.interactive === "cmb-temperature-map") {
-    return (
-      <div className="mt-8">
-        <CMBTemperatureMapDemo />
-      </div>
-    );
-  }
-
-  if (section.interactive === "cmb-recombination-before-after") {
-    return (
-      <div className="mt-8">
-        <RecombinationBeforeAfter />
-      </div>
-    );
-  }
-
-  if (section.interactive === "cmb-cooling-slider") {
-    return (
-      <div className="mt-8">
-        <UniverseCoolingSlider />
-      </div>
-    );
-  }
-
-  if (section.interactive === "cmb-redshift-slider") {
-    return (
-      <div className="mt-8">
-        <RedshiftExpansionSlider />
-      </div>
-    );
-  }
-
-  if (section.interactive === "cmb-structure-growth") {
-    return (
-      <div className="mt-8">
-        <StructureGrowthSlider />
-      </div>
-    );
-  }
-
-  if (section.interactive === "cmb-timeline" && content.timeline) {
-    return (
-      <div className="mt-8">
-        <CosmicTimeline events={content.timeline} />
-      </div>
-    );
-  }
-
-  if (section.interactive === "cmb-mission-cards" && content.missionCards) {
-    return (
-      <div className="mt-8">
-        <MissionCards missions={content.missionCards} />
-      </div>
-    );
-  }
-
-  if (section.interactive === "cmb-measurement-map") {
-    return (
-      <div className="mt-8">
-        <CosmologyMeasurementMap />
-      </div>
-    );
-  }
-
-  if (section.interactive === "quiz" && content.quiz) {
-    return (
-      <div className="mt-8">
-        <ReviewQuiz questions={content.quiz} />
-      </div>
-    );
-  }
-
-  if (section.interactive === "glossary" && content.glossary) {
-    return (
-      <div className="mt-8 grid gap-8">
-        <GlossaryGrid terms={content.glossary} />
-        {content.relatedTopics ? (
-          <div>
-            <h3 className="font-display text-2xl font-semibold tracking-tight">
-              Próximos estudos
-            </h3>
-            <SummaryCards cards={content.relatedTopics} />
-          </div>
-        ) : null}
-      </div>
-    );
-  }
-
-  if (section.interactive === "summary-cards" && content.summaryCards) {
-    return (
-      <div className="mt-8">
-        <SummaryCards cards={content.summaryCards} />
-      </div>
-    );
-  }
-
-  return null;
 }

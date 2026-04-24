@@ -1,4 +1,4 @@
-import type { LessonContent } from "../../../../types/content";
+import type { LessonContent } from "../../../types/content";
 
 export const newtonCalculoContent: LessonContent = {
   id: "newton-calculo",
@@ -12,6 +12,57 @@ export const newtonCalculoContent: LessonContent = {
   level: "Intermediário",
   estimatedTime: "35-50 min",
   tags: ["Newton", "Cálculo", "Derivada", "Integral", "História da Ciência", "Física"],
+  learningObjectives: [
+    "Entender por que problemas de movimento exigiram uma matemática da variação contínua.",
+    "Relacionar derivada com taxa instantânea, reta tangente e velocidade local.",
+    "Relacionar integral com acumulação contínua, área sob curvas e soma por aproximações.",
+    "Explicar a conexão conceitual entre derivar e integrar pelo Teorema Fundamental do Cálculo.",
+    "Diferenciar a intuição física de Newton da força notacional de Leibniz sem transformar a história em disputa simplista.",
+  ],
+  prerequisites: [
+    "Noções básicas de funções e gráficos.",
+    "Familiaridade com razão, proporção e inclinação de uma reta.",
+    "Curiosidade sobre movimento, velocidade e mudança ao longo do tempo.",
+  ],
+  references: [
+    {
+      title: "Mathematics in the 17th and 18th centuries: Newton and Leibniz",
+      source: "Encyclopaedia Britannica",
+      url: "https://www.britannica.com/science/mathematics/Newton-and-Leibniz",
+      note: "Contexto histórico sobre Newton, Leibniz, fluentes, fluxões e limites geométricos.",
+    },
+    {
+      title: "Fluxion",
+      source: "Encyclopaedia Britannica",
+      url: "https://www.britannica.com/science/fluxion",
+      note: "Definições históricas de fluente e fluxão.",
+    },
+    {
+      title: "Isaac Newton",
+      source: "Stanford Encyclopedia of Philosophy",
+      url: "https://plato.stanford.edu/archives/spr2022/entries/newton/",
+      note: "Síntese acadêmica sobre a vida, obra matemática e impacto científico de Newton.",
+    },
+    {
+      title: "Calculus I: Single Variable Calculus",
+      source: "MIT OpenCourseWare",
+      url: "https://www.ocw.mit.edu/courses/18-01-calculus-i-single-variable-calculus-fall-2020/",
+      note: "Referência educacional para derivadas, integrais e interpretações geométricas.",
+    },
+    {
+      title: "Derivatives: definition and basic rules",
+      source: "Khan Academy",
+      url: "https://www.khanacademy.org/math/differential-calculus/dc-diff-intro",
+      note: "Material didático sobre taxa instantânea, secantes, tangentes e definição por limite.",
+    },
+    {
+      title: "Integrals",
+      source: "Khan Academy",
+      url: "https://www.khanacademy.org/math/integral-calculus/ic-integration",
+      note: "Material didático sobre integrais, acumulação e somas de Riemann.",
+    },
+  ],
+  heroVisual: "newton-motion",
   sections: [
     {
       id: "newton-nao-comecou-com-formulas",

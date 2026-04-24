@@ -1,6 +1,22 @@
 import { Satellite } from "lucide-react";
 import { useMemo, useState } from "react";
-import type { SummaryCard, TimelineEvent } from "../types/content";
+import type {
+  LessonInteractionProps,
+  LessonModule,
+  SummaryCard,
+  TimelineEvent,
+} from "../../../types/content";
+
+export const interactions = {
+  "cmb-temperature-map": TemperatureMapInteraction,
+  "cmb-recombination-before-after": RecombinationInteraction,
+  "cmb-cooling-slider": CoolingInteraction,
+  "cmb-redshift-slider": RedshiftInteraction,
+  "cmb-structure-growth": StructureGrowthInteraction,
+  "cmb-timeline": CosmicTimelineInteraction,
+  "cmb-mission-cards": MissionCardsInteraction,
+  "cmb-measurement-map": MeasurementMapInteraction,
+} satisfies LessonModule["interactions"];
 
 const blobs = [
   { x: 22, y: 42, hot: true },
@@ -13,7 +29,39 @@ const blobs = [
   { x: 51, y: 30, hot: true },
 ];
 
-export function CMBTemperatureMapDemo() {
+function TemperatureMapInteraction() {
+  return <CMBTemperatureMapDemo />;
+}
+
+function RecombinationInteraction() {
+  return <RecombinationBeforeAfter />;
+}
+
+function CoolingInteraction() {
+  return <UniverseCoolingSlider />;
+}
+
+function RedshiftInteraction() {
+  return <RedshiftExpansionSlider />;
+}
+
+function StructureGrowthInteraction() {
+  return <StructureGrowthSlider />;
+}
+
+function CosmicTimelineInteraction({ content }: LessonInteractionProps) {
+  return content.timeline ? <CosmicTimeline events={content.timeline} /> : null;
+}
+
+function MissionCardsInteraction({ content }: LessonInteractionProps) {
+  return content.missionCards ? <MissionCards missions={content.missionCards} /> : null;
+}
+
+function MeasurementMapInteraction() {
+  return <CosmologyMeasurementMap />;
+}
+
+function CMBTemperatureMapDemo() {
   const [contrast, setContrast] = useState(55);
   const [hovered, setHovered] = useState<(typeof blobs)[number] | null>(null);
 
@@ -79,7 +127,7 @@ export function CMBTemperatureMapDemo() {
   );
 }
 
-export function RecombinationBeforeAfter() {
+function RecombinationBeforeAfter() {
   const [after, setAfter] = useState(false);
 
   return (
@@ -133,7 +181,7 @@ export function RecombinationBeforeAfter() {
   );
 }
 
-export function UniverseCoolingSlider() {
+function UniverseCoolingSlider() {
   const [temperature, setTemperature] = useState(82);
   const state = temperature > 65 ? "plasma quente" : temperature > 35 ? "combinações temporárias" : "átomos neutros sobrevivem";
 
@@ -148,7 +196,7 @@ export function UniverseCoolingSlider() {
   );
 }
 
-export function RedshiftExpansionSlider() {
+function RedshiftExpansionSlider() {
   const [expansion, setExpansion] = useState(70);
   return (
     <CosmicSliderShell
@@ -161,7 +209,7 @@ export function RedshiftExpansionSlider() {
   );
 }
 
-export function StructureGrowthSlider() {
+function StructureGrowthSlider() {
   const [time, setTime] = useState(28);
   return (
     <CosmicSliderShell
@@ -231,7 +279,7 @@ function CosmicSliderShell({
   );
 }
 
-export function CosmicTimeline({ events }: { events: TimelineEvent[] }) {
+function CosmicTimeline({ events }: { events: TimelineEvent[] }) {
   const [selectedId, setSelectedId] = useState("recombinacao");
   const selectedEvent = events.find((event) => event.id === selectedId) ?? events[0];
 
@@ -269,7 +317,7 @@ export function CosmicTimeline({ events }: { events: TimelineEvent[] }) {
   );
 }
 
-export function MissionCards({ missions }: { missions: SummaryCard[] }) {
+function MissionCards({ missions }: { missions: SummaryCard[] }) {
   return (
     <section className="grid gap-4 md:grid-cols-3">
       {missions.map((mission) => (
@@ -283,7 +331,7 @@ export function MissionCards({ missions }: { missions: SummaryCard[] }) {
   );
 }
 
-export function CosmologyMeasurementMap() {
+function CosmologyMeasurementMap() {
   const items = ["idade do universo", "composição", "geometria", "matéria escura", "energia escura", "sementes de galáxias"];
   return (
     <section className="rounded-[2rem] border border-violet-400/25 bg-[#111827] p-5 text-slate-100 shadow-xl shadow-violet-950/30">

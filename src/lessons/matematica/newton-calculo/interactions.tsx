@@ -1,5 +1,30 @@
 import { ArrowRightLeft } from "lucide-react";
 import { useMemo, useState } from "react";
+import { NewtonLeibnizComparison } from "../../../components/lesson/LessonExtras";
+import type { LessonInteractionProps, LessonModule } from "../../../types/content";
+
+export const interactions = {
+  "secant-tangent": SecantTangentInteraction,
+  "integral-rectangles": IntegralRectanglesInteraction,
+  "derivative-integral-toggle": DerivativeIntegralInteraction,
+  "newton-leibniz-comparison": NewtonLeibnizInteraction,
+} satisfies LessonModule["interactions"];
+
+function SecantTangentInteraction() {
+  return <SecantTangentExplorer />;
+}
+
+function IntegralRectanglesInteraction() {
+  return <IntegralRectanglesExplorer />;
+}
+
+function DerivativeIntegralInteraction() {
+  return <DerivativeIntegralToggle />;
+}
+
+function NewtonLeibnizInteraction({ content }: LessonInteractionProps) {
+  return content.comparisonRows ? <NewtonLeibnizComparison rows={content.comparisonRows} /> : null;
+}
 
 function curveValue(x: number) {
   return 0.16 * (x - 5) ** 2 + 1.1;
@@ -34,7 +59,7 @@ function curvePath() {
   }).join(" ");
 }
 
-export function SecantTangentExplorer() {
+function SecantTangentExplorer() {
   const [h, setH] = useState(2.8);
   const baseX = 3.2;
   const p1 = graphPoint(baseX);
@@ -120,7 +145,7 @@ export function SecantTangentExplorer() {
   );
 }
 
-export function IntegralRectanglesExplorer() {
+function IntegralRectanglesExplorer() {
   const [rectangles, setRectangles] = useState(8);
   const start = 1;
   const end = 9;
@@ -204,7 +229,7 @@ export function IntegralRectanglesExplorer() {
   );
 }
 
-export function DerivativeIntegralToggle() {
+function DerivativeIntegralToggle() {
   const [mode, setMode] = useState<"derive" | "integrate">("derive");
   const isDerive = mode === "derive";
 

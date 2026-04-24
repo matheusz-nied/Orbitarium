@@ -1,6 +1,8 @@
-export { categories, contents } from "./categories";
+export { categories } from "./categories";
+export { contents, getLessonModuleById, lessonModules } from "../lessons";
 
-import { categories, contents } from "./categories";
+import { contents } from "../lessons";
+import { categories } from "./categories";
 
 export function getCategoryById(categoryId: string) {
   return categories.find((category) => category.id === categoryId);

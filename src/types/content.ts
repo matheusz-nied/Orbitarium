@@ -1,48 +1,9 @@
+import type { ComponentType } from "react";
+
 export type Level = "Iniciante" | "Intermediário" | "Avançado";
 
-export type VisualId =
-  | "newton-motion"
-  | "static-dynamic"
-  | "secant-tangent"
-  | "area-under-curve"
-  | "derivative-integral-flow"
-  | "fluxions-flow"
-  | "falling-orbit"
-  | "newton-leibniz"
-  | "timeline"
-  | "summary"
-  | "cmb-hero"
-  | "cmb-observer-past"
-  | "cmb-plasma"
-  | "cmb-cooling"
-  | "cmb-recombination"
-  | "cmb-redshift"
-  | "cmb-evidence"
-  | "cmb-temperature-map"
-  | "cmb-structures"
-  | "cmb-timeline"
-  | "cmb-missions"
-  | "cmb-measurements"
-  | "cmb-summary";
-
-export type InteractiveId =
-  | "secant-tangent"
-  | "integral-rectangles"
-  | "derivative-integral-toggle"
-  | "newton-leibniz-comparison"
-  | "timeline"
-  | "quiz"
-  | "glossary"
-  | "summary-cards"
-  | "cmb-temperature-map"
-  | "cmb-recombination-before-after"
-  | "cmb-cooling-slider"
-  | "cmb-redshift-slider"
-  | "cmb-structure-growth"
-  | "cmb-timeline"
-  | "cmb-mission-cards"
-  | "cmb-measurement-map"
-  | "related-topics";
+export type VisualId = string;
+export type InteractiveId = string;
 
 export type LessonBlockType =
   | "definition"
@@ -118,6 +79,13 @@ export interface ComparisonRow {
   leibniz: string;
 }
 
+export interface LessonReference {
+  title: string;
+  source: string;
+  url: string;
+  note?: string;
+}
+
 export interface LessonContent {
   id: string;
   title: string;
@@ -128,6 +96,9 @@ export interface LessonContent {
   level: Level;
   estimatedTime: string;
   tags: string[];
+  learningObjectives: string[];
+  prerequisites: string[];
+  references: LessonReference[];
   theme?: LessonTheme;
   heroVisual?: VisualId;
   openingText?: string;
@@ -140,4 +111,16 @@ export interface LessonContent {
   glossary?: GlossaryTerm[];
   summaryCards?: SummaryCard[];
   comparisonRows?: ComparisonRow[];
+}
+
+export interface LessonInteractionProps {
+  content: LessonContent;
+  section: LessonSection;
+  isCosmic: boolean;
+}
+
+export interface LessonModule {
+  content: LessonContent;
+  visuals: Record<string, ComponentType>;
+  interactions: Record<string, ComponentType<LessonInteractionProps>>;
 }

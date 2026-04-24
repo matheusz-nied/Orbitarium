@@ -17,7 +17,7 @@ Cada tema pode virar uma aula separada no site, com:
 
 # Astrofísica e Cosmologia
 
-## Radiação Cósmica de Fundo
+<!-- ## Radiação Cósmica de Fundo
 
 Categoria: Astrofísica  
 Nível: Intermediário
@@ -42,7 +42,7 @@ Tópicos:
 - formação de estruturas;
 - COBE, WMAP e Planck.
 
----
+--- -->
 
 ## Buracos Negros e Horizonte de Eventos
 

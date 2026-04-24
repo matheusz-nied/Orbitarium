@@ -1,4 +1,6 @@
 import type { Category, LessonContent } from "../../types/content";
+import { astrofisicaCategory } from "./astrofisica/category";
+import { radiacaoCosmicaDeFundoContent } from "./astrofisica/contents/radiacao-cosmica-de-fundo";
 import { computacaoCategory } from "./computacao/category";
 import { engenhariaCategory } from "./engenharia/category";
 import { filosofiaCategory } from "./filosofia/category";
@@ -8,6 +10,7 @@ import { matematicaCategory } from "./matematica/category";
 import { newtonCalculoContent } from "./matematica/contents/newton-calculo";
 
 export const categories: Category[] = [
+  astrofisicaCategory,
   matematicaCategory,
   fisicaCategory,
   computacaoCategory,
@@ -16,4 +19,4 @@ export const categories: Category[] = [
   engenhariaCategory,
 ];
 
-export const contents: LessonContent[] = [newtonCalculoContent];
+export const contents: LessonContent[] = [newtonCalculoContent, radiacaoCosmicaDeFundoContent];

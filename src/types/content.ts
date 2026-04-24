@@ -10,7 +10,20 @@ export type VisualId =
   | "falling-orbit"
   | "newton-leibniz"
   | "timeline"
-  | "summary";
+  | "summary"
+  | "cmb-hero"
+  | "cmb-observer-past"
+  | "cmb-plasma"
+  | "cmb-cooling"
+  | "cmb-recombination"
+  | "cmb-redshift"
+  | "cmb-evidence"
+  | "cmb-temperature-map"
+  | "cmb-structures"
+  | "cmb-timeline"
+  | "cmb-missions"
+  | "cmb-measurements"
+  | "cmb-summary";
 
 export type InteractiveId =
   | "secant-tangent"
@@ -20,7 +33,16 @@ export type InteractiveId =
   | "timeline"
   | "quiz"
   | "glossary"
-  | "summary-cards";
+  | "summary-cards"
+  | "cmb-temperature-map"
+  | "cmb-recombination-before-after"
+  | "cmb-cooling-slider"
+  | "cmb-redshift-slider"
+  | "cmb-structure-growth"
+  | "cmb-timeline"
+  | "cmb-mission-cards"
+  | "cmb-measurement-map"
+  | "related-topics";
 
 export type LessonBlockType =
   | "definition"
@@ -86,6 +108,10 @@ export interface SummaryCard {
   body: string;
 }
 
+export interface LessonTheme {
+  variant: "light" | "cosmic";
+}
+
 export interface ComparisonRow {
   topic: string;
   newton: string;
@@ -102,6 +128,12 @@ export interface LessonContent {
   level: Level;
   estimatedTime: string;
   tags: string[];
+  theme?: LessonTheme;
+  heroVisual?: VisualId;
+  openingText?: string;
+  quickFacts?: SummaryCard[];
+  relatedTopics?: SummaryCard[];
+  missionCards?: SummaryCard[];
   sections: LessonSection[];
   timeline?: TimelineEvent[];
   quiz?: QuizQuestion[];

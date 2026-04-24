@@ -1,0 +1,110 @@
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# pids
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# lib coverage directory used by tools like nyc and istanbul
+lib-cov
+
+# coverage directory used by tools like jest
+coverage
+
+# nyc test coverage
+.nyc_output
+
+# grunt/brunch/gulp build directory
+build/
+
+# dist directory
+dist/
+
+# react-scripts production build directory
+/build
+
+# dependencies
+node_modules/
+jspm_packages/
+.pnp
+.pnp.js
+
+# typescript
+*.tsbuildinfo
+
+# next.js
+.next/
+out/
+
+# nuxt.js
+.nuxt
+
+# gatsby
+.cache/
+public
+
+# react-native
+.expo/
+*.jks
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+env.sh
+*.xccheckout
+*.xcworkspace
+xcuserdata/
+*.xcdatamodel
+*.xcdatamodeld
+*.xcmappingmodel
+project.xcworkspace
+DerivedData/
+*.hmap
+*.ipa
+*.xcuserstate
+
+# dotenv environment variables file
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# misc
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+*.pem
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

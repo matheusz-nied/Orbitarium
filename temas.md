@@ -1657,7 +1657,7 @@ Tópicos:
 
 ---
 
-## Tokens e Tokenização
+<!-- ## Tokens e Tokenização
 
 Categoria: Inteligência Artificial  
 Nível: Iniciante/intermediário
@@ -1682,7 +1682,7 @@ Tópicos:
 - limites;
 - idiomas diferentes.
 
----
+--- -->
 
 ## Embeddings
 

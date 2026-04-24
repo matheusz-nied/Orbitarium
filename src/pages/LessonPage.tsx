@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { ArrowRight, ChevronLeft, Home, List } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { InfoBox } from "../components/InfoBox";
 import {
@@ -23,42 +23,29 @@ import type { LessonContent, LessonSection } from "../types/content";
 export function LessonPage() {
   const { contentId } = useParams();
   const content = contentId ? getContentById(contentId) : undefined;
-  const [activeSection, setActiveSection] = useState<string | undefined>(
-    content?.sections[0]?.id,
-  );
-
-  const sectionIds = useMemo(() => content?.sections.map((section) => section.id) ?? [], [content]);
+  const [activeSectionIndex, setActiveSectionIndex] = useState(0);
 
   useEffect(() => {
-    if (!sectionIds.length) {
+    setActiveSectionIndex(0);
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    });
+  }, [content?.id]);
+
+  const moveToSection = (sectionIndex: number) => {
+    if (!content) {
       return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (visible?.target.id) {
-          setActiveSection(visible.target.id);
-        }
-      },
-      {
-        rootMargin: "-18% 0px -62% 0px",
-        threshold: [0.1, 0.25, 0.5],
-      },
-    );
-
-    sectionIds.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) {
-        observer.observe(element);
-      }
+    const nextIndex = Math.min(Math.max(sectionIndex, 0), content.sections.length - 1);
+    setActiveSectionIndex(nextIndex);
+    window.requestAnimationFrame(() => {
+      document.getElementById("lesson-stage")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     });
-
-    return () => observer.disconnect();
-  }, [sectionIds]);
+  };
 
   if (!content) {
     return (
@@ -84,6 +71,10 @@ export function LessonPage() {
   const secondaryCategory = content.secondaryCategoryId
     ? getCategoryById(content.secondaryCategoryId)
     : undefined;
+  const activeSection = content.sections[activeSectionIndex] ?? content.sections[0];
+  const previousSection = content.sections[activeSectionIndex - 1];
+  const nextSection = content.sections[activeSectionIndex + 1];
+  const progressPercentage = ((activeSectionIndex + 1) / content.sections.length) * 100;
 
   return (
     <>
@@ -153,45 +144,49 @@ export function LessonPage() {
           </div>
         </header>
 
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8" id="lesson-stage">
           <aside className="mb-8">
-            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-3 shadow-xl shadow-slate-900/5">
-              <div className="mb-2 flex items-center gap-2 px-3 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
-                <List size={16} aria-hidden="true" />
-                Sumário
+            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-xl shadow-slate-900/5">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
+                    <List size={16} aria-hidden="true" />
+                    Seção atual
+                  </div>
+                  <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight text-slate-950">
+                    {activeSection.title}
+                  </h2>
+                </div>
+                <span className="rounded-full bg-slate-950 px-4 py-2 font-mono text-sm font-black text-white">
+                  {String(activeSectionIndex + 1).padStart(2, "0")} /{" "}
+                  {String(content.sections.length).padStart(2, "0")}
+                </span>
               </div>
-              <nav className="flex gap-2 overflow-x-auto pb-1" aria-label="Seções da aula">
-                {content.sections.map((section, index) => (
-                  <a
-                    className={[
-                      "shrink-0 rounded-full px-4 py-2 text-sm font-bold transition",
-                      activeSection === section.id
-                        ? "bg-slate-950 text-white"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-950",
-                    ].join(" ")}
-                    href={`#${section.id}`}
-                    key={section.id}
-                  >
-                    <span className="mr-2 font-mono opacity-60">{String(index + 1).padStart(2, "0")}</span>
-                    {section.title}
-                  </a>
-                ))}
-              </nav>
+              <div className="mt-5 h-2 overflow-hidden rounded-full bg-slate-100" aria-hidden="true">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-blue-600 via-orange-500 to-emerald-500 transition-[width] duration-300"
+                  style={{ width: `${progressPercentage}%` }}
+                />
+              </div>
+              <p className="mt-3 text-sm font-semibold text-slate-500">
+                Use os botões no final da seção para avançar ou voltar. Apenas uma seção fica
+                aberta por vez.
+              </p>
             </div>
           </aside>
 
           <div className="grid gap-10">
-            {content.sections.map((section, index) => (
-              <LessonSectionView
-                content={content}
-                index={index}
-                key={section.id}
-                section={section}
-                totalSections={content.sections.length}
-                previousSection={content.sections[index - 1]}
-                nextSection={content.sections[index + 1]}
-              />
-            ))}
+            <LessonSectionView
+              content={content}
+              index={activeSectionIndex}
+              key={activeSection.id}
+              section={activeSection}
+              totalSections={content.sections.length}
+              previousSection={previousSection}
+              nextSection={nextSection}
+              onNext={() => moveToSection(activeSectionIndex + 1)}
+              onPrevious={() => moveToSection(activeSectionIndex - 1)}
+            />
           </div>
         </div>
       </article>
@@ -206,6 +201,8 @@ interface LessonSectionViewProps {
   totalSections: number;
   previousSection?: LessonSection;
   nextSection?: LessonSection;
+  onPrevious: () => void;
+  onNext: () => void;
 }
 
 function LessonSectionView({
@@ -215,6 +212,8 @@ function LessonSectionView({
   totalSections,
   previousSection,
   nextSection,
+  onPrevious,
+  onNext,
 }: LessonSectionViewProps) {
   return (
     <motion.section
@@ -263,12 +262,13 @@ function LessonSectionView({
 
       <div className="mt-10 flex flex-col justify-between gap-3 border-t border-slate-100 pt-6 sm:flex-row">
         {previousSection ? (
-          <a
+          <button
             className="inline-flex items-center justify-center rounded-full border border-slate-200 px-5 py-3 text-sm font-bold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
-            href={`#${previousSection.id}`}
+            type="button"
+            onClick={onPrevious}
           >
             Seção anterior
-          </a>
+          </button>
         ) : (
           <a
             className="inline-flex items-center justify-center rounded-full border border-slate-200 px-5 py-3 text-sm font-bold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
@@ -279,13 +279,14 @@ function LessonSectionView({
         )}
 
         {nextSection ? (
-          <a
+          <button
             className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
-            href={`#${nextSection.id}`}
+            type="button"
+            onClick={onNext}
           >
             Próxima seção
             <ArrowRight size={16} aria-hidden="true" />
-          </a>
+          </button>
         ) : (
           <a
             className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"

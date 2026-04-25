@@ -38,8 +38,33 @@ instruções abaixo.
 [cole o AGENTS.md aqui]
 
 --- ESTRUTURA DE DADOS ---
-[cole o tipo LessonContent aqui]
 
+export interface LessonContent {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  primaryCategoryId: string;
+  secondaryCategoryId?: string;
+  level: Level;
+  estimatedTime: string;
+  tags: string[];
+  learningObjectives: string[];
+  prerequisites: string[];
+  references: LessonReference[];
+  theme?: LessonTheme;
+  heroVisual?: VisualId;
+  openingText?: string;
+  quickFacts?: SummaryCard[];
+  relatedTopics?: SummaryCard[];
+  missionCards?: SummaryCard[];
+  sections: LessonSection[];
+  timeline?: TimelineEvent[];
+  quiz?: QuizQuestion[];
+  glossary?: GlossaryTerm[];
+  summaryCards?: SummaryCard[];
+  comparisonRows?: ComparisonRow[];
+}
 --- PADRÃO DE QUALIDADE ---
 A aula deve ter:
 - Seções com progressão clara do simples ao complexo

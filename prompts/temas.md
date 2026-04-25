@@ -1684,7 +1684,7 @@ Tópicos:
 
 --- -->
 
-## Embeddings
+<!-- ## Embeddings
 
 Categoria: Inteligência Artificial  
 Nível: Intermediário
@@ -1707,7 +1707,7 @@ Tópicos:
 - representação;
 - embeddings de texto;
 - embeddings de imagem;
-- aplicações.
+- aplicações. -->
 
 ---
 

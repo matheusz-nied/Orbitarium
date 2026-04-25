@@ -838,7 +838,7 @@ function EmbeddingMap({
 
 function CosineSvg({ angle, magnitude }: { angle: number; magnitude: number }) {
   const radians = (angle * Math.PI) / 180;
-  const origin = { x: 175, y: 245 };
+  const origin = { x: 260, y: 245 };
   const vectorA = { x: origin.x + 112, y: origin.y };
   const vectorB = {
     x: origin.x + Math.cos(radians) * magnitude * 88,
@@ -930,6 +930,12 @@ function AnalogySvg({
   selectedIds: Set<string>;
   nearestId: string;
 }) {
+  const visibleResult = {
+    x: clamp(result.x, -0.1, 9.3),
+    y: clamp(result.y, -0.1, 8.2),
+  };
+  const isClamped = visibleResult.x !== result.x || visibleResult.y !== result.y;
+
   return (
     <div className="rounded-3xl border border-violet-100 bg-white p-4">
       <svg className="w-full" viewBox="0 0 660 400" role="img" aria-label="Espaço vetorial com analogia calculada">
@@ -970,14 +976,14 @@ function AnalogySvg({
           );
         })}
         <g>
-          <circle cx={plotAnalogyX(result.x)} cy={plotAnalogyY(result.y)} r="18" fill="#f97316" opacity="0.25" />
+          <circle cx={plotAnalogyX(visibleResult.x)} cy={plotAnalogyY(visibleResult.y)} r="18" fill="#f97316" opacity="0.25" />
           <path
-            d={`M ${plotAnalogyX(result.x)} ${plotAnalogyY(result.y) - 13} L ${plotAnalogyX(result.x) + 4} ${plotAnalogyY(result.y) - 4} L ${plotAnalogyX(result.x) + 14} ${plotAnalogyY(result.y) - 3} L ${plotAnalogyX(result.x) + 6} ${plotAnalogyY(result.y) + 4} L ${plotAnalogyX(result.x) + 9} ${plotAnalogyY(result.y) + 14} L ${plotAnalogyX(result.x)} ${plotAnalogyY(result.y) + 8} L ${plotAnalogyX(result.x) - 9} ${plotAnalogyY(result.y) + 14} L ${plotAnalogyX(result.x) - 6} ${plotAnalogyY(result.y) + 4} L ${plotAnalogyX(result.x) - 14} ${plotAnalogyY(result.y) - 3} L ${plotAnalogyX(result.x) - 4} ${plotAnalogyY(result.y) - 4} Z`}
+            d={`M ${plotAnalogyX(visibleResult.x)} ${plotAnalogyY(visibleResult.y) - 13} L ${plotAnalogyX(visibleResult.x) + 4} ${plotAnalogyY(visibleResult.y) - 4} L ${plotAnalogyX(visibleResult.x) + 14} ${plotAnalogyY(visibleResult.y) - 3} L ${plotAnalogyX(visibleResult.x) + 6} ${plotAnalogyY(visibleResult.y) + 4} L ${plotAnalogyX(visibleResult.x) + 9} ${plotAnalogyY(visibleResult.y) + 14} L ${plotAnalogyX(visibleResult.x)} ${plotAnalogyY(visibleResult.y) + 8} L ${plotAnalogyX(visibleResult.x) - 9} ${plotAnalogyY(visibleResult.y) + 14} L ${plotAnalogyX(visibleResult.x) - 6} ${plotAnalogyY(visibleResult.y) + 4} L ${plotAnalogyX(visibleResult.x) - 14} ${plotAnalogyY(visibleResult.y) - 3} L ${plotAnalogyX(visibleResult.x) - 4} ${plotAnalogyY(visibleResult.y) - 4} Z`}
             fill="#f97316"
           />
           <text
-            x={plotAnalogyX(result.x)}
-            y={plotAnalogyY(result.y) + 34}
+            x={plotAnalogyX(visibleResult.x)}
+            y={plotAnalogyY(visibleResult.y) + 34}
             textAnchor="middle"
             fill="#9a3412"
             fontSize="13"
@@ -986,6 +992,11 @@ function AnalogySvg({
             resultado
           </text>
         </g>
+        {isClamped ? (
+          <text x="330" y="382" textAnchor="middle" fill="#7c2d12" fontSize="13" fontWeight="900">
+            resultado fora do recorte 2D
+          </text>
+        ) : null}
       </svg>
     </div>
   );
@@ -1040,6 +1051,7 @@ function BiasSvg({
 
         {terms.map((term) => {
           const isNearest = term.id === nearestId;
+          const showLabel = strength > 0.35 || isNearest;
           return (
             <g key={term.id}>
               <circle
@@ -1057,16 +1069,18 @@ function BiasSvg({
                 stroke={isNearest ? "#0f172a" : "white"}
                 strokeWidth={isNearest ? 3 : 2}
               />
-              <text
-                x={plotBiasX(term.x)}
-                y={plotBiasY(term.currentY) - 19}
-                textAnchor="middle"
-                fill="#0f172a"
-                fontSize="12"
-                fontWeight="900"
-              >
-                {term.label}
-              </text>
+              {showLabel ? (
+                <text
+                  x={plotBiasX(term.x)}
+                  y={plotBiasY(term.currentY) - 19}
+                  textAnchor="middle"
+                  fill="#0f172a"
+                  fontSize="12"
+                  fontWeight="900"
+                >
+                  {term.label}
+                </text>
+              ) : null}
             </g>
           );
         })}
@@ -1269,6 +1283,10 @@ function MetricGrid({ metrics }: { metrics: Array<[string, string]> }) {
 
 function distance2D(first: Vector2, second: Vector2) {
   return Math.hypot(first[0] - second[0], first[1] - second[1]);
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
 }
 
 function cosine2D(first: Vector2, second: Vector2) {

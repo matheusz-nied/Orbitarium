@@ -28,7 +28,7 @@ export const embeddingsContent: LessonContent = {
     "Explicar o princípio do Word2Vec e como o espaço de embeddings é aprendido a partir de co-ocorrência.",
     "Diferenciar embeddings estáticos de contextuais e entender por que isso importa.",
     "Aplicar embeddings em busca semântica, clustering e bancos de dados vetoriais.",
-    "Reconhecer limitações: viés, ambiguidade, dependência de corpus e ilusão da projeção 2D.",
+    "Reconhecer limitações: viés, ambiguidade, dependência de corpus, ilusão da projeção 2D e custo computacional de embeddings contextuais.",
   ],
   prerequisites: [
     "Noção básica de vetores como setas com direção e magnitude.",
@@ -88,7 +88,7 @@ export const embeddingsContent: LessonContent = {
     {
       title: "pgvector: PostgreSQL extension for vector similarity search",
       source: "pgvector — GitHub",
-      url: "https://github.com/pg向量/pgvector",
+      url: "https://github.com/pgvector/pgvector",
       note:
         "Extensão para bancos de dados vetoriais em PostgreSQL, exemplo de infraestrutura para armazenar e consultar embeddings em produção.",
     },
@@ -226,6 +226,12 @@ export const embeddingsContent: LessonContent = {
           body:
             "A analogia geográfica é poderosa: assim como cidades próximas compartilham características regionais, conceitos próximos no espaço de embeddings compartilham características semânticas.",
         },
+        {
+          type: "mistake",
+          title: "Não tente visualizar centenas de dimensões",
+          body:
+            "A analogia em 2D ajuda a construir intuição, mas embeddings reais operam em 300 a 1.536 dimensões. A geometria em alta dimensionalidade se comporta de forma contraintuitiva: quase todo vetor é ortogonal a quase todo outro, e distâncias entre pontos tendem a se tornar similares. Usar a intuição de 2D para raciocinar sobre comportamento real do espaço é enganoso — as visualizações em 2D são didáticas, não fiéis.",
+        },
       ],
     },
     {
@@ -336,7 +342,13 @@ export const embeddingsContent: LessonContent = {
           type: "mistake",
           title: "Embeddings não 'entendem' linguagem",
           body:
-            "Embeddings capturam padrões estatísticos de co-ocorrência. 'Banco' (instituição financeira) e 'banco' (assento) podem ficar próximos num modelo genérico porque compartilham contexto. Compreensão depende de mecanismos adicionais.",
+            "Embeddings capturam padrões estatísticos de co-ocorrência. 'Banco' (instituição financeira) e 'banco' (assento) podem ficam próximos num modelo genérico porque compartilham contexto. Compreensão depende de mecanismos adicionais.",
+        },
+        {
+          type: "insight",
+          title: "A tarefa falsa (pretext task)",
+          body:
+            "O truque por trás do Word2Vec é criar um jogo de 'preencha a lacuna' e forçar a máquina a jogar bilhões de vezes. No Skip-gram, o modelo recebe uma palavra e tenta prever as palavras ao redor. No CBOW, recebe as palavras ao redor e tenta prever a palavra central. Ninguém quer o modelo que prevê palavras — ele é descartável. Os embeddings são os pesos que sobram depois que o modelo aprende a jogar esse jogo. Eles não são o objetivo do treinamento; são o subproduto de um modelo treinado para uma tarefa artificial.",
         },
       ],
     },
@@ -391,6 +403,7 @@ export const embeddingsContent: LessonContent = {
         "Busca tradicional por palavras-chave funciona como montar um quebra-cabeça olhando para o formato das peças: se a forma não encaixa, não serve. A pergunta 'como tratar ansiedade' não encontra 'técnicas para lidar com nervosismo' porque não há nenhuma palavra em comum, embora o significado seja essencialmente o mesmo.",
         "Busca semântica transforma tanto a pergunta quanto os documentos em embeddings. Depois, encontra os documentos mais próximos no espaço vetorial — os cujos vetores têm maior similaridade de cosseno com o vetor da pergunta. 'Tratar ansiedade' e 'lidar com nervosismo' ficam próximos no espaço porque seus significados são similares, mesmo sem vocabulário compartilhado.",
         "O fluxo é: (1) os documentos são embedados e armazenados num índice vetorial; (2) a pergunta é embedada com o mesmo modelo; (3) o sistema busca os vizinhos mais próximos usando similaridade de cosseno; (4) os resultados são ordenados por relevância semântica. Bancos de dados vetoriais como pgvector, Pinecone e Milvus otimizam essa busca para funcionar em escala com milhões de vetores.",
+        "Um desafio práfico da busca semântica é a assimetria entre pergunta e documento. Na busca simétrica, pergunta e resposta têm tamanhos similares — 'lidar com ansiedade' vs. 'técnicas para nervosismo'. Mas na busca assimétrica, a pergunta do usuário é curta ('tratar ansiedade') e o documento alvo é longo (um artigo inteiro). Embedar um documento longo num único vetor dilui seu significado: informações relevantes ficam misturadas com informações periféricas no mesmo vetor, e a similaridade de cosseno com a pergunta curta cai. É por isso que sistemas em produção fazem chunking — dividir documentos em trechos menores antes de embedar — e armazenam cada trecho como um vetor independente no banco vetorial.",
       ],
       blocks: [
         {
@@ -410,6 +423,12 @@ export const embeddingsContent: LessonContent = {
           title: "Embeddings + índice vetorial = busca em escala",
           body:
             "A parte inteligente é o embedding. A parte prática é o índice vetorial — estruturas como HNSW ou IVF que tornam a busca de vizinhos mais próximos eficiente mesmo com milhões de documentos.",
+        },
+        {
+          type: "mistake",
+          title: "Documentos longos não viram um vetor só",
+          body:
+            "Embedar um documento de 5.000 palavras num único vetor dilui o significado: conceitos específicos ficam afogados na média. Sistemas reais fazem chunking — dividem o texto em trechos de algumas centenas de palavras — e armazenam cada trecho como um vetor separado. Isso preserva a granularidade semântica e melhora a recuperação em buscas assimétricas, onde a pergunta é curta e o documento é extenso.",
         },
       ],
     },
@@ -477,6 +496,12 @@ export const embeddingsContent: LessonContent = {
           body:
             "Se existe uma noção de similaridade no domínio, existe a possibilidade de um embedding que a capture. A técnica é genérica; o que muda é o modelo e os dados de treinamento.",
         },
+        {
+          type: "insight",
+          title: "Aprendizado contrastivo: como o espaço é alinhado",
+          body:
+            "No treinamento do CLIP e modelos multimodais, não basta embedar imagem e texto separadamente — é preciso que eles fiquem no mesmo espaço. O mecanismo é o aprendizado contrastivo: o modelo recebe pares corretos de imagem e legenda e pares incorretos, e é treinado para puxar os pares corretos para perto e empurrar os incorretos para longe. A cada lote de treinamento, a imagem de um gato é aproximada da legenda 'um gato laranja no sofá' e afastada de legendas como 'um carro vermelho' ou 'um prédio alto'. Após milhões de exemplos, o espaço converge: imagens e textos que descrevem a mesma cena compartilham uma região do espaço vetorial.",
+        },
       ],
     },
     {
@@ -491,6 +516,7 @@ export const embeddingsContent: LessonContent = {
         "Viés semântico é o problema mais sério. Bolukbasi et al. (2016) mostraram que embeddings treinados em textos da internet associam 'programador' a 'homem' e 'don de casa' a 'mulher' com muita força. Não porque os embeddings escolheram isso, mas porque o corpus de treinamento contém esses vieses e o modelo os absorveu. Embeddings espelham a sociedade que produziu os dados.",
         "A ambiguidade é outra armadilha. Em modelos estáticos, 'banco' é um único vetor — uma média dos sentidos 'instituição financeira' e 'assento'. Isso pode ser irrelevante em busca semântica ampla, mas prejudicial em aplicações que exigem precisão. Embeddings contextuais mitigam o problema, mas não o eliminam: o contexto pode ser insuficiente para desambiguar completamente.",
         "A ilusão da projeção 2D merece destaque. Visualizar embeddings com t-SNE ou PCA é útil para intuição, mas o espaço real tem centenas de dimensões. Agrupamentos que parecem claros em 2D podem não existir no espaço original, e pontos que parecem distantes em 2D podem ser próximos em alta dimensionalidade. A projeção é uma simplificação com perdas, não uma observação direta.",
+        "Há ainda uma limitação prática frequentemente ignorada: embeddings estáticos como Word2Vec são baratos. Consultar um dicionário de vetores custa apenas memória RAM — microssegundos por palavra. Já embeddings contextuais como BERT exigem inferência de uma rede neural inteira para cada novo texto, o que consome GPU e dinheiro. Para aplicações em escala, a diferença entre um lookup em tabela e uma passagem por um transformer é decisiva. Modelos mais recentes como os sentence-transformers buscam equilibrar qualidade contextual com custo computacional, mas a tensão entre precisão e eficiência permanece.",
       ],
       blocks: [
         {
@@ -517,6 +543,12 @@ export const embeddingsContent: LessonContent = {
           body:
             "Os vieses não são criados pelo algoritmo — são absorvidos dos dados. Isso torna embeddings ferramentas de diagnóstico sociológico, mas também exige intervenção consciente para mitigar danos.",
         },
+        {
+          type: "mistake",
+          title: "Embedding contextual não é de graça",
+          body:
+            "Word2Vec é um dicionário: consultar o vetor de uma palavra custa microssegundos e memória RAM. BERT é uma inferência de rede neural: cada novo texto exige uma passagem completa pelo modelo, consumindo GPU e dinheiro. A diferença entre lookup e inferência é decisiva em produção. Circuitos que rodam Busca semântica com milhões de queries por dia precisam escolher entre embeddings estáticos rápidos e contextuais caros, ou adotar modelos destilados que buscam equilibrar qualidade e custo.",
+        },
       ],
     },
     {
@@ -526,42 +558,8 @@ export const embeddingsContent: LessonContent = {
       lead:
         "Embeddings transformam significado em geometria. A posição relativa entre vetores codifica relações semânticas, e isso é o que os torna tão úteis.",
       visual: "summary-embeddings-stack",
-      summaryCards: [
-        {
-          title: "One-hot não serve",
-          body:
-            "Representações esparsas não capturam similaridade. Todos os pares de palavras são igualmente distantes.",
-        },
-        {
-          title: "Embeddings são vetores densos",
-          body:
-            "Cada conceito é um ponto num espaço contínuo. Proximidade indica similaridade semântica.",
-        },
-        {
-          title: "Cosseno é o padrão",
-          body:
-            "Similaridade de cosseno mede direção, não magnitude. É a métrica padrão para comparar embeddings.",
-        },
-        {
-          title: "Operações capturam relações",
-          body:
-            "rei − homem + mulher ≈ rainha: direções no espaço codificam relações como gênero, plural e tempo verbal.",
-        },
-        {
-          title: "O espaço é aprendido",
-          body:
-            "As coordenadas vêm do treinamento. Troque o corpus e o mapa muda. Não existe 'o' espaço semântico universal.",
-        },
-        {
-          title: "Contextuais são melhores",
-          body:
-            "Embeddings estáticos dão um vetor por palavra. Embeddings contextuais dão vetores diferentes por contexto.",
-        },
-        {
-          title: "Cuidado com viés e ilusões",
-          body:
-            "Embeddings refletem vieses do corpus. Projeções 2D podem criar agrupamentos enganosos. Proximidade não é sinonímia.",
-        },
+      paragraphs: [
+        "Relembre os pontos centrais antes de seguir para o quiz.",
       ],
     },
     {
@@ -585,6 +583,43 @@ export const embeddingsContent: LessonContent = {
       paragraphs: [
         "Dominar esses termos ajuda a ler documentação, escolher modelos, diagnosticar problemas e projetar sistemas de busca e recomendação baseados em embeddings.",
       ],
+    },
+  ],
+  summaryCards: [
+    {
+      title: "One-hot não serve",
+      body:
+        "Representações esparsas não capturam similaridade. Todos os pares de palavras são igualmente distantes.",
+    },
+    {
+      title: "Embeddings são vetores densos",
+      body:
+        "Cada conceito é um ponto num espaço contínuo. Proximidade indica similaridade semântica.",
+    },
+    {
+      title: "Cosseno é o padrão",
+      body:
+        "Similaridade de cosseno mede direção, não magnitude. É a métrica padrão para comparar embeddings.",
+    },
+    {
+      title: "Operações capturam relações",
+      body:
+        "rei − homem + mulher ≈ rainha: direções no espaço codificam relações como gênero, plural e tempo verbal.",
+    },
+    {
+      title: "O espaço é aprendido",
+      body:
+        "As coordenadas vêm do treinamento. Troque o corpus e o mapa muda. Não existe 'o' espaço semântico universal.",
+    },
+    {
+      title: "Contextuais são melhores",
+      body:
+        "Embeddings estáticos dão um vetor por palavra. Embeddings contextuais dão vetores diferentes por contexto.",
+    },
+    {
+      title: "Cuidado com viés e ilusões",
+      body:
+        "Embeddings refletem vieses do corpus. Projeções 2D podem criar agrupamentos enganosos. Proximidade não é sinonímia.",
     },
   ],
   quiz: [
@@ -855,6 +890,16 @@ export const embeddingsContent: LessonContent = {
       term: "Viés semântico",
       definition:
         "Vieses e estereótipos presentes nos dados de treinamento que são absorvidos pelos embeddings e aparecem como relações indesejadas no espaço vetorial.",
+    },
+    {
+      term: "Aprendizado contrastivo",
+      definition:
+        "Técnica de treinamento que aproxima pares corretos (imagem e legenda correspondente) e afasta pares incorretos no espaço vetorial. É o mecanismo central por trás de embeddings multimodais como o CLIP.",
+    },
+    {
+      term: "Chunking",
+      definition:
+        "Divisão de documentos longos em trechos menores antes de embedar, para evitar que o significado específico seja diluído na média de um vetor único.",
     },
   ],
 };

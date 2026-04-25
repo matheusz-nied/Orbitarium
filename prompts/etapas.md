@@ -155,30 +155,28 @@ Não implemente nada. Apenas sugira.
 ---
 
 ### Etapa 3b — LLM 1
+
 ```markdown
 Adicione uma nova aula completa ao projeto.
 
 Tema: [TEMA]
 
---- CONTEÚDO DA AULA ---
-[cole o output da etapa 2b aqui]
+A aula já foi implementada em [Local_do_arquivo] e os ajustes de abertura já foram aplicados 
+pelas etapas anteriores. Sua tarefa é:
 
---- AJUSTES DE ABERTURA ---
-[cole a PARTE 1 do output da etapa 2a aqui]
+1. Avaliar as ideias de interatividade recebidas, descartar as que 
+   apenas decoram sem ensinar e complementar com ideias próprias 
+   se necessário
+2. Implementar os componentes interativos escolhidos
+3. Linkar a aula ao catálogo na categoria correta
+4. Garantir que aparece na home e nas listagens esperadas
+5. Verificar se reutiliza componentes existentes antes de criar novos
+6. Rode build/lint/test e corrija todos os erros
+7. Ao final informe: arquivos alterados, interações implementadas 
+   e pendências se houver
 
 --- IDEIAS DE INTERATIVIDADE ---
 [cole o output da etapa 3a aqui]
-
-Instruções:
-- Aplique os ajustes de abertura no conteúdo antes de implementar
-- Avalie as ideias de interatividade recebidas, descarte as que 
-  apenas decoram sem ensinar e complemente com ideias próprias 
-  se necessário
-- Implemente a aula no padrão existente do projeto
-- Adicione ao catálogo na categoria correta
-- Rode build/lint/test e corrija todos os erros
-- Ao final informe: arquivos criados, interações implementadas 
-  e pendências se houver
 
 Siga o AGENTS.md.
 ```

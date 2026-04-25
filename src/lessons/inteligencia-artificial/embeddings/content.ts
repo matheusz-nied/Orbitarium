@@ -92,6 +92,13 @@ export const embeddingsContent: LessonContent = {
       note:
         "Extensão para bancos de dados vetoriais em PostgreSQL, exemplo de infraestrutura para armazenar e consultar embeddings em produção.",
     },
+    {
+      title: "OpenAI Embeddings Guide",
+      source: "OpenAI — Documentação oficial",
+      url: "https://platform.openai.com/docs/guides/embeddings",
+      note:
+        "Guia prático de uso de embeddings em produção, cobrindo melhores práticas de chunking, escolha de modelo e limites de tokens. Referência moderna com perspectiva de engenharia.",
+    },
   ],
   heroVisual: "embeddings-hero",
   openingText:
@@ -245,7 +252,7 @@ export const embeddingsContent: LessonContent = {
       paragraphs: [
         "Dois vetores podem ser comparados de maneiras diferentes. A distância euclidiana mede o comprimento do segmento retinho entre as pontas dos vetores. A similaridade de cosseno mede o ângulo entre eles. No espaço de embeddings, cosseno é o padrão — e entender por que é essencial.",
         "Similaridade de cosseno é o cosseno do ângulo entre dois vetores. Se os vetores apontam na mesma direção, o ângulo é zero e a similaridade é 1. Se são ortogonais, a similaridade é 0. Se apontam em direções opostas, a similaridade é −1. Ela ignora a magnitude e captura apenas a orientação relativa — ou seja, o padrão semântico, não o tamanho do vetor.",
-        "Por que isso importa? Imagine um vetor 'gato' com magnitude 2 e um vetor 'gatinho' com magnitude 5. Se apontam na mesma direção, são semanticamente equivalentes. A distância euclidiana entre eles seria grande (3), mas a similaridade de cosseno seria 1. Em alta dimensionalidade, essa divergência é comum: vetores podem ter magnitudes muito diferentes e ainda assim codificar o mesmo significado. Cosseno resolve isso.",
+        "Por que isso importa? Em muitos modelos não normalizados, a magnitude do vetor reflete a frequência da palavra no corpus de treino: palavras mais comuns como 'gato' tendem a vetores maiores, enquanto palavras raras como 'gatinho' tendem a vetores menores. Se ambos apontam na mesma direção, são semanticamente equivalentes — mas a distância euclidiana entre eles seria grande, enquanto a similaridade de cosseno seria 1. Em alta dimensionalidade, essa divergência é comum: vetores podem ter magnitudes muito diferentes e ainda assim codificar o mesmo significado. Cosseno resolve isso ao olhar só para a direção.",
       ],
       blocks: [
         {
@@ -309,7 +316,7 @@ export const embeddingsContent: LessonContent = {
           type: "mistake",
           title: "Analogias perfeitas são exceção, não regra",
           body:
-            "Essas analogias funcionam bem em relações fortes e frequentes no corpus, mas não são universalmente precisas. A exatidão depende da qualidade do corpus e da dimensão do espaço.",
+            "Essas analogias funcionam bem em relações fortes e frequentes no corpus, mas não são universalmente precisas. O motivo é sutil: quando fazemos 'rei − homem + mulher', o resultado exato da conta cai num ponto vazio do espaço — não exatamente em cima de 'rainha'. O sistema procura a palavra mais próxima daquele ponto e a apresenta como resposta, mas o espaço é ruidoso e denso. Palavras irrelevantes podem estar mais próximas do ponto do que a palavra esperada, e o corpus pode não conter evidência suficiente para que a direção seja consistente.",
         },
       ],
     },
@@ -322,7 +329,7 @@ export const embeddingsContent: LessonContent = {
       visual: "word2vec-training",
       paragraphs: [
         "Em 2013, Mikolov e colaboradores mostraram que um conjunto simples de técnicas poderia produzir embeddings de alta qualidade em escala. O princípio é elegantemente simples, e foi bem resumido por Firth em 1957: 'You shall know a word by the company it keeps'. Palavras que aparecem em contextos similares tendem a ter significados similares, e o treinamento ajusta os vetores para refletir isso.",
-        "Word2Vec oferece dois modelos: Skip-gram, que prevê o contexto a partir de uma palavra central, e CBOW (Continuous Bag of Words), que prevê a palavra central a partir do contexto. Em ambos, os vetores são ajustados iterativamente para que a capacidade preditiva seja maximizada. O resultado é que palavras que compartilham contextos — e portanto compartilham aspectos de significado — acabam com vetores próximos.",
+        "Word2Vec oferece dois modelos: Skip-gram, que prevê o contexto a partir de uma palavra central, e CBOW (Continuous Bag of Words), que prevê a palavra central a partir do contexto. Pense nisso como um jogo de 'preencha a lacuna': a máquina recebe 'O [?] tomou leite de manhã' e precisa adivinhar que a lacuna é 'gato', 'homem', 'menino'. Jogamos esse jogo bilhões de vezes, forçando o modelo a errar e corrigir. A cada rodada, os vetores são ajustados para que palavras que compartilham contextos — e portanto compartilham aspectos de significado — acabem com representações próximas. Skip-gram usa uma palavra para prever as vizinhas; CBOW usa as vizinhas para prever a palavra central.",
         "O ponto crucial: troque o corpus e o mapa inteiro muda. Um modelo treinado em literatura britânica do século XIX posicionar 'rede' próximo de 'pesca', enquanto um modelo treinado em textos de tecnologia dos anos 2020 posicionar 'rede' próximo de 'internet' e 'Wi-Fi'. Não existe 'o' espaço semântico — existe o espaço que um modelo específico aprendeu com dados específicos.",
       ],
       blocks: [
@@ -388,6 +395,12 @@ export const embeddingsContent: LessonContent = {
           title: "Contextual resolve ambiguidade",
           body:
             "Palavras polissêmicas são o campo de prova natural. Em embeddings estáticos, sentidos distintos são misturados numa média. Em contextuais, cada sentido recebe representação própria.",
+        },
+        {
+          type: "mistake",
+          title: "Contextual é mais preciso, mas custa mais",
+          body:
+            "Word2Vec é literalmente uma tabela chave-valor: consultar o vetor de uma palavra custa microssegundos e memória RAM. BERT é uma inferência de rede neural: cada texto precisa passar por todo o transformer, consumindo GPU e dinheiro. Em produção com milhões de queries, a diferença entre um lookup instantâneo e uma passagem por um modelo pesado é decisiva. Modelos como sentence-transformers buscam equilibrar qualidade contextual com custo viável.",
         },
       ],
     },
@@ -498,9 +511,9 @@ export const embeddingsContent: LessonContent = {
         },
         {
           type: "insight",
-          title: "Aprendizado contrastivo: como o espaço é alinhado",
+          title: "Aprendizado contrastivo: ímãs de atração e repulsão",
           body:
-            "No treinamento do CLIP e modelos multimodais, não basta embedar imagem e texto separadamente — é preciso que eles fiquem no mesmo espaço. O mecanismo é o aprendizado contrastivo: o modelo recebe pares corretos de imagem e legenda e pares incorretos, e é treinado para puxar os pares corretos para perto e empurrar os incorretos para longe. A cada lote de treinamento, a imagem de um gato é aproximada da legenda 'um gato laranja no sofá' e afastada de legendas como 'um carro vermelho' ou 'um prédio alto'. Após milhões de exemplos, o espaço converge: imagens e textos que descrevem a mesma cena compartilham uma região do espaço vetorial.",
+            "No treinamento do CLIP, não basta embedar imagem e texto separadamente — é preciso que eles fiquem no mesmo espaço. O mecanismo funciona como ímãs: durante o treinamento, o modelo puxa a imagem de um gato e a legenda 'um gato laranja no sofá' para o mesmo ponto do espaço (atração), ao mesmo tempo que empurra para longe todas as imagens e legendas que não combinam — 'um carro vermelho', 'um prédio alto' (repulsão). A cada lote de treinamento, milhões de pares errados são afastados e pares certos são aproximados. Após bilhões de exemplos, o espaço converge: imagens e textos que descrevem a mesma cena compartilham uma região do espaço vetorial, como se ímãs positivos tivessem agrupado o que é similar e repelido o que é diferente.",
         },
       ],
     },
@@ -695,20 +708,22 @@ export const embeddingsContent: LessonContent = {
         {
           id: "a",
           label:
-            "Estáticos produzem um vetor fixo por palavra; contextuais produzem vetores diferentes conforme a sentença.",
+            "Estáticos produzem um vetor fixo por palavra; contextuais produzem vetores diferentes conforme o contexto da sentença.",
         },
         {
           id: "b",
-          label: "Estáticos são menores; contextuais são maiores.",
+          label:
+            "Estáticos ignoram a gramática da frase, enquanto contextuais analisam a sintaxe profunda de cada palavra.",
         },
         {
           id: "c",
-          label: "Estáticos funcionam para inglês; contextuais funcionam para qualquer idioma.",
+          label:
+            "Estáticos só funcionam para palavras isoladas, enquanto contextuais só funcionam para frases completas com mais de 10 palavras.",
         },
       ],
       correctOptionId: "a",
       feedback:
-        "A diferença é que estáticos (Word2Vec, GloVe) dão um vetor por palavra, enquanto contextuais (BERT, GPT) dão vetores que mudam com o contexto da sentença.",
+        "A diferença central é o contexto: estáticos (Word2Vec, GloVe) dão um vetor fixo por palavra, independentemente do uso. Contextuais (BERT, GPT) geram vetores que mudam conforme a sentença. Opção B confunde semântica com sintaxe — contextuais capturam sentido, não análise gramatical. Opção C é falsa: ambos funcionam para qualquer comprimento de texto.",
     },
     {
       id: "q5",
@@ -900,6 +915,16 @@ export const embeddingsContent: LessonContent = {
       term: "Chunking",
       definition:
         "Divisão de documentos longos em trechos menores antes de embedar, para evitar que o significado específico seja diluído na média de um vetor único.",
+    },
+    {
+      term: "HNSW",
+      definition:
+        "Hierarchical Navigable Small World: algoritmo de índice vetorial que organiza os embeddings numa estrutura hierárquica de grafos, permitindo busca de vizinhos mais próximos em tempo sub-linear mesmo com milhões de vetores.",
+    },
+    {
+      term: "IVF",
+      definition:
+        "Inverted File Index: técnica de indexação vetorial que divide o espaço em regiões (clusters) e só busca nas regiões mais próximas da query, reduzindo drasticamente o tempo de busca em bancos de dados vetoriais grandes.",
     },
   ],
 };

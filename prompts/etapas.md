@@ -245,28 +245,10 @@ Restrições:
 - Mantenha linguagem clara e progressiva
 - Entregue o arquivo TypeScript completo e atualizado
 
---- AULA ATUAL ---
-[cole o conteúdo atual da aula aqui]
-
 --- ANOTAÇÕES ACEITAS ---
 [cole apenas as anotações da etapa 4b que você decidiu aceitar]
-```
 
----
 
-### Etapa 4d — Codex *(condicional: só se 4c rodar)*
-```markdown
-Atualize a implementação da aula [NOME DA AULA] com o 
-conteúdo revisado abaixo.
-
-Não altere interações existentes.
-Não altere estrutura de arquivos.
-Apenas substitua o conteúdo pelo novo.
-
-Rode build/lint/test e corrija erros.
-
---- CONTEÚDO ATUALIZADO ---
-[cole o output da etapa 4c aqui]
 ```
 
 ---
@@ -288,7 +270,6 @@ Rode build/lint/test e corrija erros.
 | 4a | Codex | aula implementada | sempre |
 | 4b | Gemini | conteúdo da aula | sempre |
 | 4c | GLM 5.1 | aula + anotações aceitas da 4b | só se 4b apontar problemas |
-| 4d | Codex | output 4c | só se 4c rodar |
 
 **Onde você toma decisões:**
 
@@ -298,7 +279,6 @@ Há três momentos de decisão ao longo do fluxo:
 
 **Após 4b:** decidir se os problemas apontados justificam rodar 4c e 4d ou se a aula já está boa o suficiente.
 
-**Após 4d:** validar o resultado final antes de publicar.
 
 **O que pode rodar em paralelo:**
 
@@ -306,7 +286,7 @@ Há três momentos de decisão ao longo do fluxo:
 1a → 1b → 2a → 2b → 3a ──────────────┐
                   └→ 2a (PARTE 1) ────┤→ 3b → 4a
                                       │        │
-                                      │        └→ 4b → 4c → 4d
-                                      └──────────────────────
+                                      │        └→ 4b → 4c
+                                      └──────────────────
 ```
 

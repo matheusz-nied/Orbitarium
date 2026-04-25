@@ -361,7 +361,7 @@ export const embeddingsContent: LessonContent = {
       visual: "static-vs-contextual",
       paragraphs: [
         "Num modelo estático como Word2Vec, 'banco' é sempre o mesmo vetor, independentemente de estar em 'banco financeiro' ou 'banco de praça'. O modelo aprendeu uma média de todos os contextos em que 'banco' apareceu e armazenou essa média como representação única. Para palavras polissêmicas, essa média dilui os sentidos distintos.",
-        "Modelos contextuais como BERT, ELMo e GERT resolvem isso: a representação de 'banco' muda conforme a sentença. Em 'Depositei dinheiro no banco', o vetor é influenciado por 'dinheiro' e 'depositei'. Em 'Sentei no banco da praça', o vetor é influenciado por 'sentei' e 'praça'. O embedding deixa de ser uma propriedade da palavra e passa a ser uma propriedade da palavra no contexto.",
+        "Modelos contextuais como BERT, ELMo e GPT resolvem isso: a representação de 'banco' muda conforme a sentença. Em 'Depositei dinheiro no banco', o vetor é influenciado por 'dinheiro' e 'depositei'. Em 'Sentei no banco da praça', o vetor é influenciado por 'sentei' e 'praça'. O embedding deixa de ser uma propriedade da palavra e passa a ser uma propriedade da palavra no contexto.",
         "Essa evolução é mais do que um refinamento técnico. Ela muda o que os embeddings representam. Word2Vec captura uma espécie de essência estatística da palavra. BERT captura a palavra em uso, com o sentido que ela assume naquela sentença específica. Para busca semântica e análise de sentimento, embeddings contextuais são significativamente mais eficazes.",
       ],
       blocks: [
@@ -403,7 +403,7 @@ export const embeddingsContent: LessonContent = {
         "Busca tradicional por palavras-chave funciona como montar um quebra-cabeça olhando para o formato das peças: se a forma não encaixa, não serve. A pergunta 'como tratar ansiedade' não encontra 'técnicas para lidar com nervosismo' porque não há nenhuma palavra em comum, embora o significado seja essencialmente o mesmo.",
         "Busca semântica transforma tanto a pergunta quanto os documentos em embeddings. Depois, encontra os documentos mais próximos no espaço vetorial — os cujos vetores têm maior similaridade de cosseno com o vetor da pergunta. 'Tratar ansiedade' e 'lidar com nervosismo' ficam próximos no espaço porque seus significados são similares, mesmo sem vocabulário compartilhado.",
         "O fluxo é: (1) os documentos são embedados e armazenados num índice vetorial; (2) a pergunta é embedada com o mesmo modelo; (3) o sistema busca os vizinhos mais próximos usando similaridade de cosseno; (4) os resultados são ordenados por relevância semântica. Bancos de dados vetoriais como pgvector, Pinecone e Milvus otimizam essa busca para funcionar em escala com milhões de vetores.",
-        "Um desafio práfico da busca semântica é a assimetria entre pergunta e documento. Na busca simétrica, pergunta e resposta têm tamanhos similares — 'lidar com ansiedade' vs. 'técnicas para nervosismo'. Mas na busca assimétrica, a pergunta do usuário é curta ('tratar ansiedade') e o documento alvo é longo (um artigo inteiro). Embedar um documento longo num único vetor dilui seu significado: informações relevantes ficam misturadas com informações periféricas no mesmo vetor, e a similaridade de cosseno com a pergunta curta cai. É por isso que sistemas em produção fazem chunking — dividir documentos em trechos menores antes de embedar — e armazenam cada trecho como um vetor independente no banco vetorial.",
+        "Um desafio prático da busca semântica é a assimetria entre pergunta e documento. Na busca simétrica, pergunta e resposta têm tamanhos similares — 'lidar com ansiedade' vs. 'técnicas para nervosismo'. Mas na busca assimétrica, a pergunta do usuário é curta ('tratar ansiedade') e o documento alvo é longo (um artigo inteiro). Embedar um documento longo num único vetor dilui seu significado: informações relevantes ficam misturadas com informações periféricas no mesmo vetor, e a similaridade de cosseno com a pergunta curta cai. É por isso que sistemas em produção fazem chunking — dividir documentos em trechos menores antes de embedar — e armazenam cada trecho como um vetor independente no banco vetorial.",
       ],
       blocks: [
         {
@@ -475,7 +475,7 @@ export const embeddingsContent: LessonContent = {
       paragraphs: [
         "CLIP (2021) demonstrou algo poderoso: um modelo pode aprender a mapear imagens e textos no mesmo espaço vetorial. Uma foto de um gato e a legenda 'um gato laranja dormindo no sofá' ficam próximas não por coincidência, mas porque o modelo aprendeu que elas descrevem a mesma cena. Busca multimodal — encontrar imagens com texto e vice-versa — torna-se busca de vizinhos num espaço compartilhado.",
         "A consequência prática é que a mesma infraestrutura que armazena embeddings de texto pode armazenar embeddings de imagem, áudio ou vídeo. Um sistema de recomendação pode sugerir produtos similares com base na distância vetorial entre embeddings de imagem, sem depender de metadados ou categorias manuais.",
-        "A generalização do conceito é clara: qualquer domínio onde相似idade faz sentido pode ser embedado. Moléculas em química, sequências de DNA em biologia, preferências de usuários em sistemas de recomendação. O princípio é sempre o mesmo: transformar dados em vetores onde proximidade indica relevância.",
+        "A generalização do conceito é clara: qualquer domínio onde similaridade faz sentido pode ser embedado. Moléculas em química, sequências de DNA em biologia, preferências de usuários em sistemas de recomendação. O princípio é sempre o mesmo: transformar dados em vetores onde proximidade indica relevância.",
       ],
       blocks: [
         {
@@ -513,7 +513,7 @@ export const embeddingsContent: LessonContent = {
       visual: "limitations-visual",
       interactive: "bias-demo",
       paragraphs: [
-        "Viés semântico é o problema mais sério. Bolukbasi et al. (2016) mostraram que embeddings treinados em textos da internet associam 'programador' a 'homem' e 'don de casa' a 'mulher' com muita força. Não porque os embeddings escolheram isso, mas porque o corpus de treinamento contém esses vieses e o modelo os absorveu. Embeddings espelham a sociedade que produziu os dados.",
+        "Viés semântico é o problema mais sério. Bolukbasi et al. (2016) mostraram que embeddings treinados em textos da internet associam 'programador' a 'homem' e 'dona de casa' a 'mulher' com muita força. Não porque os embeddings escolheram isso, mas porque o corpus de treinamento contém esses vieses e o modelo os absorveu. Embeddings espelham a sociedade que produziu os dados.",
         "A ambiguidade é outra armadilha. Em modelos estáticos, 'banco' é um único vetor — uma média dos sentidos 'instituição financeira' e 'assento'. Isso pode ser irrelevante em busca semântica ampla, mas prejudicial em aplicações que exigem precisão. Embeddings contextuais mitigam o problema, mas não o eliminam: o contexto pode ser insuficiente para desambiguar completamente.",
         "A ilusão da projeção 2D merece destaque. Visualizar embeddings com t-SNE ou PCA é útil para intuição, mas o espaço real tem centenas de dimensões. Agrupamentos que parecem claros em 2D podem não existir no espaço original, e pontos que parecem distantes em 2D podem ser próximos em alta dimensionalidade. A projeção é uma simplificação com perdas, não uma observação direta.",
         "Há ainda uma limitação prática frequentemente ignorada: embeddings estáticos como Word2Vec são baratos. Consultar um dicionário de vetores custa apenas memória RAM — microssegundos por palavra. Já embeddings contextuais como BERT exigem inferência de uma rede neural inteira para cada novo texto, o que consome GPU e dinheiro. Para aplicações em escala, a diferença entre um lookup em tabela e uma passagem por um transformer é decisiva. Modelos mais recentes como os sentence-transformers buscam equilibrar qualidade contextual com custo computacional, mas a tensão entre precisão e eficiência permanece.",
@@ -817,7 +817,7 @@ export const embeddingsContent: LessonContent = {
       ],
       correctOptionId: "a",
       feedback:
-        "Antônimos como 'quente' e 'frio' aparecem nos mesmos contextos (previsão do tempo, receitas) e por isso ficam próximos. Proximidade vetorial indica shared context, não equivalência de significado.",
+        "Antônimos como 'quente' e 'frio' aparecem nos mesmos contextos (previsão do tempo, receitas) e por isso ficam próximos. Proximidade vetorial indica contexto compartilhado, não equivalência de significado.",
     },
   ],
   glossary: [

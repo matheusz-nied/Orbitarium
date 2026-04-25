@@ -241,7 +241,7 @@ function Word2VecTrainingVisual() {
 function StaticVsContextualVisual() {
   return (
     <figure className="rounded-[2rem] border border-amber-200 bg-amber-50 p-4 shadow-xl shadow-amber-900/5">
-      <svg className="w-full" viewBox="0 0 760 360" role="img=" aria-label="Embeddings estáticos vs contextuais">
+      <svg className="w-full" viewBox="0 0 760 360" role="img" aria-label="Embeddings estáticos vs contextuais">
         <rect width="760" height="360" rx="28" fill="#fffbeb" />
         <text x="190" y="48" textAnchor="middle" fill="#92400e" fontSize="20" fontWeight="900">Estático (Word2Vec)</text>
         <text x="570" y="48" textAnchor="middle" fill="#115e59" fontSize="20" fontWeight="900">Contextual (BERT)</text>

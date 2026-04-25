@@ -6,7 +6,7 @@ Eles entram depois da etapa 3b, como etapas condicionais de qualidade. Aqui est�
 
 ---
 
-### Etapa 1a — LLM 3
+### Etapa 1a — Gemini
 ```markdown
 Você é um especialista em design instrucional.
 
@@ -26,7 +26,7 @@ de forma clara e organizada.
 
 ---
 
-### Etapa 1b — LLM 2
+### Etapa 1b — GLM 5.1
 ```markdown
 Crie uma aula completa sobre [TEMA] seguindo rigorosamente as 
 instruções abaixo.
@@ -81,7 +81,7 @@ críticos. Pesquise fontes confiáveis e cite todas nas referências.
 
 ---
 
-### Etapa 2a — LLM 3
+### Etapa 2a — Gemini
 ```markdown
 Abaixo está uma aula já estruturada. Quero que você faça duas coisas:
 
@@ -114,7 +114,7 @@ como um documento de anotações organizado por seção.
 
 ---
 
-### Etapa 2b — LLM 2
+### Etapa 2b — GLM 5.1
 ```markdown
 Abaixo está uma aula e um documento de anotações pedagógicas 
 feito por um revisor especialista.
@@ -133,7 +133,7 @@ Entregue o arquivo TypeScript completo e atualizado.
 
 ---
 
-### Etapa 3a — LLM 4
+### Etapa 3a — Qwen 3.6 Plus
 ```markdown
 Abaixo está o conteúdo de uma aula sobre [TEMA].
 
@@ -154,14 +154,14 @@ Não implemente nada. Apenas sugira.
 
 ---
 
-### Etapa 3b — LLM 1
+### Etapa 3b — Codex
 
 ```markdown
 Adicione uma nova aula completa ao projeto.
 
-Tema: [TEMA]
+Tema: Embeddings
 
-A aula já foi implementada em [Local_do_arquivo] e os ajustes de abertura já foram aplicados 
+A aula já foi implementada em src/lessons/inteligencia-artificial/embeddings/content.ts e os ajustes de abertura já foram aplicados 
 pelas etapas anteriores. Sua tarefa é:
 
 1. Avaliar as ideias de interatividade recebidas, descartar as que 
@@ -183,7 +183,7 @@ Siga o AGENTS.md.
 
 ---
 
-### Etapa 4a — LLM 1 *(roda sempre)*
+### Etapa 4a — Codex *(roda sempre)*
 ```markdown
 Revise a implementação da aula [NOME DA AULA].
 
@@ -203,7 +203,7 @@ Faça ajustes cirúrgicos. Não reescreva o que não precisa.
 
 ---
 
-### Etapa 4b — LLM 3 *(roda sempre)*
+### Etapa 4b — Gemini *(roda sempre)*
 ```markdown
 Analise a aula abaixo como um revisor pedagógico experiente.
 
@@ -232,7 +232,7 @@ Entregue um parecer organizado por seção, direto e acionável.
 
 ---
 
-### Etapa 4c — LLM 2 *(condicional: só se 4b apontar problemas)*
+### Etapa 4c — GLM 5.1 *(condicional: só se 4b apontar problemas)*
 ```markdown
 Aprofunde a aula abaixo com base nas anotações de revisão aceitas.
 
@@ -254,7 +254,7 @@ Restrições:
 
 ---
 
-### Etapa 4d — LLM 1 *(condicional: só se 4c rodar)*
+### Etapa 4d — Codex *(condicional: só se 4c rodar)*
 ```markdown
 Atualize a implementação da aula [NOME DA AULA] com o 
 conteúdo revisado abaixo.
@@ -279,22 +279,22 @@ Rode build/lint/test e corrija erros.
 
 | Etapa | LLM | Input | Quando roda |
 |---|---|---|---|
-| 1a | LLM 3 | só o tema | sempre |
-| 1b | LLM 2 | output 1a + AGENTS.md + LessonContent | sempre |
-| 2a | LLM 3 | output 1b | sempre |
-| 2b | LLM 2 | output 1b + anotações aceitas da 2a | sempre |
-| 3a | LLM 4 | output 2b | sempre |
-| 3b | LLM 1 | output 2b + PARTE 1 da 2a + output 3a | sempre |
-| 4a | LLM 1 | aula implementada | sempre |
-| 4b | LLM 3 | conteúdo da aula | sempre |
-| 4c | LLM 2 | aula + anotações aceitas da 4b | só se 4b apontar problemas |
-| 4d | LLM 1 | output 4c | só se 4c rodar |
+| 1a | Gemini | só o tema | sempre |
+| 1b | GLM 5.1 | output 1a + AGENTS.md + LessonContent | sempre |
+| 2a | Gemini | output 1b | sempre |
+| 2b | GLM 5.1 | output 1b + anotações aceitas da 2a | sempre |
+| 3a | Qwen 3.6 Plus | output 2b | sempre |
+| 3b | Codex | output 2b + PARTE 1 da 2a + output 3a | sempre |
+| 4a | Codex | aula implementada | sempre |
+| 4b | Gemini | conteúdo da aula | sempre |
+| 4c | GLM 5.1 | aula + anotações aceitas da 4b | só se 4b apontar problemas |
+| 4d | Codex | output 4c | só se 4c rodar |
 
 **Onde você toma decisões:**
 
 Há três momentos de decisão ao longo do fluxo:
 
-**Após 2a:** aceitar ou rejeitar as anotações pedagógicas da LLM 3 antes de passar para a 2b.
+**Após 2a:** aceitar ou rejeitar as anotações pedagógicas da Gemini antes de passar para a 2b.
 
 **Após 4b:** decidir se os problemas apontados justificam rodar 4c e 4d ou se a aula já está boa o suficiente.
 
@@ -310,12 +310,3 @@ Há três momentos de decisão ao longo do fluxo:
                                       └──────────────────────
 ```
 
-## Resumo LLMs
-
-LLM 1 - Codex
-
-LLM 2 - GLM 5.1
-
-LLM 3 - Gemini
-
-LLM 4 - Qwen 3.6 Plus

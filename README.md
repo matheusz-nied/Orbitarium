@@ -6,7 +6,7 @@
 
 Cada aula é uma experiência guiada — não apenas texto, mas simuladores, quizzes, diagramas animados e progressão didática estruturada.
 
-[**Ver demo ao vivo →**](https://orbitarium.netlify.app) &nbsp;·&nbsp; [Reportar bug](https://github.com/matheusz-nied/orbitarium/issues) &nbsp;·&nbsp; [Sugerir tema](https://github.com/matheusz-nied/orbitarium/issues)
+[**Ver demo ao vivo →**](https://orbitarium-edu.netlify.app) &nbsp;·&nbsp; [Reportar bug](https://github.com/matheusz-nied/orbitarium/issues) &nbsp;·&nbsp; [Sugerir tema](https://github.com/matheusz-nied/orbitarium/issues)
 
 ![React](https://img.shields.io/badge/React_19-20232A?style=flat&logo=react&logoColor=61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript_5-3178C6?style=flat&logo=typescript&logoColor=white)

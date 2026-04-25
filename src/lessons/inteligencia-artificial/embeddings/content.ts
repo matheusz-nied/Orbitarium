@@ -95,27 +95,27 @@ export const embeddingsContent: LessonContent = {
   ],
   heroVisual: "embeddings-hero",
   openingText:
-    "Quando escrevemos 'rei' e 'rainha', sabemos que são conceitos relacionados. Mas para um computador, essas palavras são apenas sequências de caracteres sem conexão aparente. Embeddings transformam significado em geometria: conceitos similares ficam próximos no espaço vetorial, e relações como gênero, plural e região se tornam direções que podemos navegar.",
+    "Como você ensinaria a um computador a diferença entre 'rei' e 'rainha', ou a semelhança entre 'gato' e 'cachorro'? Para as máquinas, palavras são apenas sequências de caracteres vazias de sentido. O problema de ensinar significado a sistemas digitais parecia insolúvel até que deixamos de olhar para a linguística clássica e passamos a olhar para a geometria. Embeddings são a técnica fascinante que transforma ideias, sentimentos e conceitos em coordenadas matemáticas, permitindo que a inteligência artificial finalmente comece a 'entender' o mundo.",
   quickFacts: [
     {
-      title: "Embeddings são vetores densos",
+      title: "Coordenadas de significado",
       body:
-        "Cada conceito vira um ponto em um espaço de centenas de dimensões. Valores contínuos substituem representações esparsas e desconectadas.",
+        "Assim como latitude e longitude indicam onde uma cidade está no mapa, embeddings dão a cada palavra coordenadas em um espaço de centenas de dimensões, capturando sua essência.",
     },
     {
-      title: "Proximidade indica similaridade",
+      title: "Próximos no espaço, próximos na ideia",
       body:
-        "No espaço de embeddings, conceitos semanticamente próximos ficam geometricamente próximos. A posição relativa codifica relações de significado.",
+        "A mágica acontece na geometria: se plotarmos essas coordenadas, os vetores de 'abacate' e 'banana' estarão aglomerados no canto das frutas, muito distantes de 'avião' e 'helicóptero'.",
     },
     {
-      title: "O espaço é aprendido",
+      title: "Nascem da leitura voraz",
       body:
-        "As coordenadas não são arbitrárias. Elas resultam de treinamento sobre dados reais e refletem os padrões estatísticos do corpus utilizado.",
+        "As máquinas não recebem um dicionário. Elas deduzem as coordenadas lendo bilhões de textos e percebendo que palavras como 'café' e 'chá' costumam aparecer cercadas por palavras semelhantes, como 'xícara' e 'quente'.",
     },
     {
-      title: "Analogias são operações vetoriais",
+      title: "Matemática com palavras",
       body:
-        "rei − homem + mulher ≈ rainha não é coincidência: é a geometria do espaço capturando relações semânticas como direções.",
+        "Como são números, podemos fazer equações puramente semânticas. A IA descobriu sozinha que se você pegar as coordenadas de 'Paris', subtrair 'França' e somar 'Japão', o resultado cai nas coordenadas de 'Tóquio'.",
     },
   ],
   timeline: [
@@ -164,9 +164,9 @@ export const embeddingsContent: LessonContent = {
         "Computadores operam sobre números, não sobre conceitos. Representar 'gato' como um identificador arbitrário ignora toda relação semântica que humanos conhecem intuitivamente.",
       visual: "one-hot-vs-embedding",
       paragraphs: [
-        "A abordagem mais direta para representar palavras é o one-hot encoding: cada palavra vira um vetor com um 1 na posição correspondente e zeros em todo o resto. 'Gato' pode ser [1, 0, 0, ...], 'cachorro' pode ser [0, 1, 0, ...]. Esse vetor é disperso — em um vocabulário de 50.000 palavras, cada vetor tem 50.000 posições, sendo que apenas uma é 1.",
-        "O problema é profundo: no one-hot, todas as palavras são igualmente distantes. OÂngulo entre 'gato' e 'cachorro' é idêntico ao ângulo entre 'gato' e 'planeta'. Isso contradiz a intuição de que conceitos relacionados deveriam ter representações mais próximas. A máquina não tem como saber que gatos e cachorros compartilam a categoria 'animal de estimação'.",
-        "Além da esparsidade, one-hot encodings não generalizam. Um modelo treinado com 'gato' não transfere nada para 'gatinho', 'felino' ou 'animal'. Cada palavra é uma ilha isolada, sem pontes semânticas. Essa fragilidade motiva a busca por representações densas nas quais a geometria refleja o significado.",
+        "Historicamente, a inteligência artificial enfrentava uma barreira invisível: computadores calculam números com perfeição, mas são cegos para conceitos. Nos primeiros sistemas, tentar fazer a máquina entender que 'carro' e 'automóvel' eram a mesma coisa exigia programar regras manuais exaustivas. Era um dicionário infinito de exceções que invariavelmente desmoronava perante a complexidade da linguagem humana real.",
+        "A abordagem clássica mais adotada durante décadas para tentar traduzir palavras em números foi o one-hot encoding. Imagine um vocabulário de 50.000 palavras. A palavra 'gato' ganharia uma lista de 50.000 posições, contendo um único '1' e 49.999 zeros. 'Cachorro' teria o seu próprio '1' isolado em outro canto. O resultado? Sistemas completamente engessados. Um modelo treinado para reconhecer frases sobre 'gatos' não reaproveitava nenhum conhecimento ao ler sobre 'felinos'.",
+        "O problema geométrico dessa abordagem antiga era fatal: no modelo one-hot, a distância matemática entre 'gato' e 'cachorro' é exatamente idêntica à distância entre 'gato' e 'frigideira'. Todas as palavras estão igualmente isoladas no espaço. Essa total incapacidade de capturar nuances e categorias forçou uma revolução na IA, motivando a busca por representações densas onde a própria geometria refletisse o significado.",
       ],
       blocks: [
         {

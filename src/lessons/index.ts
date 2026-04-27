@@ -3,6 +3,7 @@ import { radiacaoCosmicaDeFundoLesson } from "./astrofisica/radiacao-cosmica-de-
 import { comoFuncionaUmLlmLesson } from "./inteligencia-artificial/como-funciona-um-llm";
 import { embeddingsLesson } from "./inteligencia-artificial/embeddings";
 import { tokensTokenizacaoLesson } from "./inteligencia-artificial/tokens-tokenizacao";
+import { transformersEAtencaoLesson } from "./inteligencia-artificial/transformers-e-atencao";
 import { newtonCalculoLesson } from "./matematica/newton-calculo";
 
 export const lessonModules = [
@@ -11,6 +12,7 @@ export const lessonModules = [
   tokensTokenizacaoLesson,
   embeddingsLesson,
   comoFuncionaUmLlmLesson,
+  transformersEAtencaoLesson,
 ] satisfies LessonModule[];
 
 export const contents = lessonModules.map((lessonModule) => lessonModule.content);

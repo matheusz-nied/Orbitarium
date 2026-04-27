@@ -50,7 +50,7 @@ function TokenizerInteraction() {
   );
 }
 
-const continuations = {
+const continuations: Record<string, [string, number][]> = {
   "A capital do Brasil é": [
     ["Brasília", 0.72],
     ["São", 0.08],

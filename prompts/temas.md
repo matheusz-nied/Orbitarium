@@ -1711,7 +1711,7 @@ Tópicos:
 
 ---
 
-## Transformers e Atenção
+<!-- ## Transformers e Atenção
 
 Categoria: Inteligência Artificial  
 Nível: Intermediário/avançado inicial
@@ -1737,7 +1737,7 @@ Tópicos:
 - feedforward.
 
 ---
-
+ -->
 ## RAG: Retrieval-Augmented Generation
 
 Categoria: Inteligência Artificial  

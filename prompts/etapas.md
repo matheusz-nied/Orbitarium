@@ -232,7 +232,7 @@ Entregue um parecer organizado por seção, direto e acionável.
 
 ---
 
-### Etapa 4c — GLM 5.1 *(condicional: só se 4b apontar problemas)*
+### Etapa 4c — GLM 5.1 *(roda sempre)*
 ```markdown
 Aprofunde a aula abaixo com base nas anotações de revisão aceitas.
 
@@ -245,8 +245,8 @@ Restrições:
 - Mantenha linguagem clara e progressiva
 - Entregue o arquivo TypeScript completo e atualizado
 
---- ANOTAÇÕES ACEITAS ---
-[cole apenas as anotações da etapa 4b que você decidiu aceitar]
+--- ANOTAÇÕES  ---
+[cole apenas as anotações da etapa 4b]
 
 
 ```
@@ -289,4 +289,3 @@ Há três momentos de decisão ao longo do fluxo:
                                       │        └→ 4b → 4c
                                       └──────────────────
 ```
-

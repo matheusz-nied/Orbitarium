@@ -1,0 +1,21 @@
+{
+  "id": "ef598a58-2635-4909-8d3e-af7a45fd510e",
+  "name": "Teste 2",
+  "scope": "local",
+  "inputs": [],
+  "nodes": [
+    {
+      "id": "node-1",
+      "label": "Novo no 1",
+      "provider": "gemini",
+      "model": "gemini-2.5-pro",
+      "system_prompt": "",
+      "prompt_template": "",
+      "timeout_seconds": 60,
+      "continue_on_fail": false,
+      "pos_x": 96.49580354360887,
+      "pos_y": 162.87509535393735
+    }
+  ],
+  "edges": []
+}

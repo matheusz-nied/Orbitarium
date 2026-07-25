@@ -1353,7 +1353,7 @@ export const rustWaveL3PartBContents: Record<RustL3PartBTopicId, LessonContent> 
         interactive: "model-lab",
         paragraphs: [
           "Ao declarar `extern \"C\"`, você está dizendo ao compilador para usar a ABI C naquela fronteira. Isso é importante porque a ABI padrão de Rust não é a ABI C e, além disso, C++ não oferece uma ABI estável única que o compilador Rust possa mirar diretamente em geral.",
-          "`repr(C)` existe para aproximar a representação de structs e enums ao que C espera, reduzindo surpresas de layout. Não é uma varinha mágica para qualquer tipo arbitrário, mas é parte do contrato quando dados estruturados cruzam a fronteira por valor ou por ponteiro.",
+          "`repr(C)` existe para aproximar a representação binária de structs, unions e alguns enums ao modelo C esperado naquela plataforma, reduzindo surpresas de layout. Isso ainda não torna qualquer tipo automaticamente FFI-safe: enums sem campos, enums com payload e outros tipos mais exóticos continuam exigindo checagem caso a caso do contrato real.",
           "Esses marcadores não 'provam segurança'. Eles apenas tornam o acordo binário mais previsível. O restante do trabalho continua dependendo de ownership, validade e documentação.",
         ],
         blocks: [
@@ -1365,7 +1365,7 @@ export const rustWaveL3PartBContents: Record<RustL3PartBTopicId, LessonContent> 
           block(
             "definition",
             "`repr(C)`",
-            "Atributo usado para aproximar a representação de um tipo ao layout esperado pela ABI C.",
+            "Atributo usado para aproximar a representação binária de um tipo ao layout esperado pela ABI C, sem por si só tornar qualquer uso automaticamente seguro em FFI.",
           ),
         ],
       }),
@@ -1423,7 +1423,7 @@ export const rustWaveL3PartBContents: Record<RustL3PartBTopicId, LessonContent> 
           "Alguns bugs de FFI não aparecem como crash imediato; eles corrompem o acordo binário e só se manifestam depois.",
         visual: "risk-board",
         paragraphs: [
-          "O Rustonomicon destaca o cuidado com unwinding: se você espera que panic ou exceção atravesse uma fronteira ABI, a assinatura precisa refletir esse acordo corretamente. Se não espera, a fronteira deve ser desenhada para conter esse comportamento.",
+          "O Rustonomicon destaca o cuidado com unwinding: se você espera que panic do Rust ou exceção estrangeira atravesse uma fronteira ABI, a fronteira precisa usar explicitamente uma ABI que permita unwind, como `extern \"C-unwind\"`. Deixar unwind atravessar uma fronteira declarada como `extern \"C\"` ou outra ABI não-unwind é comportamento indefinido; se essa travessia não faz parte do contrato, a borda deve conter esse comportamento antes de cruzar.",
           "Outro ponto clássico é desalocar um recurso do lado errado. Mesmo que o valor 'pareça' ser apenas um ponteiro, o alocador, o destrutor e a convenção esperada podem ser específicos da biblioteca que o criou.",
           "Também vale desconfiar de structs, enums ou booleans assumidos como compatíveis sem prova suficiente de layout e convenção. A forma mais barata de quebrar FFI é supor demais sobre representação binária.",
         ],
@@ -1597,7 +1597,7 @@ export const rustWaveL3PartBContents: Record<RustL3PartBTopicId, LessonContent> 
       g("FFI", "Foreign Function Interface: mecanismo de interoperabilidade entre linguagens ou componentes binários distintos."),
       g("ABI", "Conjunto de convenções binárias sobre chamada, passagem de argumentos e representação de valores."),
       g("`extern \"C\"`", "Anotação usada para empregar a ABI C numa função ou bloco externo."),
-      g("`repr(C)`", "Atributo que aproxima a representação de um tipo ao layout esperado por C."),
+      g("`repr(C)`", "Atributo que aproxima a representação binária de um tipo ao layout esperado por C na plataforma atual, sem tornar qualquer uso automaticamente FFI-safe."),
       g("Opaque handle", "Tipo opaco exposto na fronteira para esconder layout interno e controlar melhor ownership."),
       g("CString", "Tipo Rust para strings compatíveis com C, com terminação em NUL."),
       g("CStr", "View para interpretar uma string C recebida de fora sem tomar ownership dos bytes por padrão."),
@@ -1728,6 +1728,7 @@ export const rustWaveL3PartBContents: Record<RustL3PartBTopicId, LessonContent> 
         interactive: "model-lab",
         paragraphs: [
           "`cargo check` é excelente para feedback rápido no loop de edição. `cargo build` produz artefatos compilados. `cargo test` valida corretude em testes unitários, integração e doc tests. `cargo bench` organiza targets de benchmark e seu perfil associado.",
+          "O detalhe importante é não confundir comando com harness nativo: o comando `cargo bench` existe no stable, mas o harness padrão com `#[bench]` continua unstable e nightly-only. Em projetos stable, é comum usar harness customizado com ferramentas como Criterion.",
           "Isso não quer dizer que cada comando vive isolado. O valor está em combiná-los adequadamente: editar com feedback rápido, validar mudanças, rodar testes focados, reproduzir cenários realistas e então medir de forma consciente.",
           "Quando esse mapa mental está claro, o time para de esperar que um único comando responda simultaneamente questões de sintaxe, regressão, ergonomia e throughput.",
         ],
@@ -1748,6 +1749,7 @@ export const rustWaveL3PartBContents: Record<RustL3PartBTopicId, LessonContent> 
         visual: "flow",
         paragraphs: [
           "A Cargo Book explica que `cargo build` e `cargo check` usam `dev` por padrão, `cargo test` usa `test`, e `cargo bench` usa `bench`, que herda de `release`. Isso já muda otimização, assertions, overflow checks, debuginfo e outros detalhes importantes.",
+          "Esse ponto fala do perfil de compilação, não da estabilidade do harness interno. Mesmo quando o benchmark roda em perfil `bench`, o caminho concreto no stable frequentemente passa por harness customizado em vez do `#[bench]` nativo.",
           "Uma das lições mais úteis é abandonar a ideia de que 'compilar é compilar'. O mesmo código pode ter comportamento de performance e observabilidade muito diferente dependendo do perfil escolhido.",
           "Também entra aqui a noção de perfis customizados. Às vezes faz sentido criar um meio-termo entre rapidez de desenvolvimento e proximidade de produção, especialmente para investigação recorrente.",
         ],
@@ -1970,7 +1972,7 @@ export const rustWaveL3PartBContents: Record<RustL3PartBTopicId, LessonContent> 
       g("dev", "Perfil voltado para desenvolvimento e iteração rápida."),
       g("release", "Perfil voltado para artefatos otimizados."),
       g("test", "Perfil padrão de `cargo test`, herdando em geral de `dev`."),
-      g("bench", "Perfil padrão de `cargo bench`, herdando em geral de `release`."),
+      g("bench", "Perfil padrão de `cargo bench`, herdando em geral de `release`; o comando existe no stable, mas o harness nativo com `#[bench]` continua nightly-only."),
       g("Doc test", "Exemplo em documentação executado como teste para validar que o uso exibido continua correto."),
       g("Benchmark", "Medição comparativa de custo sob um workload definido."),
       g("Profiler", "Ferramenta que ajuda a localizar onde o programa gasta tempo ou outros recursos."),

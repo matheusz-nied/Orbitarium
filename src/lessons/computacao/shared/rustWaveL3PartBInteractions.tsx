@@ -337,9 +337,9 @@ const modelConfigs: Record<RustL3PartBTopicId, ModelConfig> = {
         label: "layout",
         title: "Representação previsível para tipos expostos",
         summary:
-          "Ao compartilhar structs ou enums, layout previsível passa a ser parte explícita do contrato.",
+          "Ao compartilhar structs, unions ou enums escolhidos com cuidado, layout previsível passa a ser parte explícita do contrato.",
         bullets: [
-          "`repr(C)` ajuda a reduzir ambiguidade.",
+          "`repr(C)` ajuda a reduzir ambiguidade de layout, mas não torna qualquer tipo automaticamente apropriado para FFI.",
           "Nem todo tipo Rust é apropriado para atravessar a fronteira cruamente.",
           "Expor menos layout costuma simplificar o desenho.",
         ],
@@ -419,6 +419,7 @@ const modelConfigs: Record<RustL3PartBTopicId, ModelConfig> = {
         bullets: [
           "Não existe 'uma build neutra'.",
           "Medição de custo depende do perfil escolhido.",
+          "`cargo bench` existe no stable, mas o `#[bench]` nativo continua nightly-only.",
           "Perfis customizados podem equilibrar iteração e realismo.",
         ],
         metrics: [

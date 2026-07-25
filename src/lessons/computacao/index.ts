@@ -93,6 +93,11 @@ import { capstoneFlamegraphParaPatchLesson } from "./capstone-flamegraph-para-pa
 import { capstoneHttpGoP99Lesson } from "./capstone-http-go-p99";
 import { capstoneParserRustOwnershipLesson } from "./capstone-parser-rust-ownership";
 import { capstoneGoVsRustCriterioLesson } from "./capstone-go-vs-rust-criterio";
+import { rooflineModeloDePerformanceLesson } from "./roofline-modelo-de-performance";
+import { consistenciaDeMemoriaEOrderingLesson } from "./consistencia-de-memoria-e-ordering";
+import { teoriaDeSchedulingLesson } from "./teoria-de-scheduling";
+import { ssaEOtimizacoesDeCompiladorLesson } from "./ssa-e-otimizacoes-de-compilador";
+import { sistemasDeTiposESoundnessLesson } from "./sistemas-de-tipos-e-soundness";
 
 export const computacaoLessonModules = [
   bitsBytesRepresentacaoDadosLesson,
@@ -189,5 +194,10 @@ export const computacaoLessonModules = [
   capstoneHttpGoP99Lesson,
   capstoneParserRustOwnershipLesson,
   capstoneGoVsRustCriterioLesson,
+  rooflineModeloDePerformanceLesson,
+  consistenciaDeMemoriaEOrderingLesson,
+  teoriaDeSchedulingLesson,
+  ssaEOtimizacoesDeCompiladorLesson,
+  sistemasDeTiposESoundnessLesson,
 ] satisfies LessonModule[];
 

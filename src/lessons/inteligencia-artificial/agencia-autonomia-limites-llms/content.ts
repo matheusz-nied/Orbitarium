@@ -34,7 +34,7 @@ export const agenciaAutonomiaLimitesLlmsContent: LessonContent = {
     {
       "title": "Ethics of Artificial Intelligence and Robotics",
       "source": "Stanford Encyclopedia of Philosophy",
-      "url": "https://plato.stanford.edu/ENTRiES/ethics-ai/",
+      "url": "https://plato.stanford.edu/entries/ethics-ai/",
       "note": "Panorama filosófico sobre agência, responsabilidade e governança em IA."
     },
     {

@@ -184,6 +184,7 @@ export const timeSeriesForecastingMlContent: LessonContent = {
       "lead": "Modelos de ML tabular para forecasting costumam converter a série em features como lags, médias móveis, diferenças, calendários e covariáveis externas. Essa etapa é poderosa, mas também é onde muito leakage entra disfarçado.",
       "paragraphs": [
         "A regra de ouro é simples: cada feature deve poder ser construída usando apenas o passado disponível até o instante da previsão. Qualquer atalho para “dar uma olhada mais à frente” invalida o experimento.",
+        "Isso vale também para variáveis exógenas. Promoções, clima, feriados móveis ou preços futuros só podem entrar como feature se estiverem de fato conhecidos, contratados ou previstos no momento em que a decisão será tomada.",
         "Quando essa disciplina é respeitada, métodos tabulares podem competir muito bem com abordagens mais sofisticadas em vários contextos práticos."
       ],
       "visual": "time-series-forecasting-ml-pipeline-forecast",

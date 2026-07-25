@@ -165,7 +165,7 @@ export const quantizacaoDeModelosContent: LessonContent = {
       "title": "PTQ é o caminho mais rápido para testar o limite do hardware",
       "lead": "Calibração boa costuma separar um ganho útil de uma regressão silenciosa.",
       "paragraphs": [
-        "No PTQ, você parte de um modelo já treinado e estima faixas a partir de dados representativos. Essa etapa de calibração define escalas e ajuda a decidir onde a quantização é segura ou arriscada.",
+        "No PTQ, você parte de um modelo já treinado e estima faixas a partir de dados representativos, normalmente sem reabrir um ciclo completo de treinamento. Essa etapa de calibração define escalas e ajuda a decidir onde a quantização é segura ou arriscada.",
         "Se o conjunto de calibração não se parece com a produção, o modelo pode parecer estável em laboratório e quebrar sob cargas reais. Em LLMs, isso aparece em prompts longos, domínios raros e padrões de ativação com outliers.",
         "PTQ brilha porque é rápido e barato. Mas rapidez não compensa calibração preguiçosa."
       ],
@@ -352,7 +352,7 @@ export const quantizacaoDeModelosContent: LessonContent = {
         },
         {
           "id": "b",
-          "label": "Quantizar depois do treino, usando calibração e eventualmente pequeno ajuste."
+          "label": "Quantizar depois do treino, tipicamente com calibração e sem retreinamento completo do modelo."
         },
         {
           "id": "c",
@@ -360,7 +360,7 @@ export const quantizacaoDeModelosContent: LessonContent = {
         }
       ],
       "correctOptionId": "b",
-      "feedback": "PTQ parte de um modelo já treinado e aplica quantização como etapa posterior."
+      "feedback": "PTQ parte de um modelo já treinado e aplica quantização como etapa posterior; se for necessário adaptar o modelo ao ruído numérico por treino explícito, já entramos em regimes mais próximos de QAT ou fine-tuning específico."
     },
     {
       "id": "q3",
@@ -486,7 +486,7 @@ export const quantizacaoDeModelosContent: LessonContent = {
   "glossary": [
     {
       "term": "PTQ",
-      "definition": "Post-training quantization: quantizar um modelo já treinado, normalmente com pequena ou nenhuma etapa de ajuste adicional."
+      "definition": "Post-training quantization: quantizar um modelo já treinado, em geral com calibração e sem um novo ciclo completo de treinamento."
     },
     {
       "term": "QAT",

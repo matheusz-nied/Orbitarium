@@ -52,7 +52,7 @@ export const iaESociedadeContent: LessonContent = {
     {
       "title": "Copyright and Artificial Intelligence, Part 2: Copyrightability Report",
       "source": "U.S. Copyright Office",
-      "url": "https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-2-Copyrightability-Report.pdf?t=",
+      "url": "https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-2-Copyrightability-Report.pdf",
       "note": "Discussão ampla sobre autoria humana, criatividade e obras assistidas por IA."
     },
     {
@@ -64,7 +64,7 @@ export const iaESociedadeContent: LessonContent = {
     {
       "title": "Ethics of Artificial Intelligence and Robotics",
       "source": "Stanford Encyclopedia of Philosophy",
-      "url": "https://plato.stanford.edu/ENTRiES/ethics-ai/",
+      "url": "https://plato.stanford.edu/entries/ethics-ai/",
       "note": "Panorama filosófico sobre responsabilidade distribuída, poder e governança."
     }
   ],
@@ -135,9 +135,9 @@ export const iaESociedadeContent: LessonContent = {
       "id": "autoria",
       "eyebrow": "Criação e direito",
       "title": "Autoria com IA generativa não se reduz a “quem digitou o prompt”",
-      "lead": "Ferramentas generativas embaralham criação, assistência, curadoria e pós-edição. Um prompt pode iniciar um processo criativo importante, mas instituições jurídicas continuam perguntando onde está a contribuição humana substantiva que justifica autoria e proteção.",
+      "lead": "Ferramentas generativas embaralham criação, assistência, curadoria e pós-edição. Um prompt pode iniciar um processo criativo importante, mas instituições jurídicas continuam perguntando onde está a contribuição humana substantiva que justifica autoria e proteção — e a resposta varia conforme a jurisdição e o tipo de direito em disputa.",
       "paragraphs": [
-        "Isso explica por que muitos debates sobre copyright distinguem conteúdo puramente gerado por máquina de obras em que humanos selecionam, organizam, editam e transformam material gerado. A questão não é só técnica, mas normativa: o que queremos reconhecer como autoria humana relevante?",
+        "Isso explica por que muitos debates sobre copyright distinguem conteúdo puramente gerado por máquina de obras em que humanos selecionam, organizam, editam e transformam material gerado. A questão não é só técnica, mas normativa: o que queremos reconhecer como autoria humana relevante, e sob qual padrão jurídico específico?",
         "Também aqui existe assimetria de poder. Grandes plataformas podem capturar valor de obras geradas ou assistidas por IA enquanto criadores individuais enfrentam opacidade sobre treinamento, licenciamento e rastreio de uso."
       ],
       "interactive": "ia-e-sociedade-conflitos",

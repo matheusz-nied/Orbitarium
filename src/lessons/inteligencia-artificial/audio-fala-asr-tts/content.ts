@@ -135,9 +135,9 @@ export const audioFalaAsrTtsContent: LessonContent = {
       { type: "insight", title: "Áudio cru também tem estrutura aprendível", body: "Mesmo sem legenda textual, o sinal de fala carrega regularidades temporais que o modelo pode explorar no pré-treino." },
     ]),
     s("whisper", "Robustez", "Whisper popularizou ASR robusto em escala ampla", "Escala de dados fracos e diversidade linguística ajudaram a tornar o reconhecimento mais resistente em cenário real.", "comparison", "chunk-latency-lab", [
-      "Whisper ganhou atenção porque mostrou robustez impressionante a sotaques, ruído, diferentes condições de gravação e múltiplos idiomas. A estratégia central foi usar supervisão fraca em larga escala e um encoder-decoder treinado para transcrever ou traduzir fala.",
-      "O resultado prático foi importante: ASR deixou de ser uma tecnologia que só funcionava bem em áudio limpo e passou a operar melhor em gravações imperfeitas, vídeos, entrevistas e contextos reais mais variados.",
-      "Isso não significa perfeição. Nomes próprios raros, mistura de línguas, sobreposição de vozes e áudio muito degradado ainda podem falhar. Mas o salto de robustez foi marcante.",
+      "Whisper ganhou atenção porque mostrou robustez relativamente forte a sotaques, ruído, diferentes condições de gravação e múltiplos idiomas quando comparado a muitas gerações anteriores de ASR aberto. A estratégia central foi usar supervisão fraca em larga escala e um encoder-decoder treinado para transcrever ou traduzir fala.",
+      "O resultado prático foi importante: ASR deixou de ser uma tecnologia que só funcionava bem em áudio limpo e passou a operar melhor em gravações imperfeitas, vídeos, entrevistas e contextos reais mais variados. Ainda assim, essa robustez não é uniforme entre idiomas, domínios e estilos de fala.",
+      "Isso não significa perfeição. Nomes próprios raros, mistura de línguas, sobreposição de vozes, fala muito espontânea e áudio degradado continuam produzindo erros relevantes. O salto de robustez foi marcante, mas não elimina a necessidade de avaliação por domínio e por idioma.",
     ], [
       { type: "example", title: "Robustez contextual", body: "Um modelo robusto consegue manter boa transcrição mesmo quando o áudio traz ruído de fundo ou captação imperfeita." },
     ]),
@@ -163,11 +163,12 @@ export const audioFalaAsrTtsContent: LessonContent = {
       { type: "insight", title: "Boa voz não é só pronúncia", body: "Naturalidade emerge de prosódia, timbre, continuidade e ausência de artefatos, não apenas de palavras corretas." },
     ]),
     s("avaliacao", "Métricas", "Transcrição correta e voz natural pedem critérios diferentes", "ASR e TTS não podem ser julgados pela mesma régua.", "checklist", undefined, [
-      "ASR costuma ser avaliado por erro de palavra, erro de caractere e robustez sob diferentes condições acústicas. TTS, por outro lado, depende muito de avaliação perceptual: naturalidade, inteligibilidade, timbre, prosódia e fluidez.",
+      "ASR costuma ser avaliado por erro de palavra, erro de caractere e robustez sob diferentes condições acústicas. Mas WER e CER dependem de normalização, tokenização, idioma, convenções de pontuação e unidade de escrita; por isso, comparar números crus entre benchmarks ou línguas diferentes exige cuidado.",
+      "TTS, por outro lado, depende muito de avaliação perceptual: naturalidade, inteligibilidade, timbre, prosódia e fluidez. Protocolos subjetivos como MOS ajudam, mas também variam com instrução ao avaliador, amostragem e contexto de uso.",
       "Métricas automáticas ajudam, mas não substituem julgamento humano em síntese. Uma voz pode ter poucas falhas técnicas e ainda soar estranha ou sem emoção. Em reconhecimento, uma pequena troca pode ser tolerável em captioning, mas crítica em comando por voz.",
       "O uso final define a métrica relevante. Fala é uma área em que 'acerto' sempre depende do contexto de aplicação.",
     ], [
-      { type: "mistake", title: "Uma métrica única não resume tudo", body: "Baixo erro de palavra não garante boa latência; alta naturalidade não garante alinhamento perfeito ao texto." },
+      { type: "mistake", title: "Uma métrica única não resume tudo", body: "Baixo erro de palavra não garante boa latência nem comparabilidade entre idiomas; alta naturalidade não garante alinhamento perfeito ao texto." },
     ]),
     s("limites", "Limitações", "Ruído, sotaque, code-switching e sobreposição continuam difíceis", "Apesar do avanço, fala real ainda desafia modelos em vários níveis.", undefined, undefined, [
       "Sinais ruidosos, múltiplos falantes, vozes sobrepostas e code-switching entre idiomas continuam complicando ASR. Já no TTS, emoção, sotaque específico, controle fino de prosódia e estabilidade de longas leituras seguem sendo temas ativos.",

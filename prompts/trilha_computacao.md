@@ -255,5 +255,5 @@ Recomendação: **implementar Ondas 1 → 2 → 3**; só então avaliar Onda 4.
 - [x] Onda 2 implementada
 - [x] Onda 3 implementada
 - [x] Onda 4 (opcional) implementada
-- [ ] Validação acadêmica + anti-alucinação
-- [ ] Registro completo no catálogo + build verde
+- [x] Validação acadêmica + anti-alucinação
+- [x] Registro completo no catálogo + build verde

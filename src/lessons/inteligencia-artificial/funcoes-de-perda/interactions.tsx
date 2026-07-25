@@ -10,13 +10,10 @@ export const interactions = {
 } satisfies LessonModule["interactions"];
 
 function MseVsCrossEntropyProbabilidadesInteraction() {
-  const [probability, setProbability] = useState(0.65);
-  const [target, setTarget] = useState<0 | 1>(1);
+  const [correctProbability, setCorrectProbability] = useState(0.65);
 
-  const mse = Math.pow(target - probability, 2);
-  const ce = target === 1
-    ? -Math.log(Math.max(probability, 1e-6))
-    : -Math.log(Math.max(1 - probability, 1e-6));
+  const mse = Math.pow(1 - correctProbability, 2);
+  const ce = -Math.log(Math.max(correctProbability, 1e-6));
 
   return (
     <InteractiveShell
@@ -28,24 +25,12 @@ function MseVsCrossEntropyProbabilidadesInteraction() {
     >
       <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="grid gap-4">
-          <div className="flex gap-2">
-            {[1, 0].map((value) => (
-              <button
-                key={value}
-                type="button"
-                onClick={() => setTarget(value as 0 | 1)}
-                className={`rounded-2xl px-4 py-2 text-sm font-black transition ${target === value ? "bg-rose-600 text-white" : "bg-white text-slate-700"}`}
-              >
-                alvo = {value}
-              </button>
-            ))}
-          </div>
-          <RangeControl label="probabilidade prevista" value={probability} min={0.01} max={0.99} step={0.01} onChange={setProbability} />
+          <RangeControl label="probabilidade da classe correta" value={correctProbability} min={0.01} max={0.99} step={0.01} onChange={setCorrectProbability} />
           <div className="grid gap-3 sm:grid-cols-2">
             <MetricCard label="MSE" value={mse.toFixed(3)} />
             <MetricCard label="cross-entropy" value={ce.toFixed(3)} />
-            <MetricCard label="alvo" value={String(target)} />
-            <MetricCard label="previsão" value={probability.toFixed(2)} />
+            <MetricCard label="p correta" value={correctProbability.toFixed(2)} />
+            <MetricCard label="p incorreta total" value={(1 - correctProbability).toFixed(2)} />
           </div>
         </div>
         <div className="rounded-3xl bg-white p-5">
@@ -54,7 +39,7 @@ function MseVsCrossEntropyProbabilidadesInteraction() {
             <LossBar label="Cross-Entropy" value={ce} colorClass="bg-rose-500" scale={1.4} />
           </div>
           <p className="mt-4 text-sm leading-6 text-slate-600">
-            Quando o alvo é {target} e a previsão vai na direção oposta com muita confiança, a cross-entropy cresce mais agressivamente para sinalizar urgência de correção.
+            Quando a classe correta recebe pouca probabilidade, a cross-entropy cresce mais agressivamente para sinalizar urgência de correção.
           </p>
         </div>
       </div>
@@ -63,18 +48,16 @@ function MseVsCrossEntropyProbabilidadesInteraction() {
 }
 
 function ClassificacaoLossLandscapeInteraction() {
-  const [probability, setProbability] = useState(0.25);
-  const [target, setTarget] = useState<0 | 1>(1);
+  const [correctProbability, setCorrectProbability] = useState(0.25);
 
   const points = useMemo(() => {
     return Array.from({ length: 50 }, (_, index) => {
       const p = 0.01 + index * 0.02;
-      const loss = target === 1 ? -Math.log(p) : -Math.log(1 - p);
-      return { p, loss };
+      return { p, loss: -Math.log(p) };
     });
-  }, [target]);
+  }, []);
 
-  const selectedLoss = target === 1 ? -Math.log(probability) : -Math.log(1 - probability);
+  const selectedLoss = -Math.log(correctProbability);
   const path = points
     .map((point, index) => `${index === 0 ? "M" : "L"} ${80 + point.p * 460} ${270 - Math.min(point.loss, 4) * 45}`)
     .join(" ");
@@ -89,19 +72,7 @@ function ClassificacaoLossLandscapeInteraction() {
     >
       <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="grid gap-4">
-          <div className="flex gap-2">
-            {[1, 0].map((value) => (
-              <button
-                key={value}
-                type="button"
-                onClick={() => setTarget(value as 0 | 1)}
-                className={`rounded-2xl px-4 py-2 text-sm font-black transition ${target === value ? "bg-amber-600 text-white" : "bg-white text-slate-700"}`}
-              >
-                classe correta = {value}
-              </button>
-            ))}
-          </div>
-          <RangeControl label="probabilidade escolhida" value={probability} min={0.01} max={0.99} step={0.01} onChange={setProbability} />
+          <RangeControl label="probabilidade da classe correta" value={correctProbability} min={0.01} max={0.99} step={0.01} onChange={setCorrectProbability} />
           <MetricCard label="perda no ponto atual" value={selectedLoss.toFixed(3)} />
           <div className="rounded-3xl border border-amber-200 bg-white p-5 text-sm leading-6 text-slate-600">
             Quanto mais perto de zero fica a probabilidade da classe correta, mais íngreme a parede da cross-entropy. Isso força correção forte em erros confiantes.
@@ -113,7 +84,7 @@ function ClassificacaoLossLandscapeInteraction() {
             <line x1="80" y1="270" x2="560" y2="270" stroke="#cbd5e1" strokeWidth="2" />
             <line x1="80" y1="60" x2="80" y2="270" stroke="#cbd5e1" strokeWidth="2" />
             <path d={path} stroke="#d97706" strokeWidth="5" fill="none" />
-            <circle cx={80 + probability * 460} cy={270 - Math.min(selectedLoss, 4) * 45} r="8" fill="#be123c" />
+            <circle cx={80 + correctProbability * 460} cy={270 - Math.min(selectedLoss, 4) * 45} r="8" fill="#be123c" />
           </svg>
         </div>
       </div>

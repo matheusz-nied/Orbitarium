@@ -169,8 +169,8 @@ export const inicializacaoBatchNormEstabilidadeContent: LessonContent = {
           type: "formula",
           title: "Escalas típicas",
           body:
-            "Em forma simplificada, Xavier usa algo proporcional a 1/sqrt(fan) e He usa algo proporcional a sqrt(2/fan_in).",
-          formula: "Xavier ~ 1 / sqrt(fan) | He ~ sqrt(2 / fan_in)",
+            "Em forma simplificada, Xavier/Glorot mira uma variância ligada a 2/(fan_in + fan_out), enquanto He usa algo como 2/fan_in para compensar melhor o comportamento da ReLU.",
+          formula: "Var(Xavier/Glorot) ≈ 2 / (fan_in + fan_out) | Var(He) ≈ 2 / fan_in",
         },
         {
           type: "example",

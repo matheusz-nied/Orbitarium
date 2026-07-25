@@ -181,7 +181,7 @@ export const otimizadoresSgdMomentumAdamContent: LessonContent = {
       visual: "adam-momentos-visual",
       interactive: "momentos-do-adam",
       paragraphs: [
-        "O primeiro momento funciona como uma versão suavizada do gradiente, análoga a uma velocidade média. O segundo momento monitora a escala típica das flutuações quadráticas do gradiente. Com esses dois ingredientes, Adam evita reagir demais a gradientes momentaneamente grandes em coordenadas já agitadas e permite passos relativamente maiores onde os gradientes costumam ser pequenos.",
+        "O primeiro momento funciona como uma versão suavizada do gradiente, análoga a uma velocidade média. O segundo momento monitora a escala típica das flutuações quadráticas do gradiente. Na formulação clássica, Adam ainda aplica correção de viés nesses dois acumuladores nos primeiros passos, compensando o fato de ambos começarem em zero.",
         "Essa adaptação por parâmetro tornou Adam extremamente popular, principalmente em problemas heterogêneos, esparsos ou com escalas internas bastante distintas. Na prática, ele costuma ser um bom ponto de partida para muitos experimentos, embora não seja sempre a escolha final ideal.",
         "É importante, porém, não tratá-lo como magia automática. Adam também depende de hiperparâmetros, escala do problema e do tipo de generalização desejada. Seu valor está em oferecer uma heurística robusta e amplamente útil, não em abolir o julgamento experimental.",
       ],
@@ -377,7 +377,7 @@ export const otimizadoresSgdMomentumAdamContent: LessonContent = {
     { term: "SGD", definition: "Descida do gradiente estocástica com base em mini-batches." },
     { term: "Mini-batch", definition: "Subconjunto de exemplos usado para estimar o gradiente em uma iteração." },
     { term: "Momentum", definition: "Técnica que acumula velocidade para suavizar e acelerar a otimização." },
-    { term: "Adam", definition: "Otimizador adaptativo baseado em médias móveis do gradiente e do gradiente ao quadrado." },
+    { term: "Adam", definition: "Otimizador adaptativo baseado em médias móveis do gradiente e do gradiente ao quadrado, com correção de viés no início do treino." },
     { term: "Primeiro momento", definition: "Média móvel do gradiente usada como direção suavizada de atualização." },
     { term: "Segundo momento", definition: "Média móvel do quadrado do gradiente usada para adaptar a escala do passo." },
     { term: "Learning rate", definition: "Escala básica que controla o tamanho do update." },

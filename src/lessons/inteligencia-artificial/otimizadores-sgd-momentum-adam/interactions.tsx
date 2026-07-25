@@ -111,10 +111,14 @@ function MomentosDoAdamInteraction() {
   const [prevV, setPrevV] = useState(0.9);
   const [beta1, setBeta1] = useState(0.9);
   const [beta2, setBeta2] = useState(0.99);
+  const [step, setStep] = useState(3);
 
   const m = beta1 * prevM + (1 - beta1) * gradient;
   const v = beta2 * prevV + (1 - beta2) * gradient * gradient;
-  const adapted = m / (Math.sqrt(v) + 1e-8);
+  const mHat = m / (1 - Math.pow(beta1, step));
+  const vHat = v / (1 - Math.pow(beta2, step));
+  const adaptedRaw = m / (Math.sqrt(v) + 1e-8);
+  const adaptedCorrected = mHat / (Math.sqrt(vHat) + 1e-8);
 
   return (
     <InteractiveShell
@@ -122,7 +126,7 @@ function MomentosDoAdamInteraction() {
       title="Veja os momentos de primeira e segunda ordem"
       tone="emerald"
       icon={<Activity size={18} aria-hidden="true" />}
-      description="Ajuste um gradiente instantâneo e os estados anteriores para entender como Adam suaviza direção e adapta escala."
+      description="Ajuste gradiente, estados anteriores e passo temporal para entender como Adam suaviza direção, adapta escala e aplica correção de viés no início do treino."
     >
       <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="grid gap-4">
@@ -131,16 +135,19 @@ function MomentosDoAdamInteraction() {
           <RangeControl label="v anterior" value={prevV} min={0} max={6} step={0.1} onChange={setPrevV} />
           <RangeControl label="beta1" value={beta1} min={0.5} max={0.99} step={0.01} onChange={setBeta1} />
           <RangeControl label="beta2" value={beta2} min={0.8} max={0.999} step={0.001} onChange={setBeta2} />
+          <RangeControl label="passo t" value={step} min={1} max={20} step={1} onChange={setStep} format={(value) => value.toFixed(0)} />
         </div>
         <div className="grid gap-4">
           <div className="grid gap-3 sm:grid-cols-2">
             <MetricCard label="m novo" value={m.toFixed(3)} />
             <MetricCard label="v novo" value={v.toFixed(3)} />
-            <MetricCard label="√v" value={Math.sqrt(v).toFixed(3)} />
-            <MetricCard label="m / √v" value={adapted.toFixed(3)} />
+            <MetricCard label="m̂ corrigido" value={mHat.toFixed(3)} />
+            <MetricCard label="v̂ corrigido" value={vHat.toFixed(3)} />
+            <MetricCard label="m / √v" value={adaptedRaw.toFixed(3)} />
+            <MetricCard label="m̂ / √v̂" value={adaptedCorrected.toFixed(3)} />
           </div>
           <div className="rounded-3xl border border-emerald-200 bg-white p-5 text-sm leading-6 text-slate-600">
-            Se <strong>v</strong> cresce, a escala do update encolhe naquela coordenada. Se <strong>m</strong> mantém sinal consistente, a direção suavizada persiste mesmo com ruído no gradiente instantâneo.
+            Se <strong>v</strong> cresce, a escala do update encolhe naquela coordenada. No Adam completo, <strong>m̂</strong> e <strong>v̂</strong> corrigem o viés introduzido pelo início em zero, o que importa principalmente nos primeiros passos do treino.
           </div>
         </div>
       </div>

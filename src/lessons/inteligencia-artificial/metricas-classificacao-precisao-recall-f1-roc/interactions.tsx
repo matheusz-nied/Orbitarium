@@ -87,8 +87,8 @@ function ThresholdTradeoffLab() {
         <div className="grid gap-4">
           <RangeField
             label="Threshold"
-            min={0.05}
-            max={0.95}
+            min={0}
+            max={1}
             step={0.01}
             value={threshold}
             onChange={setThreshold}
@@ -123,7 +123,7 @@ function RocSketchLab() {
   const [threshold, setThreshold] = useState(0.5);
 
   const rocPoints = useMemo(() => {
-    const thresholds = Array.from({ length: 19 }, (_, index) => 1 - index * 0.05);
+    const thresholds = Array.from({ length: 21 }, (_, index) => 1 - index * 0.05);
     return thresholds.map((cut) => {
       const tp = positiveScores.filter((score) => score >= cut).length;
       const fp = negativeScores.filter((score) => score >= cut).length;
@@ -158,8 +158,8 @@ function RocSketchLab() {
         <div className="grid gap-4">
           <RangeField
             label="Threshold observado"
-            min={0.05}
-            max={0.95}
+            min={0}
+            max={1}
             step={0.01}
             value={threshold}
             onChange={setThreshold}
@@ -307,10 +307,10 @@ function ThresholdSvg({
       </text>
       <line x1={pad} y1={height - 64} x2={width - pad} y2={height - 64} stroke="#94a3b8" strokeWidth="2" />
       <line
-        x1={startX + threshold * chartWidth}
-        y1={42}
-        x2={startX + threshold * chartWidth}
-        y2={height - 64}
+        x1={pad}
+        y1={mapY(threshold)}
+        x2={width - pad}
+        y2={mapY(threshold)}
         stroke="#0f172a"
         strokeDasharray="7 5"
         strokeWidth="3"
@@ -339,6 +339,9 @@ function ThresholdSvg({
       ))}
       <text x={width / 2} y={height - 28} textAnchor="middle" fill="#065f46" fontSize="13" fontWeight="800">
         threshold {threshold.toFixed(2)} • TP {tp} • FP {fp} • precisão {(precision * 100).toFixed(0)}% • recall {(recall * 100).toFixed(0)}%
+      </text>
+      <text x={width - pad} y={mapY(threshold) - 8} textAnchor="end" fill="#0f172a" fontSize="12" fontWeight="800">
+        corte no score
       </text>
     </svg>
   );

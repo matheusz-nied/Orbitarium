@@ -85,6 +85,18 @@ export const capstoneGoVsRustCriterioContent: LessonContent = {
       note: "Aprofunda implicações de aliasing, validade e contratos de posse em contextos exigentes.",
     },
     {
+      title: "The Rust Performance Book",
+      source: "Rust performance community",
+      url: "https://nnethercote.github.io/perf-book/",
+      note: "Guia amplamente usado para ligar benchmarking, profiling e ciclo de revalidacao no ecossistema Rust.",
+    },
+    {
+      title: "Criterion.rs Documentation",
+      source: "Criterion.rs",
+      url: "https://criterion-rs.github.io/book/",
+      note: "Referencia central para benchmarking estatistico em Rust, especialmente util ao comparar implementacoes equivalentes.",
+    },
+    {
       title: "Optimizing Build Performance",
       source: "The Cargo Book",
       url: "https://doc.rust-lang.org/cargo/guide/build-performance.html",
@@ -179,7 +191,7 @@ export const capstoneGoVsRustCriterioContent: LessonContent = {
       "pipeline-diagram",
       "pipeline-lab",
       [
-        "Comparar a mesma tarefa não significa usar as mesmas ferramentas, e sim fazer perguntas equivalentes. No lado Go, diagnostics, pprof e perfis de runtime ajudam a enxergar CPU, heap, block, mutex e efeitos do GC. No lado Rust, perfis, traces e inspeção de alocação ajudam a localizar churn, cópias e custo de layout.",
+        "Comparar a mesma tarefa não significa usar as mesmas ferramentas, e sim fazer perguntas equivalentes. No lado Go, diagnostics, pprof e perfis de runtime ajudam a enxergar CPU, heap, block, mutex e efeitos do GC. No lado Rust, microbenchmarks com ferramentas como Criterion.rs ajudam a medir trechos comparáveis, enquanto perfis, flamegraphs e inspeção de alocação ajudam a localizar churn, cópias e custo de layout.",
         "O perigo é comparar uma implementação profundamente observada com outra quase opaca. Se um time olha para heap, block e traces em Go, mas no Rust se contenta com tempos finais de benchmark, ou vice-versa, a discussão perde seriedade.",
         "Instrumentar de forma comparável também significa medir o sistema sob carga parecida, com o mesmo contrato de entrada, mesmas hipóteses de erro e mesmas restrições operacionais. A linguagem só começa a entrar no debate depois disso.",
       ],
@@ -206,7 +218,7 @@ export const capstoneGoVsRustCriterioContent: LessonContent = {
       [
         "Em um serviço de ingestão, a média muitas vezes conta só metade da história. O usuário ou o sistema seguinte sofre mais com a cauda: pausas ocasionais, bursts, retenção momentânea, disputa por recurso e trabalho acumulado em pontos específicos da pipeline.",
         "Go oferece um runtime maduro, scheduler forte e ferramentas muito práticas para examinar o processo vivo. Isso é excelente para entender o sistema em produção. Ao mesmo tempo, o modelo com GC pode introduzir comportamentos que precisam caber no orçamento de latência do workload.",
-        "Rust, por outro lado, elimina o GC do caminho central e pode favorecer maior previsibilidade em componentes sensíveis, mas essa previsibilidade não vem de graça: ela cobra mais desenho de ownership, mais cuidado com alocação e maior exigência de modelagem na implementação.",
+        "Rust, por outro lado, normalmente não depende de um GC de propósito geral no caminho de gerenciamento de memória e pode favorecer maior previsibilidade em componentes sensíveis, mas essa previsibilidade não vem de graça: ela cobra mais desenho de ownership, mais cuidado com alocação e maior exigência de modelagem na implementação.",
       ],
       [
         {
@@ -459,7 +471,7 @@ export const capstoneGoVsRustCriterioContent: LessonContent = {
       newton:
         "Go: forte em serviço operável e diagnóstico rápido, mas a leitura do GC e do runtime precisa caber no SLA do workload.",
       leibniz:
-        "Rust: tende a favorecer mais previsibilidade no caminho crítico sem GC central, ao custo de desenho mais exigente.",
+        "Rust: tende a favorecer mais previsibilidade no caminho crítico sem depender de GC de propósito geral, ao custo de desenho mais exigente.",
     },
     {
       topic: "Memória e alocação",

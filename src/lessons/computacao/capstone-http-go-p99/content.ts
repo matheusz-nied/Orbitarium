@@ -203,7 +203,7 @@ export const capstoneHttpGoP99Content: LessonContent = {
         block(
           "definition",
           "p99",
-          "Percentil que marca o valor abaixo do qual ficam a maior parte das observacoes, deixando visivel a fatia mais lenta da distribuicao.",
+          "Percentil que marca o valor abaixo do qual ficam 99% das observacoes, deixando explicita a cauda mais lenta da distribuicao.",
         ),
         block(
           "mistake",
@@ -480,7 +480,7 @@ export const capstoneHttpGoP99Content: LessonContent = {
   ],
   glossary: [
     g("p50", "Mediana da distribuicao de latencia, usada como retrato do caso tipico."),
-    g("p99", "Percentil alto usado para enxergar comportamento de cauda em requests mais lentos."),
+    g("p99", "Valor abaixo do qual ficam 99% das observacoes; os 1% restantes formam a cauda mais lenta."),
     g("Cauda de latencia", "Faixa mais lenta da distribuicao, onde variabilidade e degradacoes ficam mais evidentes."),
     g("SLO", "Objetivo de nivel de servico que define qualidade esperada para uma metrica relevante."),
     g("Bound dominante", "Recurso ou mecanismo que mais limita o avancar do request no cenario analisado."),

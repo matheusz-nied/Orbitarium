@@ -148,7 +148,7 @@ Só abrir depois de A+B (e idealmente C).
 - [x] `capstone-http-go-p99`
 - [x] `capstone-parser-rust-ownership`
 - [x] `capstone-go-vs-rust-criterio`
-- [ ] Validação A + registro no catálogo
+- [x] Validação A + registro no catálogo
 
 ### Sprint 2 — Teoria low-level
 - [ ] `roofline-modelo-de-performance`

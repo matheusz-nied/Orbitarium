@@ -92,9 +92,9 @@ export const ferramentasFunctionCallingGroundingContent: LessonContent = {
         "Descrições claras e tipos bem definidos ajudam o modelo a montar argumentos mais corretos.",
     },
     {
-      title: "Grounding melhora factualidade",
+      title: "Grounding pode melhorar factualidade",
       body:
-        "Ancorar a resposta em documentos ou sistemas externos reduz dependência de memória paramétrica desatualizada.",
+        "Ancorar a resposta em documentos ou sistemas externos pode reduzir dependência de memória paramétrica desatualizada, desde que a evidência recuperada seja relevante e confiável.",
     },
   ],
   sections: [

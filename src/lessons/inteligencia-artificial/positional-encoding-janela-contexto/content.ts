@@ -189,8 +189,8 @@ export const positionalEncodingJanelaContextoContent: LessonContent = {
         "Esses métodos modernos não são só detalhes de implementação; eles mudam o tipo de noção espacial que a atenção recebe.",
       interactive: "length-scenarios",
       paragraphs: [
-        "RoPE aplica rotações dependentes da posição sobre queries e keys. A consequência conceitual importante é que a interação entre posições passa a carregar naturalmente informação relativa de distância e orientação. Por isso ele se tornou tão popular em LLMs recentes.",
-        "ALiBi segue outra rota: em vez de rotacionar vetores, adiciona vieses lineares por distância nos scores de atenção, favorecendo certos padrões de proximidade. O apelo está em uma extrapolação de comprimento simples e operacionalmente elegante.",
+        "RoPE aplica rotações dependentes da posição sobre queries e keys. A consequência conceitual importante é que o produto interno entre elas passa a refletir melhor relações relativas de distância e orientação. Por isso ele se tornou muito popular em LLMs recentes, embora extensões de contexto muito acima do treino frequentemente precisem de interpolação, rescaling ou outras adaptações para manter qualidade.",
+        "ALiBi segue outra rota: em vez de rotacionar vetores, adiciona vieses lineares dependentes da distância nos scores de atenção, com inclinações diferentes por cabeça e um viés forte de recência. O apelo está em permitir extrapolação de comprimento mais simples do que embeddings posicionais absolutos, embora o desempenho ainda possa degradar quando a sequência fica muito além do regime visto no treino.",
         "Não existe um campeão universal em todos os contextos. O ponto pedagógico é perceber que posicional encoding não é um adereço fixo da arquitetura: ele influencia de forma real como o modelo enxerga sequência e distância.",
       ],
       blocks: [

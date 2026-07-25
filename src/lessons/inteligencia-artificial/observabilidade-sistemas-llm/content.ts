@@ -79,7 +79,7 @@ export const observabilidadeSistemasLlmContent: LessonContent = {
   ],
   heroVisual: "hero",
   openingText:
-    "Sistemas com LLMs são difíceis de depurar porque parte do comportamento emerge de interação entre prompt, modelo, retrieval, ferramentas, dados do usuário e política de produto. Se algo piora, nem sempre a resposta está no último log do servidor. Observabilidade, nesse contexto, significa reconstruir o caminho da execução com granularidade suficiente para responder perguntas úteis: qual prompt entrou, que documentos foram recuperados, qual ferramenta foi chamada, por que o modelo escolheu esse caminho, onde a latência explodiu, em que dataset a regressão já aparecia e se o problema é de qualidade, custo ou segurança. Sem essa visibilidade, ajustes de produção viram adivinhação cara.",
+    "Sistemas com LLMs são difíceis de depurar porque parte do comportamento emerge de interação entre prompt, modelo, retrieval, ferramentas, dados do usuário e política de produto. Se algo piora, nem sempre a resposta está no último log do servidor. Observabilidade, nesse contexto, significa reconstruir o caminho da execução com granularidade suficiente para responder perguntas úteis: qual prompt entrou, que documentos foram recuperados, qual ferramenta foi chamada, quais sinais e observações antecederam esse caminho, onde a latência explodiu, em que dataset a regressão já aparecia e se o problema é de qualidade, custo ou segurança. Sem essa visibilidade, ajustes de produção viram adivinhação cara.",
   quickFacts: [
     {
       title: "Log nao basta",
@@ -129,7 +129,7 @@ export const observabilidadeSistemasLlmContent: LessonContent = {
       interactive: "trace-coverage-lab",
       paragraphs: [
         "Tracing divide uma execução em spans: chamada ao modelo, retrieval, reranking, uso de ferramenta, pós-processamento, filtros e envio da resposta. Cada span registra duração, entradas relevantes, outputs resumidos, erros e relações com outros spans.",
-        "Esse nível de detalhe permite responder perguntas como: a latência veio do modelo ou da busca? O documento ruim foi recuperado antes do erro factual? O tool call falhou por argumento inválido ou por indisponibilidade do sistema externo?",
+        "Esse nível de detalhe permite responder perguntas como: a latência veio do modelo ou da busca? O documento ruim foi recuperado antes do erro factual? O tool call falhou por argumento inválido ou por indisponibilidade do sistema externo? O que o trace oferece é causalidade operacional do fluxo, não acesso perfeito ao 'motivo interno' do modelo.",
         "Em aplicações com LLMs, tracing não é luxo. É o equivalente de abrir o encanamento e ver por onde a água passou.",
       ],
       blocks: [

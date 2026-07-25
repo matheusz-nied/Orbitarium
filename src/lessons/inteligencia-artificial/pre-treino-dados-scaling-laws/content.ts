@@ -171,11 +171,11 @@ export const preTreinoDadosScalingLawsContent: LessonContent = {
     {
       id: "kaplan",
       eyebrow: "Primeira leitura",
-      title: "Kaplan popularizou a ideia de que compute ótimo favoreceria modelos muito grandes",
+      title: "Kaplan popularizou a ideia de que, no regime estudado, compute ótimo favoreceria modelos relativamente maiores",
       lead:
-        "Uma interpretação influente do estudo original foi: dado um budget fixo, talvez valha mais aumentar bastante o modelo do que insistir em muito mais dados.",
+        "Uma interpretação influente do estudo original foi: dado um budget fixo e aquelas hipóteses experimentais, talvez valha mais aumentar bastante o modelo do que insistir em muito mais dados.",
       paragraphs: [
-        "No trabalho de Kaplan, uma conclusão marcante foi que modelos maiores pareciam ser mais sample-efficient, levando à ideia de que, sob compute fixo, seria vantajoso escalar parâmetros mais agressivamente do que tokens. Essa leitura influenciou fortemente a fase inicial da corrida por modelos gigantes.",
+        "No trabalho de Kaplan, uma conclusão marcante foi que modelos maiores pareciam ser mais sample-efficient, levando à ideia de que, sob compute fixo e naquele regime experimental, seria vantajoso escalar parâmetros mais agressivamente do que tokens. Essa leitura influenciou fortemente a fase inicial da corrida por modelos gigantes.",
         "Esse resultado foi extremamente importante historicamente, mas não encerrou a questão. Ele refletia um regime experimental específico e escolhas de análise que depois seriam reavaliadas por trabalhos posteriores.",
         "A boa leitura pedagógica aqui é: Kaplan mostrou que escala importa e formalizou isso com enorme impacto. O debate posterior refinou qual tipo de escala é mais eficiente em certos budgets.",
       ],
@@ -191,12 +191,12 @@ export const preTreinoDadosScalingLawsContent: LessonContent = {
     {
       id: "chinchilla",
       eyebrow: "Correção importante",
-      title: "Chinchilla argumentou que muitos modelos estavam grandes demais para a quantidade de tokens vistos",
+      title: "Chinchilla argumentou que, para o regime estudado, muitos modelos estavam grandes demais para a quantidade de tokens vistos",
       lead:
         "Hoffmann e colegas reformularam a questão e defenderam que vários modelos célebres eram, na prática, subtreinados.",
       interactive: "compute-allocation-lab",
       paragraphs: [
-        "O ponto central de Chinchilla foi que, para compute ótimo, não bastava perguntar quantos parâmetros usar. Era preciso perguntar quantos tokens aquele modelo deveria ver para aproveitar melhor o budget disponível. A conclusão prática foi que muitos modelos estavam grandes, mas tinham visto dado demais de menos para sua escala.",
+        "O ponto central de Chinchilla foi que, para compute ótimo no regime analisado, não bastava perguntar quantos parâmetros usar. Era preciso perguntar quantos tokens aquele modelo deveria ver para aproveitar melhor o budget disponível. A conclusão prática foi que muitos modelos estavam grandes, mas tinham visto menos tokens do que esse regime compute-optimal sugeriria para sua escala.",
         "Isso alterou a estratégia de design. Em vez de sempre crescer parâmetros o máximo possível, tornou-se mais atraente buscar um equilíbrio melhor entre tamanho do modelo e quantidade de dados de treino.",
         "O mérito de Chinchilla não foi 'desmentir' a importância de escala, e sim refinar a noção de escala eficiente. A discussão saiu de 'mais parâmetros' para 'melhor alocação entre parâmetros e tokens'.",
       ],
@@ -338,7 +338,7 @@ export const preTreinoDadosScalingLawsContent: LessonContent = {
     {
       title: "Chinchilla refinou o ótimo",
       body:
-        "A correção central foi mostrar que muitos modelos grandes estavam subtreinados e precisavam de mais dados para o mesmo budget.",
+        "A correção central foi mostrar que, naquele regime de análise, muitos modelos grandes estavam subtreinados e se beneficiariam de mais tokens ou de um modelo menor para o mesmo budget.",
     },
     {
       title: "Dados bons valem mais que tokens brutos",
@@ -399,13 +399,13 @@ export const preTreinoDadosScalingLawsContent: LessonContent = {
       id: "q5",
       prompt: "Qual foi a correção importante trazida por Chinchilla?",
       options: [
-        { id: "a", label: "Que muitos modelos estavam grandes demais para a quantidade de dados vista e precisavam de melhor equilíbrio entre parâmetros e tokens." },
+        { id: "a", label: "Que muitos modelos estavam grandes demais para a quantidade de dados vista naquele regime e precisavam de melhor equilíbrio entre parâmetros e tokens." },
         { id: "b", label: "Que mais dados nunca ajudam." },
         { id: "c", label: "Que scaling laws não existem." },
       ],
       correctOptionId: "a",
       feedback:
-        "A tese central foi que a alocação compute-optimal exigia mais dados do que muitos modelos grandes estavam vendo no regime anterior.",
+        "A tese central foi que, para budgets comparáveis no regime estudado, a alocação compute-optimal exigia mais dados do que muitos modelos grandes estavam vendo no regime anterior.",
     },
     {
       id: "q6",

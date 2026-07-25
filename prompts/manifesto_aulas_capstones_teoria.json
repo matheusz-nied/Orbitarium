@@ -1,0 +1,64 @@
+{
+  "note": "Plano recomendado pós L1–L5: capstones primeiro, depois teoria low-level e IA. Sem trilha ofensiva. primaryCategoryId conforme fase.",
+  "plan": "prompts/trilha_capstones_e_teoria.md",
+  "recommendedOrder": ["A_capstones", "B_teoria_low_level", "C_teoria_ia", "D_seguranca_defensiva_opcional"],
+  "phases": {
+    "A_capstones": {
+      "priority": 1,
+      "folder": "computacao",
+      "primary": "computacao",
+      "secondary": "engenharia",
+      "lessons": [
+        {"id": "capstone-flamegraph-para-patch", "title": "Capstone: Do Flamegraph ao Patch", "level": "Avançado"},
+        {"id": "capstone-http-go-p99", "title": "Capstone: Servidor HTTP em Go e p99", "level": "Avançado"},
+        {"id": "capstone-parser-rust-ownership", "title": "Capstone: Parser/Buffer em Rust", "level": "Avançado"},
+        {"id": "capstone-go-vs-rust-criterio", "title": "Capstone: Mesma Tarefa em Go e Rust", "level": "Avançado"}
+      ]
+    },
+    "B_teoria_low_level": {
+      "priority": 2,
+      "folder": "computacao",
+      "primary": "computacao",
+      "lessons": [
+        {"id": "roofline-modelo-de-performance", "title": "Modelo Roofline de Performance", "level": "Avançado", "secondary": "matematica"},
+        {"id": "consistencia-de-memoria-e-ordering", "title": "Consistência de Memória e Ordering", "level": "Avançado", "secondary": "engenharia"},
+        {"id": "teoria-de-scheduling", "title": "Teoria de Scheduling (Intuição Formal)", "level": "Avançado", "secondary": "engenharia"},
+        {"id": "ssa-e-otimizacoes-de-compilador", "title": "SSA e Otimizações de Compilador", "level": "Avançado", "secondary": "engenharia"},
+        {"id": "sistemas-de-tipos-e-soundness", "title": "Sistemas de Tipos e Soundness", "level": "Avançado", "secondary": "matematica"}
+      ]
+    },
+    "C_teoria_ia": {
+      "priority": 3,
+      "folder": "inteligencia-artificial",
+      "primary": "inteligencia-artificial",
+      "secondary": "matematica",
+      "lessons": [
+        {"id": "generalizacao-e-capacidade-de-modelos", "title": "Generalização e Capacidade de Modelos", "level": "Avançado"},
+        {"id": "otimizacao-convexa-vs-nao-convexa", "title": "Otimização Convexa vs Não-Convexa", "level": "Avançado"},
+        {"id": "teoria-da-informacao-no-aprendizado", "title": "Teoria da Informação no Aprendizado", "level": "Avançado"},
+        {"id": "complexidade-da-atencao-e-kv-cache", "title": "Complexidade da Atenção e KV Cache", "level": "Avançado"},
+        {"id": "mdp-e-equacoes-de-bellman", "title": "MDPs e Equações de Bellman", "level": "Avançado"}
+      ]
+    },
+    "D_seguranca_defensiva_opcional": {
+      "priority": 4,
+      "optional": true,
+      "folder": "computacao",
+      "primary": "computacao",
+      "secondary": "engenharia",
+      "lessons": [
+        {"id": "threat-modeling-para-sistemas", "title": "Threat Modeling para Sistemas", "level": "Intermediário"},
+        {"id": "hardening-de-binarios-e-aslr", "title": "Hardening de Binários e ASLR (visão defensiva)", "level": "Avançado"},
+        {"id": "supply-chain-e-dependencias", "title": "Supply Chain e Dependências", "level": "Intermediário"},
+        {"id": "secure-defaults-em-rust-e-go", "title": "Secure Defaults em Rust e Go", "level": "Intermediário"}
+      ]
+    }
+  },
+  "totals": {
+    "A": 4,
+    "B": 5,
+    "C": 5,
+    "coreTotal": 14,
+    "DOptional": 4
+  }
+}

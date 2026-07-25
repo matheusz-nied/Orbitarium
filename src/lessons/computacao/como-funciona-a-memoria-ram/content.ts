@@ -1,273 +1,498 @@
 import type { LessonContent } from "../../../types/content";
 
-export const comoFuncionaAMemoriaRamContent: LessonContent = {
-  id: "como-funciona-a-memoria-ram",
-  title: "Como Funciona a Memória RAM",
-  subtitle:
-    "Chamamos de RAM como se fosse uma superfície lisa e uniforme, mas por dentro ela é uma hierarquia organizada em chips, bancos, linhas, colunas e células que precisam ser lidas, restauradas e refreshadas.",
-  description:
-    "Aula interativa sobre o papel da RAM na hierarquia de memória, células DRAM, linhas e colunas, row buffer, refresh, burst/DDR e diferenças conceituais entre registradores, cache, RAM e armazenamento persistente.",
-  primaryCategoryId: "computacao",
-  secondaryCategoryId: "engenharia",
-  level: "Intermediário",
-  estimatedTime: "50-60 min",
-  tags: ["RAM", "DRAM", "Memória", "Row Buffer", "Refresh", "DDR", "Hierarquia"],
-  learningObjectives: [
-    "Entender o papel da RAM como memória principal volátil na hierarquia do sistema.",
-    "Explicar conceitualmente como uma célula DRAM armazena um bit.",
-    "Visualizar organização em linhas, colunas, bancos e row buffers.",
-    "Entender por que acesso sequencial à mesma linha pode ser mais favorável.",
-    "Explicar por que DRAM precisa de refresh periódico.",
-    "Distinguir cache, RAM e armazenamento persistente sem simplificações erradas.",
+export const comoFuncionaAMemoriaRamContent = {
+  "id": "como-funciona-a-memoria-ram",
+  "title": "Como Funciona a Memória RAM",
+  "subtitle": "A memória principal como área de trabalho ativa do computador: grande, volátil e rápida - mas nem de longe gratuita ou instantânea.",
+  "description": "Uma aula sobre DRAM, bancos, linhas, controlador de memória, working set, cache lines, latência e por que caber em RAM não significa ser rápido.",
+  "primaryCategoryId": "computacao",
+  "secondaryCategoryId": "engenharia",
+  "level": "Intermediário",
+  "estimatedTime": "50-60 min",
+  "tags": [
+    "RAM",
+    "DRAM",
+    "Hierarquia de Memória",
+    "Latency",
+    "Bandwidth",
+    "Working Set"
   ],
-  prerequisites: [
-    "CPU, cache e hierarquia de memória.",
-    "Bits e bytes.",
-    "Curiosidade sobre funcionamento físico de hardware.",
+  "learningObjectives": [
+    "Entender a posição da RAM entre caches de CPU e armazenamento persistente.",
+    "Relacionar working set, latência e bandwidth.",
+    "Perceber como padrões de acesso afetam desempenho mesmo com memória suficiente.",
+    "Conectar misses de cache a acessos reais à memória principal."
   ],
-  references: [
+  "prerequisites": [
+    "Noção de CPU e armazenamento ajuda bastante.",
+    "Curiosidade sobre desempenho de programas e multitarefa.",
+    "Ajuda ter visto cache, mas não é obrigatório."
+  ],
+  "references": [
     {
-      title: "How DRAM memory works",
-      source: "Micron Technology — Educator Hub",
-      url: "https://www.micron.com/educatorhub/courses/how-dram-memory-works",
-      note:
-        "Visão oficial e didática de DRAM, incluindo célula, arquitetura e papel sistêmico.",
+      "title": "Computation Structures",
+      "source": "MIT OpenCourseWare 6.004",
+      "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/",
+      "note": "Curso clássico para memória, hierarquia e temporização digital."
     },
     {
-      title: "Introduction to Memory",
-      source: "Micron Technology — material educacional",
-      url: "https://www.micron.com/content/dam/micron/educatorhub/intro-to-memory/micron-intro-to-memory-presentation.pdf",
-      note:
-        "Material introdutório sobre memória semicondutora, DRAM e terminologia relevante.",
+      "title": "Computer Systems: A Programmer's Perspective",
+      "source": "CS:APP / CMU 15-213",
+      "url": "https://www.cs.cmu.edu/~213/",
+      "note": "Base forte para hierarquia de memória, locality e desempenho."
     },
     {
-      title: "Computation Structures",
-      source: "MIT OpenCourseWare — 6.004",
-      url: "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/",
-      note: "Base conceitual de memória, organização e interface com processadores.",
+      "title": "Operating Systems: Three Easy Pieces",
+      "source": "OSTEP",
+      "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+      "note": "Ajuda a conectar working set, paginação e memória principal."
     },
     {
-      title: "Operating Systems: Three Easy Pieces",
-      source: "Arpaci-Dusseau & Arpaci-Dusseau",
-      url: "https://pages.cs.wisc.edu/~remzi/OSTEP/",
-      note: "Importante para posicionar RAM dentro da abstração de memória do sistema.",
+      "title": "Intel 64 and IA-32 Architectures Optimization Reference Manual",
+      "source": "Intel",
+      "url": "https://www.intel.com/content/www/us/en/developer/articles/technical/intel64-and-ia-32-architectures-optimization-reference-manual.html",
+      "note": "Referência sobre latência, locality e efeitos de acesso à memória."
     },
     {
-      title: "What Every Programmer Should Know About Memory",
-      source: "Ulrich Drepper",
-      url: "https://www.akkadia.org/drepper/cpumemory.pdf",
-      note: "Contextualiza memória principal e gargalos práticos para software.",
+      "title": "computer memory",
+      "source": "Britannica",
+      "url": "https://www.britannica.com/technology/computer-memory",
+      "note": "Visão geral confiável sobre memória principal e seus papéis."
+    }
+  ],
+  "heroVisual": "lesson-hero",
+  "openingText": "Dizer que um programa usa muita RAM costuma esconder várias perguntas diferentes. Falta capacidade? Falta locality? O working set cabe? O problema é page fault ou acesso aleatório? Entender RAM é entender por que memória principal é essencial, mas ainda está muito longe da velocidade dos registradores e das caches da CPU.",
+  "quickFacts": [
+    {
+      "title": "Unidade crítica",
+      "body": "a linha ou banco acessado e o bloco que sobe para preencher caches"
     },
     {
-      title: "DDR SDRAM Standard",
-      source: "JEDEC",
-      url: "https://www.jedec.org/standards-documents/docs/jesd-79f",
-      note: "Referência oficial de padronização da família DDR SDRAM.",
+      "title": "Trade-off central",
+      "body": "capacidade ↔ latência e locality"
     },
+    {
+      "title": "Regra prática",
+      "body": "separe a pergunta cabe em memória da pergunta é acessado com locality suficiente"
+    }
   ],
-  heroVisual: "ram-hero",
-  openingText:
-    "A RAM costuma ser apresentada como 'onde ficam os programas abertos'. Isso é verdade, mas incompleto. Ela é a memória principal do sistema: grande demais para ter a velocidade dos registradores e do cache, porém rápida demais para ser substituída por armazenamento persistente. Entender RAM é entender a camada onde o sistema mantém o estado ativo da computação — e por que esse estado ainda custa tempo e energia para ser acessado.",
-  quickFacts: [
-    { title: "RAM é volátil", body: "Sem energia, o conteúdo armazenado desaparece." },
-    { title: "DRAM guarda carga", body: "Cada célula representa bits por meio de carga elétrica que se perde com o tempo." },
-    { title: "Acesso ocorre em linhas", body: "Ativar uma linha inteira influencia o custo dos acessos seguintes." },
-    { title: "Refresh é manutenção", body: "A DRAM precisa restaurar periodicamente suas células." },
+  "sections": [
+    {
+      "id": "motivacao",
+      "eyebrow": "Motivação",
+      "title": "Por que Como Funciona a Memória RAM aparece em sistemas sérios",
+      "lead": "Manter dados ativos acessíveis com muito menos custo do que ir ao armazenamento persistente muda latência, custo, previsibilidade ou segurança. Por isso, o tema aparece cedo em qualquer sistema que sai do protótipo.",
+      "visual": "lesson-hero",
+      "paragraphs": [
+        "Como Funciona a Memória RAM existe para manter dados ativos acessíveis com muito menos custo do que ir ao armazenamento persistente. Sem isso, a cpu passaria tempo demais esperando storage e o sistema ficaria impraticável para cargas interativas.",
+        "Um bom modelo intuitivo é pensar na ram como uma grande grade de células organizadas em bancos e linhas que servem o working set do momento. Pense em abrir dezenas de abas, alternar entre aplicações e ainda esperar respostas rápidas das que continuam ativas.",
+        "Esse assunto importa porque afeta latência de acesso, page faults e throughput de movimentação de dados. Quando você o entende, decisões de arquitetura deixam de parecer um conjunto de truques desconexos."
+      ],
+      "blocks": [
+        {
+          "type": "insight",
+          "title": "Intuição útil",
+          "body": "pensar na RAM como uma grande grade de células organizadas em bancos e linhas que servem o working set do momento"
+        },
+        {
+          "type": "mistake",
+          "title": "Erro comum",
+          "body": "achar que adicionar RAM acelera qualquer programa igualmente, independentemente do padrão de acesso"
+        }
+      ]
+    },
+    {
+      "id": "modelo-mental",
+      "eyebrow": "Modelo mental",
+      "title": "A abstração certa para não decorar sem entender",
+      "lead": "Boas decisões de engenharia nascem de uma abstração operacional simples: o que está sendo movido, validado, sincronizado ou reaproveitado?",
+      "visual": "concept-grid",
+      "paragraphs": [
+        "Definição operacional: memória principal volátil e endereçável que guarda dados e código em uso com latência muito menor do que storage, mas maior do que caches internas da CPU.",
+        "A unidade crítica para raciocinar sobre custo e comportamento é a linha ou banco acessado e o bloco que sobe para preencher caches. É nela que atrasos, contenção ou corrupção costumam aparecer primeiro.",
+        "Quando você enxerga a unidade certa, fica mais fácil separar sintoma de causa. Isso evita o atalho mental de achar que achar que adicionar ram acelera qualquer programa igualmente, independentemente do padrão de acesso."
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Definição",
+          "body": "memória principal volátil e endereçável que guarda dados e código em uso com latência muito menor do que storage, mas maior do que caches internas da CPU"
+        },
+        {
+          "type": "example",
+          "title": "Exemplo concreto",
+          "body": "abrir dezenas de abas, alternar entre aplicações e ainda esperar respostas rápidas das que continuam ativas"
+        }
+      ]
+    },
+    {
+      "id": "fluxo-essencial",
+      "eyebrow": "Fluxo",
+      "title": "O caminho que os dados percorrem",
+      "lead": "Quase todo gargalo difícil nasce quando esquecemos que há uma sequência de etapas, e que cada uma delas impõe uma política diferente.",
+      "visual": "pipeline-diagram",
+      "interactive": "pipeline-lab",
+      "paragraphs": [
+        "Em alto nível, o fluxo é a cpu sofre um miss, o controlador agenda o acesso, ativa linhas na dram e devolve bursts que preenchem caches ou buffers.",
+        "Em vez de decorar siglas, vale observar a ordem das decisões: miss de cache, escalonamento pelo controlador, ativação e burst e preenchimento e substituição. O desenho muda de tema para tema, mas a disciplina mental é a mesma.",
+        "A pergunta importante não é apenas 'qual etapa existe?'. A pergunta melhor é 'onde a decisão errada se propaga e quanto custa corrigi-la depois?'."
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Etapas para observar",
+          "body": "Use a interação para percorrer a pipeline e notar onde surgem classificação, mediação, sincronização, persistência ou reaproveitamento.",
+          "items": [
+            "Miss de cache",
+            "Escalonamento pelo controlador",
+            "Ativação e burst",
+            "Preenchimento e substituição"
+          ]
+        },
+        {
+          "type": "insight",
+          "title": "Fluxos distribuem responsabilidade",
+          "body": "Uma etapa ruim costuma contaminar as seguintes. Por isso times experientes observam não só o resultado final, mas também o caminho percorrido."
+        }
+      ]
+    },
+    {
+      "id": "tradeoffs",
+      "eyebrow": "Trade-offs",
+      "title": "A escolha que nunca é gratuita",
+      "lead": "Sistemas bons não maximizam um único número. Eles escolhem conscientemente qual dor reduzir agora e qual custo aceitar depois.",
+      "visual": "tradeoff-spectrum",
+      "interactive": "tradeoff-lab",
+      "paragraphs": [
+        "O eixo central desta aula vai de capacidade até latência e locality. Mais RAM ajuda a manter working sets vivos, mas desempenho real continua dependendo de como os acessos exploram locality e de quantas vezes a CPU precisa esperar a memória principal.",
+        "Empurrar o desenho demais para um extremo tende a simplificar uma parte e complicar outra. O trabalho do arquiteto é tornar essa troca visível, não escondê-la atrás de defaults.",
+        "Por isso, a pergunta madura não é 'qual tecnologia vence?'. É 'qual ponto do eixo faz sentido para este perfil de tráfego, risco e equipe?'."
+      ],
+      "blocks": [
+        {
+          "type": "insight",
+          "title": "Projeto é posicionamento",
+          "body": "O eixo 'capacidade ↔ latência e locality' existe porque cada ponta otimiza uma propriedade diferente do sistema."
+        },
+        {
+          "type": "mistake",
+          "title": "O mito do extremo ideal",
+          "body": "Quando alguém trata um extremo como solução universal, geralmente está escondendo custos operacionais, latência, consistência ou carga cognitiva."
+        }
+      ]
+    },
+    {
+      "id": "falhas-e-armadilhas",
+      "eyebrow": "Armadilhas",
+      "title": "Onde equipes experientes ainda escorregam",
+      "lead": "A maioria dos incidentes não nasce da teoria errada, e sim de suposições implícitas que ninguém modelou até o sistema crescer.",
+      "paragraphs": [
+        "O erro recorrente é achar que adicionar ram acelera qualquer programa igualmente, independentemente do padrão de acesso. Isso costuma soar plausível porque a abstração superficial parece simples demais.",
+        "Na prática, o limite aparece quando o conjunto de dados até cabe em memória, mas o padrão aleatório de acesso derrota caches e expõe latência alta repetidamente. É nesse ponto que o sistema revela o que realmente estava sendo garantido - ou apenas assumido.",
+        "Tratar esses limites como detalhes raros é caro. Tratá-los como parte do desenho inicial economiza incidentes, retrabalho e debates improdutivos depois."
+      ],
+      "blocks": [
+        {
+          "type": "mistake",
+          "title": "Suposição perigosa",
+          "body": "achar que adicionar RAM acelera qualquer programa igualmente, independentemente do padrão de acesso"
+        },
+        {
+          "type": "insight",
+          "title": "Limites são parte da especificação",
+          "body": "o conjunto de dados até cabe em memória, mas o padrão aleatório de acesso derrota caches e expõe latência alta repetidamente"
+        }
+      ]
+    },
+    {
+      "id": "decisoes-de-projeto",
+      "eyebrow": "Prática",
+      "title": "Como decidir em vez de só repetir padrões",
+      "lead": "Padrão bom é padrão contextualizado. Sem cenário, benchmark e política, a mesma técnica vira conselho ruim.",
+      "interactive": "scenario-lab",
+      "paragraphs": [
+        "Uma regra prática desta aula é separe a pergunta cabe em memória da pergunta é acessado com locality suficiente.",
+        "Repare nos cenários propostos: muitas abas abertas, análise em memória e carregamento de checkpoint. O mecanismo é o mesmo, mas a decisão muda conforme estado, risco e tipo de carga.",
+        "É por isso que bons times documentam intenção, observam métricas e revisam o desenho quando o contexto operacional muda."
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Heurística de decisão",
+          "body": "As recomendações abaixo não são receitas eternas; elas são pontos de partida guiados pelo mecanismo que a aula explicou.",
+          "items": [
+            "Observar working set e pressão de memória antes de concluir que faltou CPU.",
+            "Revisar layout e padrão de acesso para explorar locality, em vez de confiar só no fato de caber na RAM.",
+            "Aproveitar page cache e prever quando o gargalo é RAM versus storage."
+          ]
+        },
+        {
+          "type": "definition",
+          "title": "Regra prática",
+          "body": "separe a pergunta cabe em memória da pergunta é acessado com locality suficiente"
+        }
+      ]
+    },
+    {
+      "id": "pontes",
+      "eyebrow": "Conexões",
+      "title": "Como este fundamento reaparece em outros sistemas",
+      "lead": "Uma boa aula de computação não fecha em si mesma. Ela amplia sua capacidade de interpretar bancos, redes, runtimes, browsers e produtos de IA.",
+      "visual": "impact-board",
+      "paragraphs": [
+        "Pipelines de dados, inferência e treino vivem negociando RAM, page cache, VRAM e arquivos mapeados com exatamente essa lógica de hierarquia.",
+        "Em produtos modernos, a mesma lógica reaparece em APIs, jobs assíncronos, pipelines de dados, páginas web, storage, modelos e plataformas internas.",
+        "Aprender este tópico dá vocabulário para discutir latência, throughput, integridade, consistência, segurança e custo com mais precisão técnica."
+      ],
+      "blocks": [
+        {
+          "type": "insight",
+          "title": "Transferência de modelo mental",
+          "body": "latência de acesso, page faults e throughput de movimentação de dados"
+        }
+      ]
+    },
+    {
+      "id": "quiz-revisao",
+      "eyebrow": "Revisão",
+      "title": "Quiz de revisão",
+      "lead": "Use o quiz para checar se mecanismo, trade-off e armadilhas ficaram conectados como um único raciocínio.",
+      "interactive": "quiz",
+      "paragraphs": [
+        "O objetivo não é decorar frases, e sim verificar se você consegue explicar onde a abstração ajuda, onde ela falha e como decidir melhor em um sistema real."
+      ]
+    },
+    {
+      "id": "glossario",
+      "eyebrow": "Glossário",
+      "title": "Vocabulário para continuar estudando",
+      "lead": "Feche a aula consolidando termos que aparecem em documentação, incidentes, artigos técnicos e discussões de arquitetura.",
+      "interactive": "glossary",
+      "paragraphs": [
+        "Dominar esse vocabulário acelera leitura de documentação oficial, revisão de incidentes e conversas com outras camadas do stack."
+      ]
+    }
   ],
-  sections: [
-    s(
-      "papel-da-ram",
-      "Hierarquia",
-      "Onde a RAM fica no sistema",
-      "RAM é a memória principal: maior e mais barata que cache, mas ainda muito mais próxima do processador do que disco ou SSD.",
-      "ram-role-visual",
-      undefined,
-      [
-        "Quando um programa roda, seu código e dados ativos precisam estar em algum lugar acessível à CPU com latência razoável. Esse lugar é a RAM, não o armazenamento persistente.",
-        "A CPU prefere registradores e cache sempre que possível. Mas quando o conjunto de dados cresce ou o cache não basta, a RAM sustenta o estado principal do processo.",
-        "Por isso a RAM é central para multitarefa, bancos em execução, navegação com muitas abas e qualquer carga que mantenha muito estado vivo.",
-      ],
-      [
-        { type: "definition", title: "RAM", body: "Memória principal volátil do sistema, usada para manter dados e instruções ativos durante a execução." },
-      ],
-    ),
-    s(
-      "dram-cell",
-      "Célula",
-      "Como um bit cabe em DRAM",
-      "Na DRAM, um bit nasce da presença ou ausência de carga elétrica em uma célula muito pequena.",
-      "dram-cell-visual",
-      undefined,
-      [
-        "Uma explicação didática comum descreve a célula DRAM como um transistor e um capacitor. O capacitor guarda uma pequena carga que representa um estado lógico.",
-        "O problema é que essa carga vaza com o tempo. Portanto a informação não permanece estável sozinha; a memória precisa ser lida e restaurada periodicamente.",
-        "É exatamente por isso que DRAM é chamada de dinâmica: ela depende de manutenção elétrica contínua para preservar os bits.",
-      ],
-      [
-        { type: "definition", title: "DRAM", body: "Dynamic Random Access Memory; tipo de RAM em que as células precisam de refresh periódico." },
-        { type: "insight", title: "Dinâmica não significa aleatória", body: "Significa que o estado elétrico precisa ser mantido e restaurado ao longo do tempo." },
-      ],
-    ),
-    s(
-      "linhas-colunas-bancos",
-      "Organização",
-      "A RAM é uma matriz organizada",
-      "Endereços não são atendidos por uma massa amorfa de bytes; eles passam por uma organização em linhas, colunas e bancos.",
-      "dram-matrix-visual",
-      undefined,
-      [
-        "Uma forma intuitiva de ver a DRAM é como uma grande matriz. Para acessar um dado, o sistema ativa uma linha e depois escolhe colunas dentro dela.",
-        "Os chips são ainda organizados em bancos, o que permite algum paralelismo e multiplexação de acessos. Isso ajuda a esconder parte do custo interno.",
-        "O ponto pedagógico é que 'acessar um byte' já embute uma coreografia física maior do que a API aparente sugere.",
-      ],
-      [
-        { type: "definition", title: "Banco", body: "Subconjunto da memória DRAM que pode manter organização própria de linhas e colunas." },
-      ],
-    ),
-    s(
-      "row-buffer",
-      "Acesso",
-      "Abrir uma linha cria contexto para os próximos acessos",
-      "Quando uma linha é ativada, a DRAM ganha um tipo de vizinhança ativa que favorece certos padrões de leitura.",
-      "row-buffer-visual",
-      "dram-row-buffer-lab",
-      [
-        "Uma linha ativada pode ser entendida como estando 'aberta' em um buffer temporário. Acessos seguintes à mesma linha tendem a aproveitar esse contexto já preparado.",
-        "Quando o acesso muda para outra linha do mesmo banco, a memória precisa fechar ou prechargear o estado anterior e ativar a nova linha. Isso acrescenta custo.",
-        "Essa ideia conversa com a aula de cache: também aqui a vizinhança e o padrão de acesso importam, embora por motivos internos diferentes.",
-      ],
-      [
-        { type: "definition", title: "Row buffer", body: "Buffer associado à linha ativada da DRAM, usado para servir acessos às colunas daquela linha." },
-      ],
-    ),
-    s(
-      "refresh",
-      "Manutenção",
-      "Por que a DRAM precisa de refresh",
-      "Se a carga vaza, o sistema precisa regravar periodicamente as células antes que a informação se perca.",
-      "refresh-visual",
-      "refresh-burst-simulator",
-      [
-        "Refresh é um processo de preservação. Ele percorre linhas da memória para restaurar a carga elétrica das células, mantendo os bits válidos ao longo do tempo.",
-        "Isso consome tempo e energia, ainda que grande parte do processo seja abstraída pelo controlador de memória e pelos módulos modernos.",
-        "A consequência conceitual é importante: RAM não é um meio perfeitamente estático. Ela exige atividade contínua apenas para manter o estado existente.",
-      ],
-      [
-        { type: "mistake", title: "Pensar que refresh é só uma otimização", body: "Sem refresh, a DRAM perderia informação por vazamento de carga." },
-      ],
-    ),
-    s(
-      "ddr-e-burst",
-      "Transferência",
-      "DDR e burst: movimentar vários dados por ativação",
-      "Uma parte importante do desempenho vem da forma como dados são transferidos em rajadas eficientes, não apenas do acesso unitário.",
-      "ddr-burst-visual",
-      undefined,
-      [
-        "Memórias DDR foram projetadas para aumentar a taxa de transferência por meio de mecanismos de temporização e transferência em rajadas. Isso melhora o aproveitamento do caminho de dados.",
-        "Na prática, vale guardar a intuição de que a memória é otimizada para fluxos organizados e blocos, não para uma sequência totalmente caótica de pedidos unitários.",
-        "Essa organização explica por que controladores, pré-buscas e padrões de acesso sequenciais influenciam tanto a largura de banda observada.",
-      ],
-      [
-        { type: "definition", title: "Burst", body: "Transferência de uma sequência curta de dados em uma rajada após a preparação do acesso." },
-      ],
-    ),
-    s(
-      "ram-vs-cache-vs-disco",
-      "Comparação",
-      "RAM não é cache e também não é armazenamento persistente",
-      "Confundir essas camadas leva a intuições erradas sobre velocidade, capacidade e durabilidade dos dados.",
-      "hierarchy-compare-visual",
-      "memory-hierarchy-chooser",
-      [
-        "Cache serve como camada menor e muito mais rápida para tentar esconder a latência da RAM. A RAM, por sua vez, guarda o estado principal ativo do sistema. Disco e SSD servem para persistência, não para alimentar a CPU diretamente em cada operação.",
-        "Quando um programa fecha, os dados que só estavam na RAM desaparecem. Quando o sistema precisa de algo que está no SSD, ele precisa primeiro trazê-lo de volta para a RAM.",
-        "Essa separação ajuda a interpretar consumo de memória, page faults, warm caches e gargalos de I/O em sistemas reais.",
-      ],
-      [
-        { type: "example", title: "Abrir um arquivo grande", body: "Os bytes vêm do armazenamento persistente para a RAM; dali a CPU passa a consumi-los com ajuda dos caches." },
-      ],
-    ),
-    s(
-      "software-e-ram",
-      "Síntese",
-      "Pensar em RAM melhora software e arquitetura",
-      "Aplicações, sistemas operacionais e controladores de memória todos tentam cooperar com essa organização física.",
-      "ram-software-visual",
-      undefined,
-      [
-        "A ordem de acesso, o volume de dados ativos, a forma de particionar estruturas e o reuso de regiões quentes afetam a pressão sobre a RAM e sobre os níveis superiores da hierarquia.",
-        "Sistemas operacionais também entram no jogo, alocando páginas, gerenciando processos e equilibrando o uso da memória principal.",
-        "A moral é simples: RAM não é uma caixa-preta homogênea. Ela é uma peça ativa da performance e da confiabilidade do sistema.",
-      ],
-      [
-        { type: "insight", title: "Memória principal é infraestrutura de software", body: "Toda aplicação real negocia com a RAM, queira ou não." },
-      ],
-    ),
-    s("quiz-revisao", "Revisão", "Quiz de revisão", "Reforce o modelo de DRAM, row buffer, refresh e posição da RAM na hierarquia.", undefined, "quiz", ["O objetivo é substituir a ideia de 'RAM como caixa única' por um modelo mais rico e útil."], []),
-    s("glossario", "Glossário", "Termos essenciais", "Consolide o vocabulário mínimo para falar de memória principal com precisão.", undefined, "glossary", ["Esses conceitos reaparecem em sistema operacional, virtual memory, GPU e performance."], []),
+  "summaryCards": [
+    {
+      "title": "Problema que resolve",
+      "body": "manter dados ativos acessíveis com muito menos custo do que ir ao armazenamento persistente"
+    },
+    {
+      "title": "Modelo mental",
+      "body": "pensar na RAM como uma grande grade de células organizadas em bancos e linhas que servem o working set do momento"
+    },
+    {
+      "title": "Erro comum",
+      "body": "achar que adicionar RAM acelera qualquer programa igualmente, independentemente do padrão de acesso"
+    },
+    {
+      "title": "Onde reaparece",
+      "body": "Pipelines de dados, inferência e treino vivem negociando RAM, page cache, VRAM e arquivos mapeados com exatamente essa lógica de hierarquia"
+    }
   ],
-  summaryCards: [
-    { title: "RAM é memória principal", body: "Ela sustenta o estado ativo da computação entre cache e armazenamento persistente." },
-    { title: "DRAM guarda carga", body: "Cada bit depende de estado elétrico que precisa ser mantido." },
-    { title: "Organização importa", body: "Linhas, colunas e bancos estruturam o acesso interno." },
-    { title: "Linha aberta ajuda", body: "Acessos à mesma linha podem aproveitar o row buffer." },
-    { title: "Refresh preserva dados", body: "Sem manutenção periódica, as células perderiam informação." },
-    { title: "DDR explora rajadas", body: "Transferências eficientes valorizam fluxo organizado de dados." },
+  "quiz": [
+    {
+      "id": "q1",
+      "prompt": "Qual é a função principal de Como Funciona a Memória RAM em um sistema?",
+      "options": [
+        {
+          "id": "a",
+          "label": "manter dados ativos acessíveis com muito menos custo do que ir ao armazenamento persistente"
+        },
+        {
+          "id": "b",
+          "label": "Substituir todas as outras camadas do stack por uma única técnica."
+        },
+        {
+          "id": "c",
+          "label": "Eliminar por definição qualquer latência, falha ou custo."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "A ideia central da aula é manter dados ativos acessíveis com muito menos custo do que ir ao armazenamento persistente. O tema melhora o projeto do sistema, mas não apaga restrições físicas nem substitui todas as outras camadas."
+    },
+    {
+      "id": "q2",
+      "prompt": "Qual modelo mental ajuda mais a entender como funciona a memória ram?",
+      "options": [
+        {
+          "id": "a",
+          "label": "pensar na RAM como uma grande grade de células organizadas em bancos e linhas que servem o working set do momento"
+        },
+        {
+          "id": "b",
+          "label": "Pensar apenas na interface visual, ignorando o mecanismo interno."
+        },
+        {
+          "id": "c",
+          "label": "Assumir que como funciona a memória ram resolve sozinho qualquer gargalo restante."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "O melhor atalho mental aqui é: pensar na ram como uma grande grade de células organizadas em bancos e linhas que servem o working set do momento. Esse modelo ajuda a prever custo, limite e comportamento operacional."
+    },
+    {
+      "id": "q3",
+      "prompt": "No fluxo estudado, qual etapa aparece cedo e condiciona decisões posteriores?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Miss de cache"
+        },
+        {
+          "id": "b",
+          "label": "Preenchimento e substituição"
+        },
+        {
+          "id": "c",
+          "label": "Uma etapa mágica que elimina a necessidade de observar o sistema."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "Miss de cache acontece cedo e molda o resto do caminho. Erros de classificação ou roteamento se propagam com facilidade."
+    },
+    {
+      "id": "q4",
+      "prompt": "Qual afirmação descreve melhor o trade-off central da aula?",
+      "options": [
+        {
+          "id": "a",
+          "label": "O objetivo é equilibrar capacidade e latência e locality, não maximizar um extremo automaticamente."
+        },
+        {
+          "id": "b",
+          "label": "Sempre vale empurrar tudo para latência e locality."
+        },
+        {
+          "id": "c",
+          "label": "Sempre vale empurrar tudo para capacidade."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "O eixo 'capacidade ↔ latência e locality' existe porque cada extremo resolve uma dor e cria outra. Projeto maduro explicita essa troca."
+    },
+    {
+      "id": "q5",
+      "prompt": "Qual das opções abaixo representa um erro comum discutido na aula?",
+      "options": [
+        {
+          "id": "a",
+          "label": "achar que adicionar RAM acelera qualquer programa igualmente, independentemente do padrão de acesso"
+        },
+        {
+          "id": "b",
+          "label": "separe a pergunta cabe em memória da pergunta é acessado com locality suficiente"
+        },
+        {
+          "id": "c",
+          "label": "Medir hipóteses antes de alterar um sistema que já está em produção."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "Este é o atalho mental perigoso do tema: achar que adicionar ram acelera qualquer programa igualmente, independentemente do padrão de acesso. A aula insiste em tornar essas suposições explícitas."
+    },
+    {
+      "id": "q6",
+      "prompt": "Pensando em cenários reais, qual decisão inicial está mais alinhada com a aula?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Observar working set e pressão de memória antes de concluir que faltou CPU."
+        },
+        {
+          "id": "b",
+          "label": "Revisar layout e padrão de acesso para explorar locality, em vez de confiar só no fato de caber na RAM."
+        },
+        {
+          "id": "c",
+          "label": "Aproveitar page cache e prever quando o gargalo é RAM versus storage."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "No primeiro cenário, a recomendação é observar working set e pressão de memória antes de concluir que faltou cpu.. A solução depende do mecanismo certo para o caso, não de um padrão aplicado sem contexto."
+    },
+    {
+      "id": "q7",
+      "prompt": "Por que este tema também importa para sistemas de IA e produtos modernos?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Pipelines de dados, inferência e treino vivem negociando RAM, page cache, VRAM e arquivos mapeados com exatamente essa lógica de hierarquia"
+        },
+        {
+          "id": "b",
+          "label": "Porque produtos de IA não dependem de infraestrutura, segurança ou dados."
+        },
+        {
+          "id": "c",
+          "label": "Porque modelos grandes fazem arquitetura e operação deixarem de importar."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "A ponte da aula é direta: pipelines de dados, inferência e treino vivem negociando ram, page cache, vram e arquivos mapeados com exatamente essa lógica de hierarquia. Os mesmos fundamentos reaparecem em serving, dados, rede, storage e operação."
+    },
+    {
+      "id": "q8",
+      "prompt": "O que costuma quebrar ou exigir cuidado adicional neste tema?",
+      "options": [
+        {
+          "id": "a",
+          "label": "o conjunto de dados até cabe em memória, mas o padrão aleatório de acesso derrota caches e expõe latência alta repetidamente"
+        },
+        {
+          "id": "b",
+          "label": "Somente o nome das variáveis ou detalhes cosméticos da interface."
+        },
+        {
+          "id": "c",
+          "label": "Nada relevante: testes básicos já eliminam esse tipo de risco completamente."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "O limite importante aqui é concreto: o conjunto de dados até cabe em memória, mas o padrão aleatório de acesso derrota caches e expõe latência alta repetidamente. Em sistemas reais, garantias dependem de política, falha, carga e integração entre camadas."
+    }
   ],
-  quiz: [
-    q("q1", "Qual é o papel principal da RAM no sistema?", "Guardar dados e instruções ativos durante a execução.", "Substituir registradores e cache.", "Persistir arquivos sem energia.", "a", "RAM é a memória principal volátil onde o estado ativo fica disponível ao sistema."),
-    q("q2", "Por que a DRAM é chamada de dinâmica?", "Porque suas células precisam de refresh periódico para manter os bits.", "Porque muda automaticamente o valor dos programas.", "Porque só funciona com dados variáveis.", "a", "A carga elétrica vaza com o tempo e precisa ser restaurada."),
-    q("q3", "Qual descrição intuitiva ajuda a entender uma célula DRAM?", "Um transistor e um capacitor usados para armazenar carga.", "Um registrador completo dentro de cada byte.", "Uma porta XOR para cada endereço.", "a", "Essa é a explicação didática comum para a célula básica da DRAM."),
-    q("q4", "O que acontece quando uma linha da DRAM é ativada?", "Ela pode ser tratada como aberta em um row buffer para acessos às suas colunas.", "Toda a memória vira cache.", "O SSD recebe uma cópia dos dados.", "a", "A linha aberta cria contexto favorável para acessos subsequentes nessa mesma linha."),
-    q("q5", "Por que refresh existe?", "Porque a carga das células vaza e precisa ser restaurada.", "Porque a CPU precisa recalcular números inteiros.", "Porque o cache invalida a RAM continuamente.", "a", "Sem refresh, a DRAM perderia informação armazenada."),
-    q("q6", "Qual frase diferencia bem RAM e armazenamento persistente?", "RAM é volátil e serve ao estado ativo; SSD/disco persistem dados a longo prazo.", "RAM e SSD têm o mesmo papel, só mudam de tamanho.", "SSD existe apenas para backup manual.", "a", "Essas camadas têm funções distintas na hierarquia."),
-    q("q7", "O que burst ajuda a fazer?", "Transferir uma sequência de dados de forma mais eficiente após a preparação do acesso.", "Eliminar a necessidade de row buffer.", "Transformar RAM em cache L1.", "a", "Burst melhora o aproveitamento do caminho de transferência."),
-    q("q8", "Por que o padrão de acesso também importa para RAM, e não só para cache?", "Porque a organização em linhas e bancos favorece certos acessos mais do que outros.", "Porque a RAM escolhe aleatoriamente a ordem dos bytes.", "Porque a ALU decide como a DRAM se organiza fisicamente.", "a", "A estrutura interna da DRAM também reage ao padrão de leitura e escrita."),
-  ],
-  glossary: [
-    g("RAM", "Memória principal volátil usada para dados e instruções ativos."),
-    g("DRAM", "Tipo de RAM dinâmica que requer refresh periódico."),
-    g("Volátil", "Que perde conteúdo quando a energia é removida."),
-    g("Célula de memória", "Unidade física básica usada para armazenar um bit."),
-    g("Linha (row)", "Conjunto de células ativado em bloco em uma matriz DRAM."),
-    g("Coluna", "Seleção interna usada após a ativação de uma linha."),
-    g("Banco", "Subestrutura da DRAM com organização própria de linhas e colunas."),
-    g("Row buffer", "Buffer associado à linha atualmente ativada."),
-    g("Refresh", "Processo de restauração periódica da carga das células DRAM."),
-    g("DDR", "Família de memórias SDRAM com alta taxa de transferência por temporização e rajadas."),
-    g("Burst", "Sequência curta de dados transferida em rajada."),
-    g("Memória principal", "Camada onde o sistema mantém o estado ativo acessível ao processador."),
-  ],
-};
-
-function s(
-  id: string,
-  eyebrow: string,
-  title: string,
-  lead: string,
-  visual: string | undefined,
-  interactive: string | undefined,
-  paragraphs: string[],
-  blocks: LessonContent["sections"][number]["blocks"],
-) {
-  return { id, eyebrow, title, lead, visual, interactive, paragraphs, blocks };
-}
-
-function q(id: string, prompt: string, a: string, b: string, c: string, correctOptionId: string, feedback: string) {
-  return {
-    id,
-    prompt,
-    options: [
-      { id: "a", label: a },
-      { id: "b", label: b },
-      { id: "c", label: c },
-    ],
-    correctOptionId,
-    feedback,
-  };
-}
-
-function g(term: string, definition: string) {
-  return { term, definition };
-}
+  "glossary": [
+    {
+      "term": "RAM",
+      "definition": "Memória principal usada para dados e código ativos durante a execução."
+    },
+    {
+      "term": "DRAM",
+      "definition": "Tecnologia comum de RAM dinâmica, mais densa e mais lenta que SRAM."
+    },
+    {
+      "term": "SRAM",
+      "definition": "Memória estática mais rápida, comum em caches de CPU."
+    },
+    {
+      "term": "Working set",
+      "definition": "Conjunto de dados realmente acessados em uma janela de tempo relevante."
+    },
+    {
+      "term": "Latency",
+      "definition": "Tempo para que um acesso à memória comece a devolver dados úteis."
+    },
+    {
+      "term": "Bandwidth",
+      "definition": "Quantidade de dados que pode ser transferida por unidade de tempo."
+    },
+    {
+      "term": "Row buffer",
+      "definition": "Linha ativada internamente na DRAM para servir acessos subsequentes."
+    },
+    {
+      "term": "Memory controller",
+      "definition": "Componente que agenda e coordena acessos entre CPU e memória principal."
+    },
+    {
+      "term": "Cache line",
+      "definition": "Bloco básico de transferência entre níveis da hierarquia de memória."
+    },
+    {
+      "term": "Page fault",
+      "definition": "Evento em que a página desejada não está pronta no espaço esperado e exige tratamento adicional."
+    }
+  ]
+} satisfies LessonContent;

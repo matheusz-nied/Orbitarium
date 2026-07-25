@@ -1,256 +1,498 @@
 import type { LessonContent } from "../../../types/content";
 
-export const bitsPortasLogicasCircuitosContent: LessonContent = {
-  id: "bits-portas-logicas-circuitos",
-  title: "Bits, Portas Lógicas e Circuitos",
-  subtitle:
-    "Entre o 0/1 abstrato e a CPU real existe uma camada decisiva: portas lógicas combinadas em circuitos que comparam, somam, escolhem caminhos e guardam estado.",
-  description:
-    "Aula interativa sobre álgebra booleana, portas NOT/AND/OR/XOR, universalidade do NAND, tabelas-verdade, meio somador e como circuitos combinacionais viram blocos funcionais de computadores.",
-  primaryCategoryId: "computacao",
-  secondaryCategoryId: "matematica",
-  level: "Iniciante",
-  estimatedTime: "45-55 min",
-  tags: ["Portas Lógicas", "Booleano", "NAND", "Circuitos", "Somador", "Tabela-Verdade"],
-  learningObjectives: [
-    "Relacionar bits a sinais elétricos interpretados logicamente.",
-    "Ler e construir tabelas-verdade de portas básicas.",
-    "Entender o papel de NOT, AND, OR e XOR em circuitos digitais.",
-    "Explicar por que NAND é chamada de porta universal.",
-    "Montar intuitivamente um meio somador e distinguir soma de carry.",
-    "Conectar portas simples a blocos maiores como multiplexadores, registradores e CPU.",
+export const bitsPortasLogicasCircuitosContent = {
+  "id": "bits-portas-logicas-circuitos",
+  "title": "Bits, Portas Lógicas e Circuitos",
+  "subtitle": "Da distinção entre 0 e 1 até o surgimento de somadores, multiplexadores e estado: a ponte entre álgebra booleana e hardware real.",
+  "description": "Uma aula introdutória sobre bits, portas lógicas, tabelas verdade, lógica combinacional, flip-flops e a construção progressiva de circuitos digitais.",
+  "primaryCategoryId": "computacao",
+  "secondaryCategoryId": "matematica",
+  "level": "Iniciante",
+  "estimatedTime": "40-50 min",
+  "tags": [
+    "Bits",
+    "Portas Lógicas",
+    "Circuitos",
+    "Álgebra Booleana",
+    "Clock",
+    "Hardware"
   ],
-  prerequisites: [
-    "Noções básicas de bits e representação binária.",
-    "Raciocínio lógico elementar.",
-    "Não é necessário saber eletrônica formal.",
+  "learningObjectives": [
+    "Entender bits como abstração discreta sobre estados físicos.",
+    "Relacionar portas lógicas a tabelas verdade e expressões booleanas.",
+    "Perceber a diferença entre lógica combinacional e lógica sequencial.",
+    "Enxergar como circuitos maiores surgem da composição de blocos simples."
   ],
-  references: [
+  "prerequisites": [
+    "Curiosidade sobre eletrônica digital e computadores.",
+    "Noção básica de verdadeiro e falso já ajuda bastante.",
+    "Não é preciso ter cursado eletrônica antes."
+  ],
+  "references": [
     {
-      title: "Computation Structures",
-      source: "MIT OpenCourseWare — 6.004",
-      url: "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/",
-      note: "Base excelente para portas, circuitos combinacionais e abstração digital.",
+      "title": "Nand to Tetris",
+      "source": "nand2tetris",
+      "url": "https://www.nand2tetris.org/",
+      "note": "Projeto educacional excelente para ligar portas lógicas a computadores completos."
     },
     {
-      title: "Nand to Tetris",
-      source: "Site oficial",
-      url: "https://www.nand2tetris.org/",
-      note:
-        "Curso clássico que constrói portas, somadores, memória e CPU a partir de NAND.",
+      "title": "Computation Structures",
+      "source": "MIT OpenCourseWare 6.004",
+      "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/",
+      "note": "Curso de referência em lógica digital e circuitos."
     },
     {
-      title: "Projects — Boolean Logic and Boolean Arithmetic",
-      source: "Nand to Tetris",
-      url: "https://www.nand2tetris.org/course",
-      note:
-        "Mostra na prática como portas e somadores se compõem em blocos maiores.",
+      "title": "logic gate",
+      "source": "Britannica",
+      "url": "https://www.britannica.com/technology/logic-gate",
+      "note": "Explicação enciclopédica confiável sobre portas lógicas."
     },
     {
-      title: "Logic Gates and Circuits",
-      source: "Khan Academy",
-      url: "https://www.khanacademy.org/computing/computers-and-internet/xcae6f4a7ff015e7d:computers/xcae6f4a7ff015e7d:logic-gates-and-circuits",
-      note:
-        "Recurso didático introdutório sobre portas lógicas e circuitos combinacionais.",
+      "title": "Computing",
+      "source": "Khan Academy",
+      "url": "https://www.khanacademy.org/computing/computer-science",
+      "note": "Material introdutório útil para bits, representação e lógica booleana."
     },
     {
-      title: "CS 61C Course Notes",
-      source: "UC Berkeley",
-      url: "https://notes.cs61c.org/",
-      note:
-        "Notas de arquitetura de computadores com ponte entre lógica e componentes maiores.",
+      "title": "Boolean algebra",
+      "source": "Britannica",
+      "url": "https://www.britannica.com/science/Boolean-algebra",
+      "note": "Base conceitual para relacionar portas, expressões e circuitos."
+    }
+  ],
+  "heroVisual": "lesson-hero",
+  "openingText": "Antes de existir CPU, sistema operacional ou modelo de IA, existe uma pergunta mais básica: como transformar estados físicos ruidosos em decisões discretas e reprodutíveis? Bits, portas lógicas e circuitos respondem isso. Eles são a base do hardware digital sobre a qual todo o resto do computador é construído.",
+  "quickFacts": [
+    {
+      "title": "Unidade crítica",
+      "body": "o bit e a saída produzida por cada porta ou elemento de estado"
     },
+    {
+      "title": "Trade-off central",
+      "body": "simplicidade conceitual ↔ expressividade dos circuitos"
+    },
+    {
+      "title": "Regra prática",
+      "body": "sempre pergunte o que é combinacional, o que é estado e onde está a fronteira de clock"
+    }
   ],
-  heroVisual: "logic-gates-hero",
-  openingText:
-    "Portas lógicas parecem infantis quando vistas isoladamente: AND, OR, NOT. Mas são elas que implementam decisões, somas, seleção de caminhos e controle em praticamente todo computador. A passagem do bit abstrato para o circuito concreto acontece aqui. Você sai de 'existem 0 e 1' para 'com esses 0 e 1 eu consigo construir uma máquina que calcula'.",
-  quickFacts: [
-    { title: "Porta é função", body: "Ela recebe bits de entrada e produz um bit de saída por uma regra fixa." },
-    { title: "Tabela-verdade é comportamento", body: "Ela lista o resultado para cada combinação possível de entradas." },
-    { title: "NAND é universal", body: "Com NAND suficiente, você reconstrói as outras portas." },
-    { title: "Somar cria dois resultados", body: "A soma binária separa bit de soma e bit de carry." },
+  "sections": [
+    {
+      "id": "motivacao",
+      "eyebrow": "Motivação",
+      "title": "Por que Bits, Portas Lógicas e Circuitos aparece em sistemas sérios",
+      "lead": "Mostrar como estados binários e operações booleanas se compõem em circuitos úteis muda latência, custo, previsibilidade ou segurança. Por isso, o tema aparece cedo em qualquer sistema que sai do protótipo.",
+      "visual": "lesson-hero",
+      "paragraphs": [
+        "Bits, Portas Lógicas e Circuitos existe para mostrar como estados binários e operações booleanas se compõem em circuitos úteis. Sem isso, o computador moderno pareceria uma caixa mágica sem ponte entre matemática e hardware.",
+        "Um bom modelo intuitivo é pensar em circuitos como uma composição de blocos que implementam tabelas verdade e, às vezes, lembram o passado. Pense em somar dois bits, selecionar um caminho com um multiplexador e armazenar um valor com estado.",
+        "Esse assunto importa porque afeta compreensão da ponte entre álgebra booleana, hardware e desempenho físico. Quando você o entende, decisões de arquitetura deixam de parecer um conjunto de truques desconexos."
+      ],
+      "blocks": [
+        {
+          "type": "insight",
+          "title": "Intuição útil",
+          "body": "pensar em circuitos como uma composição de blocos que implementam tabelas verdade e, às vezes, lembram o passado"
+        },
+        {
+          "type": "mistake",
+          "title": "Erro comum",
+          "body": "imaginar portas lógicas como instruções de software executadas uma depois da outra"
+        }
+      ]
+    },
+    {
+      "id": "modelo-mental",
+      "eyebrow": "Modelo mental",
+      "title": "A abstração certa para não decorar sem entender",
+      "lead": "Boas decisões de engenharia nascem de uma abstração operacional simples: o que está sendo movido, validado, sincronizado ou reaproveitado?",
+      "visual": "concept-grid",
+      "paragraphs": [
+        "Definição operacional: conjunto de abstrações que usa níveis discretos, portas booleanas e elementos de memória para construir hardware digital.",
+        "A unidade crítica para raciocinar sobre custo e comportamento é o bit e a saída produzida por cada porta ou elemento de estado. É nela que atrasos, contenção ou corrupção costumam aparecer primeiro.",
+        "Quando você enxerga a unidade certa, fica mais fácil separar sintoma de causa. Isso evita o atalho mental de achar que imaginar portas lógicas como instruções de software executadas uma depois da outra."
+      ],
+      "blocks": [
+        {
+          "type": "definition",
+          "title": "Definição",
+          "body": "conjunto de abstrações que usa níveis discretos, portas booleanas e elementos de memória para construir hardware digital"
+        },
+        {
+          "type": "example",
+          "title": "Exemplo concreto",
+          "body": "somar dois bits, selecionar um caminho com um multiplexador e armazenar um valor com estado"
+        }
+      ]
+    },
+    {
+      "id": "fluxo-essencial",
+      "eyebrow": "Fluxo",
+      "title": "O caminho que os dados percorrem",
+      "lead": "Quase todo gargalo difícil nasce quando esquecemos que há uma sequência de etapas, e que cada uma delas impõe uma política diferente.",
+      "visual": "pipeline-diagram",
+      "interactive": "pipeline-lab",
+      "paragraphs": [
+        "Em alto nível, o fluxo é bits entram, portas combinacionais transformam sinais, blocos maiores compõem operações e registradores capturam estado em fronteiras de clock.",
+        "Em vez de decorar siglas, vale observar a ordem das decisões: codificação binária, combinação por portas, composição em blocos e captura de estado. O desenho muda de tema para tema, mas a disciplina mental é a mesma.",
+        "A pergunta importante não é apenas 'qual etapa existe?'. A pergunta melhor é 'onde a decisão errada se propaga e quanto custa corrigi-la depois?'."
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Etapas para observar",
+          "body": "Use a interação para percorrer a pipeline e notar onde surgem classificação, mediação, sincronização, persistência ou reaproveitamento.",
+          "items": [
+            "Codificação binária",
+            "Combinação por portas",
+            "Composição em blocos",
+            "Captura de estado"
+          ]
+        },
+        {
+          "type": "insight",
+          "title": "Fluxos distribuem responsabilidade",
+          "body": "Uma etapa ruim costuma contaminar as seguintes. Por isso times experientes observam não só o resultado final, mas também o caminho percorrido."
+        }
+      ]
+    },
+    {
+      "id": "tradeoffs",
+      "eyebrow": "Trade-offs",
+      "title": "A escolha que nunca é gratuita",
+      "lead": "Sistemas bons não maximizam um único número. Eles escolhem conscientemente qual dor reduzir agora e qual custo aceitar depois.",
+      "visual": "tradeoff-spectrum",
+      "interactive": "tradeoff-lab",
+      "paragraphs": [
+        "O eixo central desta aula vai de simplicidade conceitual até expressividade dos circuitos. Poucas portas básicas já permitem construir máquinas poderosas, mas cada camada extra adiciona atraso, fan-out, necessidade de clock e mais complexidade de projeto.",
+        "Empurrar o desenho demais para um extremo tende a simplificar uma parte e complicar outra. O trabalho do arquiteto é tornar essa troca visível, não escondê-la atrás de defaults.",
+        "Por isso, a pergunta madura não é 'qual tecnologia vence?'. É 'qual ponto do eixo faz sentido para este perfil de tráfego, risco e equipe?'."
+      ],
+      "blocks": [
+        {
+          "type": "insight",
+          "title": "Projeto é posicionamento",
+          "body": "O eixo 'simplicidade conceitual ↔ expressividade dos circuitos' existe porque cada ponta otimiza uma propriedade diferente do sistema."
+        },
+        {
+          "type": "mistake",
+          "title": "O mito do extremo ideal",
+          "body": "Quando alguém trata um extremo como solução universal, geralmente está escondendo custos operacionais, latência, consistência ou carga cognitiva."
+        }
+      ]
+    },
+    {
+      "id": "falhas-e-armadilhas",
+      "eyebrow": "Armadilhas",
+      "title": "Onde equipes experientes ainda escorregam",
+      "lead": "A maioria dos incidentes não nasce da teoria errada, e sim de suposições implícitas que ninguém modelou até o sistema crescer.",
+      "paragraphs": [
+        "O erro recorrente é imaginar portas lógicas como instruções de software executadas uma depois da outra. Isso costuma soar plausível porque a abstração superficial parece simples demais.",
+        "Na prática, o limite aparece quando o circuito parece correto na tabela verdade, mas falha quando timing, clock e estado entram na história. É nesse ponto que o sistema revela o que realmente estava sendo garantido - ou apenas assumido.",
+        "Tratar esses limites como detalhes raros é caro. Tratá-los como parte do desenho inicial economiza incidentes, retrabalho e debates improdutivos depois."
+      ],
+      "blocks": [
+        {
+          "type": "mistake",
+          "title": "Suposição perigosa",
+          "body": "imaginar portas lógicas como instruções de software executadas uma depois da outra"
+        },
+        {
+          "type": "insight",
+          "title": "Limites são parte da especificação",
+          "body": "o circuito parece correto na tabela verdade, mas falha quando timing, clock e estado entram na história"
+        }
+      ]
+    },
+    {
+      "id": "decisoes-de-projeto",
+      "eyebrow": "Prática",
+      "title": "Como decidir em vez de só repetir padrões",
+      "lead": "Padrão bom é padrão contextualizado. Sem cenário, benchmark e política, a mesma técnica vira conselho ruim.",
+      "interactive": "scenario-lab",
+      "paragraphs": [
+        "Uma regra prática desta aula é sempre pergunte o que é combinacional, o que é estado e onde está a fronteira de clock.",
+        "Repare nos cenários propostos: somar dois bits, selecionar um caminho e guardar um valor. O mecanismo é o mesmo, mas a decisão muda conforme estado, risco e tipo de carga.",
+        "É por isso que bons times documentam intenção, observam métricas e revisam o desenho quando o contexto operacional muda."
+      ],
+      "blocks": [
+        {
+          "type": "example",
+          "title": "Heurística de decisão",
+          "body": "As recomendações abaixo não são receitas eternas; elas são pontos de partida guiados pelo mecanismo que a aula explicou.",
+          "items": [
+            "Modelar a tabela verdade e compor um meio somador antes de pensar em algo maior.",
+            "Usar a ideia de multiplexação em vez de tentar desenhar ligações arbitrárias.",
+            "Adicionar estado com flip-flops ou registradores e pensar no clock."
+          ]
+        },
+        {
+          "type": "definition",
+          "title": "Regra prática",
+          "body": "sempre pergunte o que é combinacional, o que é estado e onde está a fronteira de clock"
+        }
+      ]
+    },
+    {
+      "id": "pontes",
+      "eyebrow": "Conexões",
+      "title": "Como este fundamento reaparece em outros sistemas",
+      "lead": "Uma boa aula de computação não fecha em si mesma. Ela amplia sua capacidade de interpretar bancos, redes, runtimes, browsers e produtos de IA.",
+      "visual": "impact-board",
+      "paragraphs": [
+        "Aceleradores, CPUs e controladores digitais ainda reduzem, no fundo, à composição de lógica e armazenamento binário.",
+        "Em produtos modernos, a mesma lógica reaparece em APIs, jobs assíncronos, pipelines de dados, páginas web, storage, modelos e plataformas internas.",
+        "Aprender este tópico dá vocabulário para discutir latência, throughput, integridade, consistência, segurança e custo com mais precisão técnica."
+      ],
+      "blocks": [
+        {
+          "type": "insight",
+          "title": "Transferência de modelo mental",
+          "body": "compreensão da ponte entre álgebra booleana, hardware e desempenho físico"
+        }
+      ]
+    },
+    {
+      "id": "quiz-revisao",
+      "eyebrow": "Revisão",
+      "title": "Quiz de revisão",
+      "lead": "Use o quiz para checar se mecanismo, trade-off e armadilhas ficaram conectados como um único raciocínio.",
+      "interactive": "quiz",
+      "paragraphs": [
+        "O objetivo não é decorar frases, e sim verificar se você consegue explicar onde a abstração ajuda, onde ela falha e como decidir melhor em um sistema real."
+      ]
+    },
+    {
+      "id": "glossario",
+      "eyebrow": "Glossário",
+      "title": "Vocabulário para continuar estudando",
+      "lead": "Feche a aula consolidando termos que aparecem em documentação, incidentes, artigos técnicos e discussões de arquitetura.",
+      "interactive": "glossary",
+      "paragraphs": [
+        "Dominar esse vocabulário acelera leitura de documentação oficial, revisão de incidentes e conversas com outras camadas do stack."
+      ]
+    }
   ],
-  sections: [
-    s(
-      "do-sinal-ao-bit",
-      "Fundação",
-      "Do sinal físico ao valor lógico",
-      "Circuitos digitais simplificam estados físicos contínuos em valores lógicos discretos.",
-      "signal-to-bit",
-      undefined,
-      [
-        "Em hardware real, tensões variam continuamente. O truque dos sistemas digitais é definir faixas que contam como 0 e faixas que contam como 1. Com isso, ganhamos margem contra ruído e fabricação imperfeita.",
-        "A lógica digital não ignora a física; ela a domestica. Em vez de pedir medições precisas demais, escolhe limites estáveis e trata o resto como transição ou erro.",
-        "Esse passo é importante porque portas lógicas são, no fundo, circuitos físicos que implementam regras booleanas sobre sinais elétricos.",
-      ],
-      [
-        { type: "definition", title: "Valor lógico", body: "Abstração binária aplicada a um sinal físico, normalmente interpretado como 0 ou 1." },
-      ],
-    ),
-    s(
-      "tabelas-verdade",
-      "Leitura",
-      "Como ler portas por tabela-verdade",
-      "A maneira mais clara de entender uma porta é observar todas as entradas possíveis e a saída resultante.",
-      "truth-table-visual",
-      "truth-table-lab",
-      [
-        "Uma porta lógica é uma função muito pequena: recebe poucas entradas binárias e devolve uma saída binária. Como há poucas combinações possíveis, podemos listar todas em uma tabela-verdade.",
-        "AND só gera 1 quando ambas as entradas são 1. OR gera 1 quando pelo menos uma é 1. XOR gera 1 quando as entradas diferem. NOT inverte o valor.",
-        "Aprender a ler essas tabelas é como aprender o alfabeto da eletrônica digital. Elas são simples, mas qualquer circuito maior nasce da composição dessas regras.",
-      ],
-      [
-        { type: "definition", title: "Tabela-verdade", body: "Tabela que mostra a saída de uma função lógica para cada combinação possível de entradas." },
-        { type: "example", title: "XOR", body: "A saída vale 1 quando as entradas são diferentes: 01 ou 10." },
-      ],
-    ),
-    s(
-      "portas-basicas",
-      "Vocabulário",
-      "O que cada porta faz",
-      "Portas não são decoração: cada uma resolve um padrão lógico recorrente em circuitos.",
-      "gates-family",
-      undefined,
-      [
-        "NOT é negação: transforma 1 em 0 e 0 em 1. AND exige coincidência. OR aceita alternativa. XOR detecta diferença. Juntas, essas portas formam um conjunto extremamente expressivo.",
-        "Quando falamos em 'controle', 'habilitar', 'comparar' ou 'alternar' em hardware, normalmente estamos descrevendo arranjos dessas portas. Elas reaparecem em decodificadores, seletores, ALUs e até mecanismos de memória.",
-        "A intuição certa não é decorar símbolos, e sim perceber o papel operacional de cada porta em decisões simples.",
-      ],
-      [
-        { type: "insight", title: "XOR é especial em soma", body: "Ele detecta diferença entre bits e por isso aparece naturalmente no bit de soma." },
-        { type: "mistake", title: "Achar que portas são 'coisas separadas'", body: "Na prática, elas quase sempre aparecem compostas em blocos maiores." },
-      ],
-    ),
-    s(
-      "nand-universal",
-      "Construção",
-      "Por que NAND é chamada de universal",
-      "Se uma única porta permite reconstruir as outras, ela se torna uma peça fundamental de projeto.",
-      "nand-universal-visual",
-      "nand-builder",
-      [
-        "NAND significa NOT(AND). À primeira vista parece só mais uma porta. Mas ela tem uma propriedade poderosa: com combinações adequadas de NAND, conseguimos montar NOT, AND, OR e circuitos maiores.",
-        "Isso importa historicamente e conceitualmente. Em vez de pensar em muitas peças diferentes, podemos pensar em um tijolo universal e nas regras de composição dele.",
-        "Universalidade não significa que tudo vira simples, e sim que existe uma base suficientemente rica para construir o resto. É o equivalente de dizer que um conjunto pequeno de instruções ainda pode expressar muitos programas.",
-      ],
-      [
-        { type: "definition", title: "Porta universal", body: "Porta lógica a partir da qual é possível construir todas as demais." },
-        { type: "example", title: "NOT com NAND", body: "Basta ligar a mesma entrada nos dois lados da NAND: NAND(A, A) = NOT(A)." },
-      ],
-    ),
-    s(
-      "somadores",
-      "Aritmética",
-      "Somar bits exige soma e carry",
-      "A soma binária não produz um único resultado: ela separa o bit visível e o vai-um.",
-      "half-adder-visual",
-      "adder-simulator",
-      [
-        "No mundo decimal, aprendemos cedo a fazer 9 + 8 e carregar 1 para a próxima coluna. Em binário, o mesmo princípio aparece de forma ainda mais clara. Se 1 + 1 = 10, temos soma 0 e carry 1.",
-        "O meio somador usa XOR para o bit de soma e AND para o carry. Essa combinação já mostra como portas lógicas viram aritmética concreta.",
-        "Ao empilhar somadores e propagar carries, construímos unidades maiores capazes de realizar operações essenciais de uma CPU.",
-      ],
-      [
-        { type: "definition", title: "Carry", body: "Bit que indica que a soma atual excedeu a coluna e precisa ser propagada para a próxima." },
-        { type: "insight", title: "Somar é circuito, não magia", body: "A aritmética inteira surge da composição disciplinada de portas simples." },
-      ],
-    ),
-    s(
-      "selecao-e-controle",
-      "Sistema",
-      "Circuitos também escolhem caminhos",
-      "Além de somar, circuitos selecionam entradas, habilitam componentes e controlam o fluxo interno da máquina.",
-      "mux-control-visual",
-      undefined,
-      [
-        "Multiplexadores escolhem uma entre várias entradas com base em bits de controle. Decodificadores transformam poucas entradas em várias linhas de ativação. Esses blocos são tão importantes quanto somadores.",
-        "A razão é simples: um computador não só calcula. Ele precisa decidir de onde vem um dado, para onde ele vai e qual unidade deve trabalhar em cada ciclo.",
-        "A camada de controle é a ponte entre lógica booleana e comportamento organizado. Sem ela, teríamos peças isoladas sem coordenação.",
-      ],
-      [
-        { type: "example", title: "MUX 2→1", body: "Um seletor escolhe entre entrada A e entrada B conforme um bit de controle." },
-      ],
-    ),
-    s(
-      "dos-circuitos-a-cpu",
-      "Síntese",
-      "Como isso se conecta a computadores reais",
-      "CPU, memória e barramentos são blocos maiores montados a partir desses circuitos básicos.",
-      "logic-to-cpu-visual",
-      undefined,
-      [
-        "Registradores usam circuitos com estado para guardar bits. ALUs combinam somadores, comparadores e lógica booleana. Unidades de controle ativam os caminhos corretos em cada instrução.",
-        "Por isso estudar portas lógicas não é voltar demais no tempo. É entender o nível mais baixo em que o comportamento da máquina ainda é legível por humanos.",
-        "Nas próximas aulas, quando falarmos de CPU, cache e RAM, essas portas desaparecerão da superfície — mas continuarão sendo a substância do hardware.",
-      ],
-      [
-        { type: "insight", title: "Abstração esconde sem apagar", body: "Camadas superiores simplificam o raciocínio, mas continuam sustentadas por portas e circuitos." },
-      ],
-    ),
-    s("quiz-revisao", "Revisão", "Quiz de revisão", "Verifique se portas, tabelas-verdade e soma binária ficaram intuitivas.", undefined, "quiz", ["As próximas aulas assumem esse vocabulário como base."], []),
-    s("glossario", "Glossário", "Termos essenciais", "Consolide o vocabulário mínimo de lógica digital.", undefined, "glossary", ["Esses termos retornam em CPU, registradores, memória e ISA."], []),
+  "summaryCards": [
+    {
+      "title": "Problema que resolve",
+      "body": "mostrar como estados binários e operações booleanas se compõem em circuitos úteis"
+    },
+    {
+      "title": "Modelo mental",
+      "body": "pensar em circuitos como uma composição de blocos que implementam tabelas verdade e, às vezes, lembram o passado"
+    },
+    {
+      "title": "Erro comum",
+      "body": "imaginar portas lógicas como instruções de software executadas uma depois da outra"
+    },
+    {
+      "title": "Onde reaparece",
+      "body": "Aceleradores, CPUs e controladores digitais ainda reduzem, no fundo, à composição de lógica e armazenamento binário"
+    }
   ],
-  summaryCards: [
-    { title: "Bit vira lógica", body: "Sinais físicos são interpretados como valores discretos para permitir circuitos confiáveis." },
-    { title: "Tabela-verdade descreve comportamento", body: "Ela torna cada porta legível como uma função." },
-    { title: "Portas compõem circuitos", body: "AND, OR, NOT e XOR aparecem como peças de blocos maiores." },
-    { title: "NAND é base universal", body: "Ela consegue reconstruir as outras portas por composição." },
-    { title: "Soma produz carry", body: "Somadores transformam lógica booleana em aritmética binária." },
-    { title: "Controle escolhe caminhos", body: "MUX e decodificadores mostram que circuitos também decidem fluxos." },
+  "quiz": [
+    {
+      "id": "q1",
+      "prompt": "Qual é a função principal de Bits, Portas Lógicas e Circuitos em um sistema?",
+      "options": [
+        {
+          "id": "a",
+          "label": "mostrar como estados binários e operações booleanas se compõem em circuitos úteis"
+        },
+        {
+          "id": "b",
+          "label": "Substituir todas as outras camadas do stack por uma única técnica."
+        },
+        {
+          "id": "c",
+          "label": "Eliminar por definição qualquer latência, falha ou custo."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "A ideia central da aula é mostrar como estados binários e operações booleanas se compõem em circuitos úteis. O tema melhora o projeto do sistema, mas não apaga restrições físicas nem substitui todas as outras camadas."
+    },
+    {
+      "id": "q2",
+      "prompt": "Qual modelo mental ajuda mais a entender bits, portas lógicas e circuitos?",
+      "options": [
+        {
+          "id": "a",
+          "label": "pensar em circuitos como uma composição de blocos que implementam tabelas verdade e, às vezes, lembram o passado"
+        },
+        {
+          "id": "b",
+          "label": "Pensar apenas na interface visual, ignorando o mecanismo interno."
+        },
+        {
+          "id": "c",
+          "label": "Assumir que bits, portas lógicas e circuitos resolve sozinho qualquer gargalo restante."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "O melhor atalho mental aqui é: pensar em circuitos como uma composição de blocos que implementam tabelas verdade e, às vezes, lembram o passado. Esse modelo ajuda a prever custo, limite e comportamento operacional."
+    },
+    {
+      "id": "q3",
+      "prompt": "No fluxo estudado, qual etapa aparece cedo e condiciona decisões posteriores?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Codificação binária"
+        },
+        {
+          "id": "b",
+          "label": "Captura de estado"
+        },
+        {
+          "id": "c",
+          "label": "Uma etapa mágica que elimina a necessidade de observar o sistema."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "Codificação binária acontece cedo e molda o resto do caminho. Erros de classificação ou roteamento se propagam com facilidade."
+    },
+    {
+      "id": "q4",
+      "prompt": "Qual afirmação descreve melhor o trade-off central da aula?",
+      "options": [
+        {
+          "id": "a",
+          "label": "O objetivo é equilibrar simplicidade conceitual e expressividade dos circuitos, não maximizar um extremo automaticamente."
+        },
+        {
+          "id": "b",
+          "label": "Sempre vale empurrar tudo para expressividade dos circuitos."
+        },
+        {
+          "id": "c",
+          "label": "Sempre vale empurrar tudo para simplicidade conceitual."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "O eixo 'simplicidade conceitual ↔ expressividade dos circuitos' existe porque cada extremo resolve uma dor e cria outra. Projeto maduro explicita essa troca."
+    },
+    {
+      "id": "q5",
+      "prompt": "Qual das opções abaixo representa um erro comum discutido na aula?",
+      "options": [
+        {
+          "id": "a",
+          "label": "imaginar portas lógicas como instruções de software executadas uma depois da outra"
+        },
+        {
+          "id": "b",
+          "label": "sempre pergunte o que é combinacional, o que é estado e onde está a fronteira de clock"
+        },
+        {
+          "id": "c",
+          "label": "Medir hipóteses antes de alterar um sistema que já está em produção."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "Este é o atalho mental perigoso do tema: imaginar portas lógicas como instruções de software executadas uma depois da outra. A aula insiste em tornar essas suposições explícitas."
+    },
+    {
+      "id": "q6",
+      "prompt": "Pensando em cenários reais, qual decisão inicial está mais alinhada com a aula?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Modelar a tabela verdade e compor um meio somador antes de pensar em algo maior."
+        },
+        {
+          "id": "b",
+          "label": "Usar a ideia de multiplexação em vez de tentar desenhar ligações arbitrárias."
+        },
+        {
+          "id": "c",
+          "label": "Adicionar estado com flip-flops ou registradores e pensar no clock."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "No primeiro cenário, a recomendação é modelar a tabela verdade e compor um meio somador antes de pensar em algo maior.. A solução depende do mecanismo certo para o caso, não de um padrão aplicado sem contexto."
+    },
+    {
+      "id": "q7",
+      "prompt": "Por que este tema também importa para sistemas de IA e produtos modernos?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Aceleradores, CPUs e controladores digitais ainda reduzem, no fundo, à composição de lógica e armazenamento binário"
+        },
+        {
+          "id": "b",
+          "label": "Porque produtos de IA não dependem de infraestrutura, segurança ou dados."
+        },
+        {
+          "id": "c",
+          "label": "Porque modelos grandes fazem arquitetura e operação deixarem de importar."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "A ponte da aula é direta: aceleradores, cpus e controladores digitais ainda reduzem, no fundo, à composição de lógica e armazenamento binário. Os mesmos fundamentos reaparecem em serving, dados, rede, storage e operação."
+    },
+    {
+      "id": "q8",
+      "prompt": "O que costuma quebrar ou exigir cuidado adicional neste tema?",
+      "options": [
+        {
+          "id": "a",
+          "label": "o circuito parece correto na tabela verdade, mas falha quando timing, clock e estado entram na história"
+        },
+        {
+          "id": "b",
+          "label": "Somente o nome das variáveis ou detalhes cosméticos da interface."
+        },
+        {
+          "id": "c",
+          "label": "Nada relevante: testes básicos já eliminam esse tipo de risco completamente."
+        }
+      ],
+      "correctOptionId": "a",
+      "feedback": "O limite importante aqui é concreto: o circuito parece correto na tabela verdade, mas falha quando timing, clock e estado entram na história. Em sistemas reais, garantias dependem de política, falha, carga e integração entre camadas."
+    }
   ],
-  quiz: [
-    q("q1", "Por que sistemas digitais preferem 0 e 1 em vez de muitos níveis lógicos?", "Porque dois estados são mais fáceis de detectar com robustez.", "Porque dois estados sempre usam menos energia.", "Porque a matemática proíbe três estados.", "a", "Faixas bem separadas de sinal ajudam a tolerar ruído e imperfeições."),
-    q("q2", "O que uma tabela-verdade descreve?", "A saída de uma função lógica para cada combinação de entradas.", "A velocidade elétrica de uma porta.", "A lista de transistores de um chip.", "a", "Ela mostra comportamento lógico, não detalhes físicos de fabricação."),
-    q("q3", "Quando a porta AND produz 1?", "Somente quando todas as entradas são 1.", "Quando ao menos uma entrada é 1.", "Quando as entradas são diferentes.", "a", "AND exige coincidência total das entradas em 1."),
-    q("q4", "O que a XOR detecta com duas entradas?", "Se elas são diferentes.", "Se ambas são 1.", "Se ambas são 0.", "a", "Por isso ela é útil em comparação e no bit de soma."),
-    q("q5", "Por que NAND é chamada de porta universal?", "Porque com NAND suficiente é possível construir as demais portas.", "Porque ela é a mais rápida em qualquer tecnologia.", "Porque ela substitui memória e clock.", "a", "Universalidade aqui significa poder expressivo de construção."),
-    q("q6", "Num meio somador, qual combinação gera carry = 1?", "1 + 1.", "0 + 1.", "0 + 0.", "a", "O carry aparece quando a soma ultrapassa a coluna atual."),
-    q("q7", "Qual porta aparece naturalmente no bit de soma de um meio somador?", "XOR.", "NOR.", "NAND apenas isolada.", "a", "XOR vale 1 quando os bits diferem, exatamente o comportamento do bit de soma sem carry de entrada."),
-    q("q8", "O que um multiplexador faz?", "Escolhe uma entre várias entradas com base em sinais de controle.", "Armazena dados por longo prazo.", "Conta quantos bits existem em uma palavra.", "a", "Ele seleciona caminhos de dados dentro do circuito."),
-  ],
-  glossary: [
-    g("Lógica booleana", "Sistema lógico em que variáveis assumem valores como 0/1 ou falso/verdadeiro."),
-    g("Porta lógica", "Circuito que implementa uma função booleana simples."),
-    g("Tabela-verdade", "Tabela com todas as combinações de entrada e a respectiva saída."),
-    g("NOT", "Porta que inverte o valor lógico de entrada."),
-    g("AND", "Porta cuja saída vale 1 apenas quando todas as entradas são 1."),
-    g("OR", "Porta cuja saída vale 1 quando ao menos uma entrada é 1."),
-    g("XOR", "Porta cuja saída vale 1 quando as entradas diferem."),
-    g("NAND", "Negação da AND; porta universal em muitos contextos."),
-    g("Circuito combinacional", "Circuito cuja saída depende apenas das entradas atuais."),
-    g("Carry", "Bit propagado para a próxima coluna em uma soma binária."),
-    g("Meio somador", "Circuito que soma dois bits e produz soma e carry."),
-    g("Multiplexador", "Circuito que seleciona uma entre várias entradas."),
-  ],
-};
-
-function s(
-  id: string,
-  eyebrow: string,
-  title: string,
-  lead: string,
-  visual: string | undefined,
-  interactive: string | undefined,
-  paragraphs: string[],
-  blocks: LessonContent["sections"][number]["blocks"],
-) {
-  return { id, eyebrow, title, lead, visual, interactive, paragraphs, blocks };
-}
-
-function q(id: string, prompt: string, a: string, b: string, c: string, correctOptionId: string, feedback: string) {
-  return {
-    id,
-    prompt,
-    options: [
-      { id: "a", label: a },
-      { id: "b", label: b },
-      { id: "c", label: c },
-    ],
-    correctOptionId,
-    feedback,
-  };
-}
-
-function g(term: string, definition: string) {
-  return { term, definition };
-}
+  "glossary": [
+    {
+      "term": "Bit",
+      "definition": "Menor unidade de informação discreta em sistemas digitais, tipicamente 0 ou 1."
+    },
+    {
+      "term": "Tabela verdade",
+      "definition": "Tabela que mostra a saída de uma função booleana para todas as combinações de entrada."
+    },
+    {
+      "term": "Porta lógica",
+      "definition": "Bloco físico que implementa uma operação booleana simples sobre sinais."
+    },
+    {
+      "term": "Álgebra booleana",
+      "definition": "Sistema algébrico usado para raciocinar sobre verdadeiro e falso."
+    },
+    {
+      "term": "Lógica combinacional",
+      "definition": "Circuitos cuja saída depende apenas das entradas atuais."
+    },
+    {
+      "term": "Lógica sequencial",
+      "definition": "Circuitos cuja saída depende também de estado armazenado anteriormente."
+    },
+    {
+      "term": "Flip-flop",
+      "definition": "Elemento básico de armazenamento usado para reter um bit ao longo do tempo."
+    },
+    {
+      "term": "Somador",
+      "definition": "Circuito que realiza adição binária e pode produzir carry."
+    },
+    {
+      "term": "Multiplexador",
+      "definition": "Circuito que escolhe uma entre várias entradas conforme sinais de seleção."
+    },
+    {
+      "term": "Clock",
+      "definition": "Sinal temporal que coordena atualização de elementos sequenciais."
+    }
+  ]
+} satisfies LessonContent;

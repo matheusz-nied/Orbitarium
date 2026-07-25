@@ -45,6 +45,42 @@ import { pcieBarramentosLesson } from "./pcie-barramentos";
 import { concorrenciaBaixoNivelLesson } from "./concorrencia-baixo-nivel";
 import { linuxPermissoesProcessosLesson } from "./linux-permissoes-processos";
 import { httpCachingLesson } from "./http-caching";
+import { performanceMentalModelLesson } from "./performance-mental-model";
+import { medirAntesDeOtimizarLesson } from "./medir-antes-de-otimizar";
+import { cpuBoundIoBoundMemoryBoundLesson } from "./cpu-bound-io-bound-memory-bound";
+import { latenciaVsThroughputLesson } from "./latencia-vs-throughput";
+import { ampdalELimitesDoParalelismoLesson } from "./ampdal-e-limites-do-paralelismo";
+import { custoDeAbstracoesLesson } from "./custo-de-abstracoes";
+import { flamegraphsEProfilingLesson } from "./flamegraphs-e-profiling";
+import { benchmarkingHonestoLesson } from "./benchmarking-honesto";
+import { localityDataOrientedDesignLesson } from "./locality-data-oriented-design";
+import { falseSharingECacheLinesLesson } from "./false-sharing-e-cache-lines";
+import { alocacaoArenaPoolBumpLesson } from "./alocacao-arena-pool-bump";
+import { stackVsHeapNaPraticaLesson } from "./stack-vs-heap-na-pratica";
+import { zeroCopyEBuffersLesson } from "./zero-copy-e-buffers";
+import { simdIntuicaoLesson } from "./simd-intuicao";
+import { branchPredictionECodigoQuenteLesson } from "./branch-prediction-e-codigo-quente";
+import { undefinedBehaviorMindsetLesson } from "./undefined-behavior-mindset";
+import { rustOwnershipBorrowingLesson } from "./rust-ownership-borrowing";
+import { rustLifetimesIntuicaoLesson } from "./rust-lifetimes-intuicao";
+import { rustTiposTraitsZeroCostLesson } from "./rust-tipos-traits-zero-cost";
+import { rustErrorHandlingLesson } from "./rust-error-handling";
+import { rustCollectionsEAlocacaoLesson } from "./rust-collections-e-alocacao";
+import { rustConcurrencySendSyncLesson } from "./rust-concurrency-send-sync";
+import { rustAsyncIntuicaoLesson } from "./rust-async-intuicao";
+import { rustUnsafeBoundariesLesson } from "./rust-unsafe-boundaries";
+import { rustFfiECLesson } from "./rust-ffi-e-c";
+import { rustToolingCargoPerfLesson } from "./rust-tooling-cargo-perf";
+import { goModeloMentalLesson } from "./go-modelo-mental";
+import { goGoroutinesSchedulerLesson } from "./go-goroutines-scheduler";
+import { goChannelsVsMemoriaCompartilhadaLesson } from "./go-channels-vs-memoria-compartilhada";
+import { goEscapeAnalysisLesson } from "./go-escape-analysis";
+import { goGcELatenciaLesson } from "./go-gc-e-latencia";
+import { goSyncAtomicMutexLesson } from "./go-sync-atomic-mutex";
+import { goPprofEBenchmarksLesson } from "./go-pprof-e-benchmarks";
+import { goNetHttpPerformanceLesson } from "./go-net-http-performance";
+import { goContextCancelamentoLesson } from "./go-context-cancelamento";
+import { goVsRustQuandoUsarLesson } from "./go-vs-rust-quando-usar";
 
 export const computacaoLessonModules = [
   bitsBytesRepresentacaoDadosLesson,
@@ -93,5 +129,41 @@ export const computacaoLessonModules = [
   concorrenciaBaixoNivelLesson,
   linuxPermissoesProcessosLesson,
   httpCachingLesson,
+  performanceMentalModelLesson,
+  medirAntesDeOtimizarLesson,
+  cpuBoundIoBoundMemoryBoundLesson,
+  latenciaVsThroughputLesson,
+  ampdalELimitesDoParalelismoLesson,
+  custoDeAbstracoesLesson,
+  flamegraphsEProfilingLesson,
+  benchmarkingHonestoLesson,
+  localityDataOrientedDesignLesson,
+  falseSharingECacheLinesLesson,
+  alocacaoArenaPoolBumpLesson,
+  stackVsHeapNaPraticaLesson,
+  zeroCopyEBuffersLesson,
+  simdIntuicaoLesson,
+  branchPredictionECodigoQuenteLesson,
+  undefinedBehaviorMindsetLesson,
+  rustOwnershipBorrowingLesson,
+  rustLifetimesIntuicaoLesson,
+  rustTiposTraitsZeroCostLesson,
+  rustErrorHandlingLesson,
+  rustCollectionsEAlocacaoLesson,
+  rustConcurrencySendSyncLesson,
+  rustAsyncIntuicaoLesson,
+  rustUnsafeBoundariesLesson,
+  rustFfiECLesson,
+  rustToolingCargoPerfLesson,
+  goModeloMentalLesson,
+  goGoroutinesSchedulerLesson,
+  goChannelsVsMemoriaCompartilhadaLesson,
+  goEscapeAnalysisLesson,
+  goGcELatenciaLesson,
+  goSyncAtomicMutexLesson,
+  goPprofEBenchmarksLesson,
+  goNetHttpPerformanceLesson,
+  goContextCancelamentoLesson,
+  goVsRustQuandoUsarLesson,
 ] satisfies LessonModule[];
 

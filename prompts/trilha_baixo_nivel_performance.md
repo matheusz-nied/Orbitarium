@@ -247,10 +247,10 @@ L3.1–L3.6 ↔ L4.1–L4.6 → L4.10 → L5.1
 
 - [x] Plano escrito (`prompts/trilha_baixo_nivel_performance.md`)
 - [x] Manifesto de IDs (`prompts/manifesto_aulas_baixo_nivel.json`)
-- [ ] Onda L1 implementada
-- [ ] Onda L2 implementada
-- [ ] Onda L3 (Rust) implementada
-- [ ] Onda L4 (Go) implementada
+- [x] Onda L1 implementada
+- [x] Onda L2 implementada
+- [x] Onda L3 (Rust) implementada
+- [x] Onda L4 (Go) implementada
 - [ ] Onda L5 implementada
 - [ ] Onda L6 opcional
 - [ ] Validação acadêmica + anti-alucinação

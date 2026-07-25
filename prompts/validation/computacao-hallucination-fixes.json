@@ -1,0 +1,86 @@
+{
+  "auditDate": "2026-07-25",
+  "scope": {
+    "lessonEntryFiles": 46,
+    "sharedBackedLessons": 8,
+    "uniqueContentSourcesAudited": 39,
+    "uniqueReferenceUrls": 163
+  },
+  "summary": {
+    "confirmedIssuesFound": 1,
+    "confirmedIssuesFixed": 1,
+    "confirmedIssuesRemaining": 0,
+    "fakePapersFound": 0,
+    "fakeOrBrokenUrlsFound": 1,
+    "arxivYearMismatchesFound": 0,
+    "unsourcedSpecificPerformanceNumbersFound": 0,
+    "misattributionsFound": 0,
+    "glossaryFactualErrorsFound": 0
+  },
+  "issues": [
+    {
+      "id": "tpu-npu-aceleradores-mlsysbook-url",
+      "lessonId": "tpu-npu-aceleradores",
+      "sourceFile": "src/lessons/computacao/tpu-npu-aceleradores/content.ts",
+      "field": "references[1].url",
+      "category": "broken_url",
+      "status": "fixed",
+      "oldValue": "https://www.mlsysbook.ai/contents/core/hw_acceleration/hw_acceleration.html",
+      "newValue": "https://mlsysbook.ai/vol1/hw_acceleration/hw_acceleration.html",
+      "evidence": [
+        "Automated curl probe returned 404 for the old URL.",
+        "Web search located the live MLSys Book hardware acceleration chapter at the new URL.",
+        "A second 404-only probe across all lesson references returned no remaining 404s after the edit."
+      ]
+    }
+  ],
+  "probedSuspiciousUrls": [
+    {
+      "url": "https://www.mlsysbook.ai/contents/core/hw_acceleration/hw_acceleration.html",
+      "probeResult": "curl 404",
+      "followUp": "Web search found live replacement URL.",
+      "finalDisposition": "fixed"
+    },
+    {
+      "url": "https://www.rabbitmq.com/docs/queues",
+      "probeResult": "curl 403",
+      "followUp": "WebFetch and WebSearch both confirmed the page is live.",
+      "finalDisposition": "valid_bot_blocked"
+    },
+    {
+      "url": "cloudflare.com/learning/*",
+      "probeResult": "curl 403 on multiple pages",
+      "followUp": "Pattern consistent with bot blocking; references remain plausible and aligned with lesson topics.",
+      "finalDisposition": "no_change"
+    },
+    {
+      "url": "britannica.com/*",
+      "probeResult": "curl 403 on multiple pages",
+      "followUp": "Pattern consistent with bot blocking; no evidence of invented titles or mismatched attribution.",
+      "finalDisposition": "no_change"
+    },
+    {
+      "url": "https://pcisig.com/",
+      "probeResult": "curl 403",
+      "followUp": "Plausible official domain for PCI-SIG; no contradictory evidence found.",
+      "finalDisposition": "no_change"
+    },
+    {
+      "url": "https://nvmexpress.org/specifications/",
+      "probeResult": "curl 403",
+      "followUp": "Plausible official NVM Express specifications domain; no contradictory evidence found.",
+      "finalDisposition": "no_change"
+    },
+    {
+      "url": "https://en.cppreference.com/w/cpp/atomic/memory_order",
+      "probeResult": "curl 403",
+      "followUp": "Title, source and domain are consistent with the cited material.",
+      "finalDisposition": "no_change"
+    }
+  ],
+  "notes": [
+    "No arXiv references were present in the audited lesson set, so year-vs-arXiv checks ended with zero applicable findings.",
+    "No benchmark-style claims such as 'Nx faster', percentages, or concrete throughput numbers were found without a source.",
+    "A didactic hypothetical example comparing 2 ms and 5 ms in wave3PartAContent.ts was reviewed and not treated as a factual benchmark claim."
+  ]
+}

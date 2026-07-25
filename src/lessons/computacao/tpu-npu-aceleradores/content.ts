@@ -38,7 +38,7 @@ export const tpuNpuAceleradoresContent: LessonContent = {
     {
       "title": "Hardware Acceleration",
       "source": "MLSys Book",
-      "url": "https://www.mlsysbook.ai/contents/core/hw_acceleration/hw_acceleration.html",
+      "url": "https://mlsysbook.ai/vol1/hw_acceleration/hw_acceleration.html",
       "note": "Livro moderno e confiável sobre aceleradores para ML."
     },
     {

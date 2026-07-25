@@ -1,0 +1,68 @@
+[
+  {
+    "lessonId": "pre-treino-dados-scaling-laws",
+    "issue": "Ano da referencia 'The Pile' nao batia com o proprio arXiv 2101.00027.",
+    "fixApplied": true,
+    "note": "Source ajustado de 2020 para 2021."
+  },
+  {
+    "lessonId": "alucinacoes-em-ia",
+    "issue": "Ano da referencia 'Survey of Hallucination in Natural Language Generation' nao batia com o arXiv 2202.03629.",
+    "fixApplied": true,
+    "note": "Source ajustado de 2023 para 2022."
+  },
+  {
+    "lessonId": "alucinacoes-em-ia",
+    "issue": "Ano da referencia 'A Survey on Hallucination in Large Language Models' nao batia com o arXiv 2311.05232.",
+    "fixApplied": true,
+    "note": "Source ajustado de 2024 para 2023."
+  },
+  {
+    "lessonId": "prompt-engineering-com-fundamento",
+    "issue": "Ano da referencia 'ReAct' nao batia com o arXiv 2210.03629.",
+    "fixApplied": true,
+    "note": "Source ajustado de 2023 para 2022."
+  },
+  {
+    "lessonId": "rag-retrieval-augmented-generation",
+    "issue": "Ano da referencia 'Lost in the Middle' nao batia com o arXiv 2307.03172.",
+    "fixApplied": true,
+    "note": "Source ajustado de 2024 para 2023."
+  },
+  {
+    "lessonId": "rag-retrieval-augmented-generation",
+    "issue": "Ano da referencia 'Retrieval-Augmented Generation for Large Language Models: A Survey' nao batia com o arXiv 2312.10997.",
+    "fixApplied": true,
+    "note": "Source ajustado de 2024 para 2023."
+  },
+  {
+    "lessonId": "chunking-ranking-bases-vetoriais",
+    "issue": "Ano da referencia 'Lost in the Middle' nao batia com o arXiv 2307.03172.",
+    "fixApplied": true,
+    "note": "Source ajustado de 2024 para 2023."
+  },
+  {
+    "lessonId": "inferencia-latencia-batching-throughput",
+    "issue": "URL de 'TensorRT Best Practices' retornava 404.",
+    "fixApplied": true,
+    "note": "URL trocada para a versao canonical 'latest' da documentacao NVIDIA."
+  },
+  {
+    "lessonId": "gpus-vram-custo-real-ia",
+    "issue": "URL de 'TensorRT Best Practices' retornava 404.",
+    "fixApplied": true,
+    "note": "URL trocada para a versao canonical 'latest' da documentacao NVIDIA."
+  },
+  {
+    "lessonId": "privacidade-pii-dados-sensiveis-ia",
+    "issue": "URL do Presidio apontava para dominio legado e falhava na checagem direta.",
+    "fixApplied": true,
+    "note": "URL atualizada para o dominio canonico presidio.dataprivacystack.org."
+  },
+  {
+    "lessonId": "agencia-autonomia-limites-llms",
+    "issue": "URL de 'Why language models hallucinate' usava slug incorreto em openai.com/research.",
+    "fixApplied": true,
+    "note": "URL atualizada para a pagina canonica openai.com/index/why-language-models-hallucinate/ e source simplificado para OpenAI."
+  }
+]

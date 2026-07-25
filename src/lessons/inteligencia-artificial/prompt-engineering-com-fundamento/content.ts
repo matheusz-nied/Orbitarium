@@ -78,7 +78,7 @@ export const promptEngineeringComFundamentoContent: LessonContent = {
     },
     {
       title: "ReAct: Synergizing Reasoning and Acting in Language Models",
-      source: "Yao et al., 2023 — arXiv",
+      source: "Yao et al., 2022 — arXiv",
       url: "https://arxiv.org/abs/2210.03629",
       note:
         "Importante para entender prompting que combina raciocínio com uso de ferramentas e observações externas.",

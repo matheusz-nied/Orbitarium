@@ -36,14 +36,14 @@ export const alucinacoesEmIaContent: LessonContent = {
   references: [
     {
       title: "Survey of Hallucination in Natural Language Generation",
-      source: "Ji et al., 2023 — arXiv",
+      source: "Ji et al., 2022 — arXiv",
       url: "https://arxiv.org/abs/2202.03629",
       note:
         "Survey amplo sobre definições, métricas, causas e mitigação de alucinações em geração de linguagem.",
     },
     {
       title: "A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions",
-      source: "Huang et al., 2024 — arXiv",
+      source: "Huang et al., 2023 — arXiv",
       url: "https://arxiv.org/abs/2311.05232",
       note:
         "Organiza o problema especificamente para LLMs e discute limites de detecção e mitigação.",

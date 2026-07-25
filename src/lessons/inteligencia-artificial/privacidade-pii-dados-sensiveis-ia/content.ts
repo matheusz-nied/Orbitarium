@@ -59,7 +59,7 @@ export const privacidadePiiDadosSensiveisIaContent: LessonContent = {
     {
       "title": "Getting started with text de-identification",
       "source": "Microsoft Presidio",
-      "url": "https://microsoft.github.io/presidio/getting_started/getting_started_text/",
+      "url": "https://presidio.dataprivacystack.org/getting_started/getting_started_text/",
       "note": "Guia oficial de detecção e anonimização de PII com Presidio."
     },
     {

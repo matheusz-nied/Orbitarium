@@ -78,7 +78,7 @@ export const chunkingRankingBasesVetoriaisContent: LessonContent = {
     },
     {
       title: "Lost in the Middle: How Language Models Use Long Contexts",
-      source: "Liu et al., 2024 — arXiv",
+      source: "Liu et al., 2023 — arXiv",
       url: "https://arxiv.org/abs/2307.03172",
       note:
         "Mostra que contexto longo sem boa priorização não garante uso efetivo da informação.",

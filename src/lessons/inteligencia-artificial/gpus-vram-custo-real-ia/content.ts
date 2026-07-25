@@ -41,7 +41,7 @@ export const gpusVramCustoRealIaContent: LessonContent = {
     {
       "title": "Best Practices",
       "source": "NVIDIA TensorRT",
-      "url": "https://docs.nvidia.com/deeplearning/tensorrt/10.15.1/performance/best-practices.html",
+      "url": "https://docs.nvidia.com/deeplearning/tensorrt/latest/performance/best-practices.html",
       "note": "Traz recomendações oficiais sobre profiling, memória e transferência host-device."
     },
     {

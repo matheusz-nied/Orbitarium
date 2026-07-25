@@ -64,7 +64,7 @@ export const preTreinoDadosScalingLawsContent: LessonContent = {
     },
     {
       title: "The Pile: An 800GB Dataset of Diverse Text for Language Modeling",
-      source: "Gao et al., 2020 — arXiv",
+      source: "Gao et al., 2021 — arXiv",
       url: "https://arxiv.org/abs/2101.00027",
       note:
         "Exemplo relevante de corpus diverso e curado para pré-treinamento aberto.",

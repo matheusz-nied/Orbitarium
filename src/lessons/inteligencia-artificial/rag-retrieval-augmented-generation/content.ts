@@ -64,14 +64,14 @@ export const ragRetrievalAugmentedGenerationContent: LessonContent = {
     },
     {
       title: "Lost in the Middle: How Language Models Use Long Contexts",
-      source: "Liu et al., 2024 — arXiv",
+      source: "Liu et al., 2023 — arXiv",
       url: "https://arxiv.org/abs/2307.03172",
       note:
         "Importante para entender por que só aumentar contexto nem sempre resolve uso efetivo da informação recuperada.",
     },
     {
       title: "Retrieval-Augmented Generation for Large Language Models: A Survey",
-      source: "Gao et al., 2024 — arXiv",
+      source: "Gao et al., 2023 — arXiv",
       url: "https://arxiv.org/abs/2312.10997",
       note:
         "Survey moderno sobre variantes, componentes e desafios do ecossistema RAG.",

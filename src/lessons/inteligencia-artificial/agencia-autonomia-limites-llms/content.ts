@@ -57,8 +57,8 @@ export const agenciaAutonomiaLimitesLlmsContent: LessonContent = {
     },
     {
       "title": "Why language models hallucinate",
-      "source": "OpenAI Research",
-      "url": "https://openai.com/research/why-language-models-hallucinate/",
+      "source": "OpenAI",
+      "url": "https://openai.com/index/why-language-models-hallucinate/",
       "note": "Discussão útil sobre plausibilidade linguística e limites epistêmicos de modelos de linguagem."
     },
     {

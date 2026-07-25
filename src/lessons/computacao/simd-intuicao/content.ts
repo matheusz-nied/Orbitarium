@@ -291,7 +291,7 @@ export const simdIntuicaoContent: LessonContent = {
       "lead": "SIMD aparece em áudio, imagem, codecs, ML, bancos colunares, vetores numéricos e qualquer fluxo com dados homogêneos em lote.",
       "visual": "impact-board",
       "paragraphs": [
-        "Bibliotecas numéricas e frameworks de ML vivem desse paralelismo de dados: matrices, tensores e vetores são naturalmente alinhados ao modelo vetorial.",
+        "Bibliotecas numéricas e frameworks de ML vivem desse paralelismo de dados: matrizes, tensores e vetores frequentemente se encaixam bem no modelo vetorial quando layout, stride e operação cooperam.",
         "Codecs, filtros de imagem e kernels de áudio também dependem de operações repetitivas sobre coleções contíguas, o que torna SIMD uma ferramenta central.",
         "Mesmo quando você não escreve intrinsics, entender SIMD ajuda a projetar estruturas e loops que a toolchain consegue aproveitar melhor."
       ],

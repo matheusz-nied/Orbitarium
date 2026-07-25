@@ -59,6 +59,12 @@ export const undefinedBehaviorMindsetContent: LessonContent = {
       "source": "Rust Standard Library",
       "url": "https://doc.rust-lang.org/std/mem/union.MaybeUninit.html",
       "note": "Material oficial sobre memória possivelmente não inicializada e seu uso correto."
+    },
+    {
+      "title": "Interior mutability",
+      "source": "The Rust Reference",
+      "url": "https://doc.rust-lang.org/stable/reference/interior-mutability.html",
+      "note": "Explica a exceção controlada de UnsafeCell para mutação por referência compartilhada."
     }
   ],
   "heroVisual": "lesson-hero",
@@ -114,7 +120,7 @@ export const undefinedBehaviorMindsetContent: LessonContent = {
       "visual": "concept-grid",
       "paragraphs": [
         "Uma referência válida promete mais do que um endereço qualquer: ela promete alinhamento, validade e certas regras de aliasing ao longo de seu lifetime.",
-        "Raw pointers são mais permissivos em alguns aspectos, mas não autorizam ignorar validade, proveniência ou fronteiras de acesso. Eles apenas movem mais prova para o programador.",
+        "Raw pointers são mais permissivos em alguns aspectos, mas não autorizam ignorar validade, alinhamento, limites e as regras de acesso que a linguagem e as ferramentas conseguem justificar. Eles apenas movem mais prova para o programador.",
         "Isso ajuda a entender por que otimização e semântica não são camadas separadas. O compilador otimiza justamente porque acredita nessas promessas."
       ],
       "blocks": [
@@ -140,7 +146,7 @@ export const undefinedBehaviorMindsetContent: LessonContent = {
       "paragraphs": [
         "Primeiro, você identifica qual promessa está sendo feita: unicidade de mutação, validade da referência, alinhamento, inicialização ou ausência de corrida de dados.",
         "Depois, o código unsafe precisa manter essa promessa enquanto cria, converte ou expõe ponteiros e referências. Esse é o momento em que bugs sutis costumam nascer.",
-        "Por fim, você fecha a fronteira: minimiza escopo unsafe, documenta a invariantes e prefere APIs seguras na superfície. Quanto menor a região que exige prova manual, menor a chance de autoengano."
+        "Por fim, você fecha a fronteira: minimiza escopo unsafe, documenta as invariantes e prefere APIs seguras na superfície. Quanto menor a região que exige prova manual, menor a chance de autoengano."
       ],
       "blocks": [
         {
@@ -192,15 +198,15 @@ export const undefinedBehaviorMindsetContent: LessonContent = {
       "title": "Aliasing, validade e alinhamento são promessas ativas",
       "lead": "Referência válida não é sinônimo de 'tenho um endereço'; ela carrega compromissos semânticos concretos.",
       "paragraphs": [
-        "No material oficial de Rust, referências compartilham regras fortes: &T não pode observar mutação arbitrária enquanto vive, e &mut T promete exclusividade de acesso relevante àquela região.",
-        "Essas garantias são justamente o que permite ao compilador raciocinar melhor sobre reorder, eliminação de cargas redundantes e outras otimizações.",
+        "No material oficial de Rust, referências compartilham regras fortes: &T normalmente aponta para dados que não devem ser mutados enquanto a referência estiver viva, exceto pelos mecanismos de interior mutability baseados em UnsafeCell; &mut T, por sua vez, exige exclusividade compatível com seu uso.",
+        "Essas garantias, embora tenham detalhes finos de aliasing ainda em evolução no modelo formal, são justamente o que permite ao compilador raciocinar melhor sobre reorder, eliminação de cargas redundantes e outras otimizações.",
         "Alinhamento e validade também entram no pacote. Produzir uma referência desalinhada ou para dado inválido não é só 'ler um valor esquisito'; é violar uma categoria inteira de contrato."
       ],
       "blocks": [
         {
           "type": "definition",
           "title": "Aliasing",
-          "body": "Sobreposição de caminhos de acesso à mesma região de memória, relevante quando há mutação, validade e promises de exclusividade."
+          "body": "Sobreposição de caminhos de acesso à mesma região de memória, relevante quando há mutação, validade e promessas de exclusividade."
         },
         {
           "type": "insight",
@@ -557,7 +563,7 @@ export const undefinedBehaviorMindsetContent: LessonContent = {
     },
     {
       "term": "Proveniência",
-      "definition": "Relação entre um ponteiro e a região de memória que ele está autorizado a acessar."
+      "definition": "Termo usado para discutir de onde um ponteiro veio e que acessos ele pode justificar; os detalhes exatos dependem do modelo adotado pela linguagem e pelas ferramentas."
     },
     {
       "term": "Fronteira unsafe",

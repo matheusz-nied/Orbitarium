@@ -35,10 +35,10 @@ const interactionConfig = {
   ],
   "leftLabel": "escalar simples",
   "rightLabel": "paralelismo por lanes",
-  "tradeoffSummary": "SIMD vale quando o trabalho é homogêneo, independente e alimentado por memória suficientemente previsível. O compilador resolve bastante coisa sozinho hoje; intrinsics entram quando perfis e inspeção justificam controle extra. Antes disso, a pergunta principal continua sendo sobre dados e regularidade do loop.",
+  "tradeoffSummary": "SIMD vale quando o trabalho é homogêneo, independente e alimentado por memória suficientemente previsível. Compiladores modernos já cobrem muitos loops regulares, mas não todos; intrinsics entram quando perfis e inspeção justificam controle extra. Antes disso, a pergunta principal continua sendo sobre dados e regularidade do loop.",
   "tradeoffRisks": [
     "Código escalar demais pode desperdiçar paralelismo de dados disponível em loops muito regulares.",
-    "Auto-vectorization cobre muitos casos sem sacrificar clareza, desde que o loop exponha a oportunidade.",
+    "Auto-vectorization pode cobrir muitos casos regulares sem sacrificar clareza, desde que o loop exponha a oportunidade.",
     "Controle manual com intrinsics pode render ganhos extras em kernels quentes e estáveis.",
     "Baixa regularidade, gathers caros ou bound de memória podem reduzir muito o retorno do esforço vetorial."
   ],

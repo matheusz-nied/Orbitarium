@@ -17,7 +17,7 @@ const visualConfig = {
     "invariantes",
     "aliasing",
     "validade",
-    "proveniência"
+    "UnsafeCell"
   ],
   "pipelineSteps": [
     "Declarar a promessa",

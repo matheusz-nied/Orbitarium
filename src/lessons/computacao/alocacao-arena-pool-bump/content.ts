@@ -216,6 +216,7 @@ export const alocacaoArenaPoolBumpContent: LessonContent = {
       "lead": "Reciclar buffers e objetos temporários é poderoso quando a carga repete padrões semelhantes milhares de vezes.",
       "paragraphs": [
         "Pools amortizam alocação ao devolver ao sistema um objeto já criado para uso posterior. Isso é comum com buffers, builders, estruturas auxiliares e objetos temporários de tamanho parecido.",
+        "Alguns pools concretos são oportunistas, não determinísticos. No caso de sync.Pool do Go, por exemplo, o runtime pode descartar itens a qualquer momento e Get pode agir como se o pool estivesse vazio.",
         "O ganho vem do reaproveitamento, não de uma mágica universal. Se o objeto cresce demais, mantém memória demais ou carrega estado residual, o pool pode piorar uso de memória e introduzir bugs lógicos.",
         "Por isso, toda estratégia de pooling precisa responder claramente: quem zera, quem redefine capacidade, quem impede vazamento de referências ao objeto reciclado e quando vale deixar o runtime desalocar de verdade."
       ],
@@ -529,7 +530,7 @@ export const alocacaoArenaPoolBumpContent: LessonContent = {
     },
     {
       "term": "Pool",
-      "definition": "Estratégia de reciclagem de objetos ou buffers temporários."
+      "definition": "Estratégia de reciclagem de objetos ou buffers temporários; em implementações como sync.Pool, o reuso pode ser oportunista, não garantido."
     },
     {
       "term": "Reset em lote",

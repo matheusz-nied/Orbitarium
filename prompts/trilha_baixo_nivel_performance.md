@@ -245,13 +245,26 @@ L3.1–L3.6 ↔ L4.1–L4.6 → L4.10 → L5.1
 
 ## Status
 
+## Próximo passo recomendado
+
+Depois de L1–L5, seguir:
+
+- `prompts/trilha_capstones_e_teoria.md` (capstones → teoria low-level → teoria IA)
+- Manifesto: `prompts/manifesto_aulas_capstones_teoria.json`
+
+Não abrir trilha ofensiva de hacking; segurança só como fase defensiva opcional nesse plano.
+
+---
+
+## Status
+
 - [x] Plano escrito (`prompts/trilha_baixo_nivel_performance.md`)
 - [x] Manifesto de IDs (`prompts/manifesto_aulas_baixo_nivel.json`)
 - [x] Onda L1 implementada
 - [x] Onda L2 implementada
 - [x] Onda L3 (Rust) implementada
 - [x] Onda L4 (Go) implementada
-- [ ] Onda L5 implementada
+- [ ] Onda L5 implementada *(ver PR da onda L5 se ainda não mergeada)*
 - [ ] Onda L6 opcional
-- [x] Validação acadêmica + anti-alucinação
-- [x] Registro no catálogo + build verde
+- [x] Validação acadêmica + anti-alucinação *(L1–L4; L5 no PR dedicado)*
+- [x] Registro no catálogo + build verde *(até L4 na main; L5 via PR)*

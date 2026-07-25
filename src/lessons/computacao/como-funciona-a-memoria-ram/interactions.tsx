@@ -7,14 +7,14 @@ const interactionConfig = {
     {
       "name": "Miss de cache",
       "summary": "A CPU não encontra o dado nas camadas mais próximas e precisa descer na hierarquia.",
-      "signal": "cache miss",
-      "risk": "stall",
-      "takeaway": "RAM aparece quando a locality não bastou."
+      "signal": "miss de cache",
+      "risk": "espera da CPU",
+      "takeaway": "RAM aparece quando a localidade não bastou."
     },
     {
       "name": "Escalonamento pelo controlador",
       "summary": "O controlador escolhe banco, linha e ordem de acesso à DRAM.",
-      "signal": "queueing",
+      "signal": "fila no controlador",
       "risk": "contenção e reordenação",
       "takeaway": "A RAM não é um bloco mágico uniforme."
     },
@@ -23,26 +23,26 @@ const interactionConfig = {
       "summary": "Uma linha é ativada e dados são transferidos em blocos úteis para caches.",
       "signal": "row hit ou row miss",
       "risk": "acessos dispersos",
-      "takeaway": "Locality conversa com a física da DRAM."
+      "takeaway": "Localidade conversa com a física da DRAM."
     },
     {
       "name": "Preenchimento e substituição",
       "summary": "Os dados sobem para cache e algo pode ser desalojado para abrir espaço.",
-      "signal": "eviction",
-      "risk": "thrashing",
-      "takeaway": "Capacidade e reuse andam juntos."
+      "signal": "substituição de linha",
+      "risk": "baixo reaproveitamento",
+      "takeaway": "Capacidade ajuda, mas reuso continua decisivo."
     }
   ],
-  "leftLabel": "capacidade",
-  "rightLabel": "latência e locality",
-  "tradeoffSummary": "Mais RAM ajuda a manter working sets vivos, mas desempenho real continua dependendo de como os acessos exploram locality e de quantas vezes a CPU precisa esperar a memória principal.",
+  "leftLabel": "mais dados residentes",
+  "rightLabel": "menos espera por acesso",
+  "tradeoffSummary": "Mais RAM ajuda a manter working sets vivos e reduz pressão sobre paginação, mas desempenho real ainda depende de localidade, latência e largura de banda quando a CPU precisa buscar dados na memória principal.",
   "tradeoffRisks": [
-    "Pouca memória útil e maior chance de page fault ou troca constante.",
-    "Capacidade suficiente para muitos casos, com desempenho ainda sensível a locality.",
-    "Boa eficiência quando o working set é amigável, mas dependência maior do desenho dos acessos.",
-    "Otimizar só capacidade sem olhar padrão de acesso pode esconder stalls enormes."
+    "Pouca memória útil aumenta a chance de paginação, recargas e pressão sobre o sistema.",
+    "Mesmo com capacidade razoável, o desempenho continua sensível ao padrão de acesso.",
+    "Boa localidade reduz espera, mas não compensa automaticamente working set grande demais.",
+    "Olhar só capacidade ou só micro-otimização de acesso pode esconder o gargalo principal."
   ],
-  "practiceRule": "separe a pergunta cabe em memória da pergunta é acessado com locality suficiente",
+  "practiceRule": "separe a pergunta cabe em memória da pergunta é acessado com localidade suficiente",
   "scenarios": [
     {
       "name": "Muitas abas abertas",
@@ -54,7 +54,7 @@ const interactionConfig = {
     {
       "name": "Análise em memória",
       "situation": "Um job cabe inteiro em RAM, mas percorre estruturas grandes de forma irregular.",
-      "choice": "Revisar layout e padrão de acesso para explorar locality, em vez de confiar só no fato de caber na RAM.",
+      "choice": "Revisar layout e padrão de acesso para explorar localidade, em vez de confiar só no fato de caber na RAM.",
       "why": "Caber não elimina latência de memória principal.",
       "caution": "Acesso aleatório pode arruinar ganhos esperados."
     },

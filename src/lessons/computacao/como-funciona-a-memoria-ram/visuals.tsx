@@ -9,9 +9,9 @@ const visualConfig = {
     "RAM",
     "DRAM",
     "Hierarquia de Memória",
-    "Latency",
-    "Bandwidth",
-    "Working Set"
+    "Latência",
+    "Largura de banda",
+    "Working set"
   ],
   "conceptNodes": [
     "RAM",
@@ -25,8 +25,8 @@ const visualConfig = {
     "Ativação e burst",
     "Preenchimento e substituição"
   ],
-  "leftLabel": "capacidade",
-  "rightLabel": "latência e locality",
+  "leftLabel": "mais dados residentes",
+  "rightLabel": "menos espera por acesso",
   "impactRows": [
     {
       "label": "Unidade crítica",
@@ -42,7 +42,7 @@ const visualConfig = {
     },
     {
       "label": "Eixo de projeto",
-      "value": "capacidade ↔ latência e locality"
+      "value": "mais dados residentes ↔ menos espera por acesso"
     }
   ]
 };

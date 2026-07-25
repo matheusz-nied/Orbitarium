@@ -394,7 +394,7 @@ export const bitsPortasLogicasCircuitosContent: LessonContent = {
     },
     {
       "id": "q6",
-      "prompt": "Pensando em cenários reais, qual decisão inicial está mais alinhada com a aula?",
+      "prompt": "Ao começar a desenhar um circuito que soma dois bits, qual decisão inicial está mais alinhada com a aula?",
       "options": [
         {
           "id": "a",
@@ -402,15 +402,15 @@ export const bitsPortasLogicasCircuitosContent: LessonContent = {
         },
         {
           "id": "b",
-          "label": "Usar a ideia de multiplexação em vez de tentar desenhar ligações arbitrárias."
+          "label": "Pular a tabela verdade e improvisar a ligação das portas direto no circuito."
         },
         {
           "id": "c",
-          "label": "Adicionar estado com flip-flops ou registradores e pensar no clock."
+          "label": "Adicionar flip-flops logo de saída, antes de validar a lógica combinacional básica."
         }
       ],
       "correctOptionId": "a",
-      "feedback": "No primeiro cenário, a recomendação é modelar a tabela verdade e compor um meio somador antes de pensar em algo maior.. A solução depende do mecanismo certo para o caso, não de um padrão aplicado sem contexto."
+      "feedback": "Para esse cenário inicial, a recomendação é modelar a tabela verdade e compor um meio somador antes de pensar em algo maior. A aula insiste em separar primeiro a lógica combinacional básica antes de adicionar mais complexidade."
     },
     {
       "id": "q7",

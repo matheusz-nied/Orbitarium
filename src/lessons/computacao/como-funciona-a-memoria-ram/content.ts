@@ -13,9 +13,9 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
     "RAM",
     "DRAM",
     "Hierarquia de Memória",
-    "Latency",
-    "Bandwidth",
-    "Working Set"
+    "Latência",
+    "Largura de banda",
+    "Working set"
   ],
   "learningObjectives": [
     "Entender a posição da RAM entre caches de CPU e armazenamento persistente.",
@@ -39,7 +39,7 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
       "title": "Computer Systems: A Programmer's Perspective",
       "source": "CS:APP / CMU 15-213",
       "url": "https://www.cs.cmu.edu/~213/",
-      "note": "Base forte para hierarquia de memória, locality e desempenho."
+      "note": "Base forte para hierarquia de memória, localidade e desempenho."
     },
     {
       "title": "Operating Systems: Three Easy Pieces",
@@ -51,7 +51,7 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
       "title": "Intel 64 and IA-32 Architectures Optimization Reference Manual",
       "source": "Intel",
       "url": "https://www.intel.com/content/www/us/en/developer/articles/technical/intel64-and-ia-32-architectures-optimization-reference-manual.html",
-      "note": "Referência sobre latência, locality e efeitos de acesso à memória."
+      "note": "Referência sobre latência, localidade e efeitos de acesso à memória."
     },
     {
       "title": "computer memory",
@@ -61,7 +61,7 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
     }
   ],
   "heroVisual": "lesson-hero",
-  "openingText": "Dizer que um programa usa muita RAM costuma esconder várias perguntas diferentes. Falta capacidade? Falta locality? O working set cabe? O problema é page fault ou acesso aleatório? Entender RAM é entender por que memória principal é essencial, mas ainda está muito longe da velocidade dos registradores e das caches da CPU.",
+  "openingText": "Dizer que um programa usa muita RAM costuma esconder várias perguntas diferentes. Falta capacidade? Falta localidade? O working set cabe? O problema é page fault ou acesso aleatório? Entender RAM é entender por que memória principal é essencial, mas ainda está muito longe da velocidade dos registradores e das caches da CPU.",
   "quickFacts": [
     {
       "title": "Unidade crítica",
@@ -69,11 +69,11 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
     },
     {
       "title": "Trade-off central",
-      "body": "capacidade ↔ latência e locality"
+      "body": "mais dados residentes ↔ menos espera por acesso"
     },
     {
       "title": "Regra prática",
-      "body": "separe a pergunta cabe em memória da pergunta é acessado com locality suficiente"
+      "body": "separe a pergunta cabe em memória da pergunta é acessado com localidade suficiente"
     }
   ],
   "sections": [
@@ -84,8 +84,8 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
       "lead": "Manter dados ativos acessíveis com muito menos custo do que ir ao armazenamento persistente muda latência, custo, previsibilidade ou segurança. Por isso, o tema aparece cedo em qualquer sistema que sai do protótipo.",
       "visual": "lesson-hero",
       "paragraphs": [
-        "Como Funciona a Memória RAM existe para manter dados ativos acessíveis com muito menos custo do que ir ao armazenamento persistente. Sem isso, a cpu passaria tempo demais esperando storage e o sistema ficaria impraticável para cargas interativas.",
-        "Um bom modelo intuitivo é pensar na ram como uma grande grade de células organizadas em bancos e linhas que servem o working set do momento. Pense em abrir dezenas de abas, alternar entre aplicações e ainda esperar respostas rápidas das que continuam ativas.",
+        "Como Funciona a Memória RAM existe para manter dados ativos acessíveis com muito menos custo do que ir ao armazenamento persistente. Sem isso, a CPU passaria tempo demais esperando armazenamento e o sistema ficaria impraticável para cargas interativas.",
+        "Um bom modelo intuitivo é pensar na RAM como uma grande grade de células organizadas em bancos e linhas que servem o working set do momento. Pense em abrir dezenas de abas, alternar entre aplicações e ainda esperar respostas rápidas das que continuam ativas.",
         "Esse assunto importa porque afeta latência de acesso, page faults e throughput de movimentação de dados. Quando você o entende, decisões de arquitetura deixam de parecer um conjunto de truques desconexos."
       ],
       "blocks": [
@@ -110,7 +110,7 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
       "paragraphs": [
         "Definição operacional: memória principal volátil e endereçável que guarda dados e código em uso com latência muito menor do que storage, mas maior do que caches internas da CPU.",
         "A unidade crítica para raciocinar sobre custo e comportamento é a linha ou banco acessado e o bloco que sobe para preencher caches. É nela que atrasos, contenção ou corrupção costumam aparecer primeiro.",
-        "Quando você enxerga a unidade certa, fica mais fácil separar sintoma de causa. Isso evita o atalho mental de achar que achar que adicionar ram acelera qualquer programa igualmente, independentemente do padrão de acesso."
+        "Quando você enxerga a unidade certa, fica mais fácil separar sintoma de causa. Isso evita o atalho mental de achar que adicionar RAM acelera qualquer programa igualmente, independentemente do padrão de acesso."
       ],
       "blocks": [
         {
@@ -133,7 +133,7 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
       "visual": "pipeline-diagram",
       "interactive": "pipeline-lab",
       "paragraphs": [
-        "Em alto nível, o fluxo é a cpu sofre um miss, o controlador agenda o acesso, ativa linhas na dram e devolve bursts que preenchem caches ou buffers.",
+        "Em alto nível, o fluxo é: a CPU sofre um miss, o controlador agenda o acesso, ativa linhas na DRAM e devolve bursts que preenchem caches ou buffers.",
         "Em vez de decorar siglas, vale observar a ordem das decisões: miss de cache, escalonamento pelo controlador, ativação e burst e preenchimento e substituição. O desenho muda de tema para tema, mas a disciplina mental é a mesma.",
         "A pergunta importante não é apenas 'qual etapa existe?'. A pergunta melhor é 'onde a decisão errada se propaga e quanto custa corrigi-la depois?'."
       ],
@@ -164,7 +164,7 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
       "visual": "tradeoff-spectrum",
       "interactive": "tradeoff-lab",
       "paragraphs": [
-        "O eixo central desta aula vai de capacidade até latência e locality. Mais RAM ajuda a manter working sets vivos, mas desempenho real continua dependendo de como os acessos exploram locality e de quantas vezes a CPU precisa esperar a memória principal.",
+        "O ponto central desta aula é separar duas perguntas: quantos dados ativos cabem residentes e quanto custa cada acesso quando a CPU precisa descer até a memória principal. Mais RAM ajuda a manter working sets vivos, mas desempenho real continua dependendo de localidade, latência e largura de banda.",
         "Empurrar o desenho demais para um extremo tende a simplificar uma parte e complicar outra. O trabalho do arquiteto é tornar essa troca visível, não escondê-la atrás de defaults.",
         "Por isso, a pergunta madura não é 'qual tecnologia vence?'. É 'qual ponto do eixo faz sentido para este perfil de tráfego, risco e equipe?'."
       ],
@@ -172,7 +172,7 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
         {
           "type": "insight",
           "title": "Projeto é posicionamento",
-          "body": "O eixo 'capacidade ↔ latência e locality' existe porque cada ponta otimiza uma propriedade diferente do sistema."
+          "body": "Capacidade residente e custo por acesso precisam ser lidos juntos: caber na RAM ajuda, mas localidade e latência continuam determinando o tempo de resposta."
         },
         {
           "type": "mistake",
@@ -187,7 +187,7 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
       "title": "Onde equipes experientes ainda escorregam",
       "lead": "A maioria dos incidentes não nasce da teoria errada, e sim de suposições implícitas que ninguém modelou até o sistema crescer.",
       "paragraphs": [
-        "O erro recorrente é achar que adicionar ram acelera qualquer programa igualmente, independentemente do padrão de acesso. Isso costuma soar plausível porque a abstração superficial parece simples demais.",
+        "O erro recorrente é achar que adicionar RAM acelera qualquer programa igualmente, independentemente do padrão de acesso. Isso costuma soar plausível porque a abstração superficial parece simples demais.",
         "Na prática, o limite aparece quando o conjunto de dados até cabe em memória, mas o padrão aleatório de acesso derrota caches e expõe latência alta repetidamente. É nesse ponto que o sistema revela o que realmente estava sendo garantido - ou apenas assumido.",
         "Tratar esses limites como detalhes raros é caro. Tratá-los como parte do desenho inicial economiza incidentes, retrabalho e debates improdutivos depois."
       ],
@@ -211,7 +211,7 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
       "lead": "Padrão bom é padrão contextualizado. Sem cenário, benchmark e política, a mesma técnica vira conselho ruim.",
       "interactive": "scenario-lab",
       "paragraphs": [
-        "Uma regra prática desta aula é separe a pergunta cabe em memória da pergunta é acessado com locality suficiente.",
+        "Uma regra prática desta aula é separar a pergunta \"cabe em memória?\" da pergunta \"é acessado com localidade suficiente?\".",
         "Repare nos cenários propostos: muitas abas abertas, análise em memória e carregamento de checkpoint. O mecanismo é o mesmo, mas a decisão muda conforme estado, risco e tipo de carga.",
         "É por isso que bons times documentam intenção, observam métricas e revisam o desenho quando o contexto operacional muda."
       ],
@@ -222,14 +222,14 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
           "body": "As recomendações abaixo não são receitas eternas; elas são pontos de partida guiados pelo mecanismo que a aula explicou.",
           "items": [
             "Observar working set e pressão de memória antes de concluir que faltou CPU.",
-            "Revisar layout e padrão de acesso para explorar locality, em vez de confiar só no fato de caber na RAM.",
+            "Revisar layout e padrão de acesso para explorar localidade, em vez de confiar só no fato de caber na RAM.",
             "Aproveitar page cache e prever quando o gargalo é RAM versus storage."
           ]
         },
         {
           "type": "definition",
           "title": "Regra prática",
-          "body": "separe a pergunta cabe em memória da pergunta é acessado com locality suficiente"
+          "body": "separe a pergunta cabe em memória da pergunta é acessado com localidade suficiente"
         }
       ]
     },
@@ -314,11 +314,11 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
     },
     {
       "id": "q2",
-      "prompt": "Qual modelo mental ajuda mais a entender como funciona a memória ram?",
+      "prompt": "Qual modelo mental ajuda mais a entender como funciona a memória RAM?",
       "options": [
         {
           "id": "a",
-          "label": "pensar na RAM como uma grande grade de células organizadas em bancos e linhas que servem o working set do momento"
+          "label": "Pensar na RAM como uma grande grade de células organizadas em bancos e linhas que servem o working set do momento."
         },
         {
           "id": "b",
@@ -326,11 +326,11 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
         },
         {
           "id": "c",
-          "label": "Assumir que como funciona a memória ram resolve sozinho qualquer gargalo restante."
+          "label": "Assumir que a memória RAM resolve sozinha qualquer gargalo restante."
         }
       ],
       "correctOptionId": "a",
-      "feedback": "O melhor atalho mental aqui é: pensar na ram como uma grande grade de células organizadas em bancos e linhas que servem o working set do momento. Esse modelo ajuda a prever custo, limite e comportamento operacional."
+      "feedback": "O melhor atalho mental aqui é pensar na RAM como uma grande grade de células organizadas em bancos e linhas que servem o working set do momento. Esse modelo ajuda a prever custo, limite e comportamento operacional."
     },
     {
       "id": "q3",
@@ -354,23 +354,23 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
     },
     {
       "id": "q4",
-      "prompt": "Qual afirmação descreve melhor o trade-off central da aula?",
+      "prompt": "Qual afirmação descreve melhor a leitura correta sobre desempenho de RAM?",
       "options": [
         {
           "id": "a",
-          "label": "O objetivo é equilibrar capacidade e latência e locality, não maximizar um extremo automaticamente."
+          "label": "É preciso olhar ao mesmo tempo para capacidade residente e para o custo de cada acesso à memória."
         },
         {
           "id": "b",
-          "label": "Sempre vale empurrar tudo para latência e locality."
+          "label": "Se o dado couber na RAM, o padrão de acesso deixa de importar."
         },
         {
           "id": "c",
-          "label": "Sempre vale empurrar tudo para capacidade."
+          "label": "Mais capacidade sempre elimina gargalos de latência."
         }
       ],
       "correctOptionId": "a",
-      "feedback": "O eixo 'capacidade ↔ latência e locality' existe porque cada extremo resolve uma dor e cria outra. Projeto maduro explicita essa troca."
+      "feedback": "A aula separa capacidade residente de custo por acesso: caber na RAM ajuda, mas localidade, latência e largura de banda continuam mudando muito o desempenho observado."
     },
     {
       "id": "q5",
@@ -382,7 +382,7 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
         },
         {
           "id": "b",
-          "label": "separe a pergunta cabe em memória da pergunta é acessado com locality suficiente"
+          "label": "Separar a pergunta \"cabe em memória?\" da pergunta \"é acessado com localidade suficiente?\""
         },
         {
           "id": "c",
@@ -390,11 +390,11 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
         }
       ],
       "correctOptionId": "a",
-      "feedback": "Este é o atalho mental perigoso do tema: achar que adicionar ram acelera qualquer programa igualmente, independentemente do padrão de acesso. A aula insiste em tornar essas suposições explícitas."
+      "feedback": "Este é o atalho mental perigoso do tema: achar que adicionar RAM acelera qualquer programa igualmente, independentemente do padrão de acesso. A aula insiste em tornar essas suposições explícitas."
     },
     {
       "id": "q6",
-      "prompt": "Pensando em cenários reais, qual decisão inicial está mais alinhada com a aula?",
+      "prompt": "No cenário de muitas abas abertas e alternância constante entre aplicações, qual decisão inicial combina melhor com a aula?",
       "options": [
         {
           "id": "a",
@@ -402,15 +402,15 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
         },
         {
           "id": "b",
-          "label": "Revisar layout e padrão de acesso para explorar locality, em vez de confiar só no fato de caber na RAM."
+          "label": "Concluir imediatamente que faltou CPU e ignorar pressão de memória."
         },
         {
           "id": "c",
-          "label": "Aproveitar page cache e prever quando o gargalo é RAM versus storage."
+          "label": "Supor que mais RAM sempre resolve sem medir working set nem faltas de página."
         }
       ],
       "correctOptionId": "a",
-      "feedback": "No primeiro cenário, a recomendação é observar working set e pressão de memória antes de concluir que faltou cpu.. A solução depende do mecanismo certo para o caso, não de um padrão aplicado sem contexto."
+      "feedback": "Nesse cenário, a recomendação inicial é observar working set e pressão de memória antes de concluir que faltou CPU. A aula insiste em separar falta de capacidade residente de outros gargalos do sistema."
     },
     {
       "id": "q7",
@@ -430,7 +430,7 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
         }
       ],
       "correctOptionId": "a",
-      "feedback": "A ponte da aula é direta: pipelines de dados, inferência e treino vivem negociando ram, page cache, vram e arquivos mapeados com exatamente essa lógica de hierarquia. Os mesmos fundamentos reaparecem em serving, dados, rede, storage e operação."
+      "feedback": "A ponte da aula é direta: pipelines de dados, inferência e treino vivem negociando RAM, page cache, VRAM e arquivos mapeados com exatamente essa lógica de hierarquia. Os mesmos fundamentos reaparecem em serving, dados, rede, armazenamento e operação."
     },
     {
       "id": "q8",
@@ -471,11 +471,11 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
       "definition": "Conjunto de dados realmente acessados em uma janela de tempo relevante."
     },
     {
-      "term": "Latency",
+      "term": "Latência",
       "definition": "Tempo para que um acesso à memória comece a devolver dados úteis."
     },
     {
-      "term": "Bandwidth",
+      "term": "Largura de banda",
       "definition": "Quantidade de dados que pode ser transferida por unidade de tempo."
     },
     {
@@ -492,7 +492,7 @@ export const comoFuncionaAMemoriaRamContent: LessonContent = {
     },
     {
       "term": "Page fault",
-      "definition": "Evento em que a página desejada não está pronta no espaço esperado e exige tratamento adicional."
+      "definition": "Evento em que um acesso a uma página exige tratamento adicional do sistema, por ausência de mapeamento válido, proteção ou carregamento sob demanda."
     }
   ]
 } satisfies LessonContent;

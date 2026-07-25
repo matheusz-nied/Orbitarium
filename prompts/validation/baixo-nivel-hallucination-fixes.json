@@ -1,0 +1,61 @@
+{
+  "auditDate": "2026-07-25",
+  "scope": {
+    "lessonEntryFiles": 36,
+    "waves": [
+      "L1_mentalidade",
+      "L2_memoria_dados",
+      "L3_rust",
+      "L4_go"
+    ],
+    "sharedBackedLessons": 18,
+    "uniqueContentSourcesAudited": 21,
+    "uniqueReferenceUrls": 120
+  },
+  "summary": {
+    "confirmedIssuesFound": 0,
+    "confirmedIssuesFixed": 0,
+    "confirmedIssuesRemaining": 0,
+    "fakeOrBrokenUrlsFound": 0,
+    "fakeYearsFound": 0,
+    "unsourcedSpecificNumbersFound": 0
+  },
+  "issues": [],
+  "urlProbe": {
+    "uniqueUrlsProbed": 120,
+    "http200": 120,
+    "non200": 0
+  },
+  "spotChecks": [
+    {
+      "url": "https://go.dev/blog/container-aware-gomaxprocs",
+      "reason": "Version-sensitive runtime behavior in containers.",
+      "result": "Confirmed official explanation of the Go 1.25 container-aware default for GOMAXPROCS."
+    },
+    {
+      "url": "https://go.dev/blog/go119runtime",
+      "reason": "Version-sensitive runtime and memory-limit claims.",
+      "result": "Confirmed official details for Go 1.19 soft memory limit and recent runtime improvements."
+    },
+    {
+      "url": "https://go.dev/blog/go15gc",
+      "reason": "GC architecture claims in L4 Go.",
+      "result": "Confirmed the Go 1.5 concurrent tri-color mark-sweep framing used by the lesson."
+    },
+    {
+      "url": "https://pkg.go.dev/net/http",
+      "reason": "Potential confusion between Client reuse and Transport-backed pooling.",
+      "result": "Confirmed that Clients and Transports should be reused and that persistent-connection reuse depends on Body being read to EOF and closed."
+    },
+    {
+      "url": "https://pkg.go.dev/context",
+      "reason": "Potential misuse claims around CancelFunc and context.Value.",
+      "result": "Confirmed the official guidance on calling CancelFunc and restricting Value to request-scoped data."
+    }
+  ],
+  "notes": [
+    "No fake URL, fake year, or unsourced specific numeric claim was confirmed in the audited 36-lesson set.",
+    "The only code edits made in this pass were academic clarifications tracked separately in prompts/validation/baixo-nivel-academic-L4.md.",
+    "Interactive slider percentages and dial values were treated as didactic UI state rather than factual external benchmark claims."
+  ]
+}

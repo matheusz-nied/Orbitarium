@@ -1142,7 +1142,7 @@ export const goNetHttpPerformanceInteractions = buildComputacaoInteractions({
         label: "Cliente",
         headline: "Timeout global e uso correto de `http.Client` moldam o comportamento da chamada",
         bullets: [
-          "Criar cliente por requisição destrói pooling e aumenta custo de conexão.",
+          "O padrão realmente caro é não reutilizar o `Transport` ou criar `Transport` descartável por chamada; reutilizar `Client` e, sobretudo, `Transport` preserva pooling e configuração coerente.",
           "Timeout explícito evita operações penduradas por tempo indefinido.",
           "Contexto do request ajuda a cancelar o trabalho quando o resultado deixou de importar.",
         ],
@@ -1250,7 +1250,7 @@ export const goNetHttpPerformanceContent: LessonContent = {
     "Explicar por que timeouts explícitos são parte de performance e também de resiliência.",
     "Reconhecer o papel de `httptrace` na decomposição da latência do cliente.",
     "Melhorar o desenho mental de handlers, resposta, bodies e pressão sob carga.",
-    "Evitar armadilhas como criar clientes por requisição ou operar sem limites claros.",
+    "Evitar armadilhas como recriar a pilha HTTP sem reuso coerente ou operar sem limites claros.",
   ],
   prerequisites: [
     "Noção básica de HTTP e APIs em Go.",
@@ -1300,8 +1300,8 @@ export const goNetHttpPerformanceContent: LessonContent = {
     "É tentador tratar performance HTTP como uma questão de 'escrever handlers rápidos'. Só que boa parte da latência pode nascer antes do handler existir — em DNS, conexão, TLS, pool, limites ruins ou cancelamento ausente — e continuar depois dele, durante escrita da resposta, leitura do body e devolução da conexão ao pool. Em Go, `net/http` oferece ferramentas muito boas para esse caminho todo; o desafio é raciocinar sobre ele de ponta a ponta.",
   quickFacts: [
     {
-      title: "Cliente não é descartável",
-      body: "Reutilizar `http.Client` e `Transport` muda muito o custo total de rede.",
+      title: "Client e Transport pedem reuso consciente",
+      body: "Reutilizar `http.Client` e, sobretudo, `Transport` muda muito o custo total de rede.",
     },
     {
       title: "Timeout também é performance",
@@ -1338,16 +1338,16 @@ export const goNetHttpPerformanceContent: LessonContent = {
       "cliente-e-transport",
       "Cliente",
       "Muito problema de performance nasce no uso incorreto de `http.Client` e `Transport`",
-      "Criar clientes por requisição ou ignorar pooling costuma sabotar reuso de conexões e aumentar custo invisível.",
+      "O risco prático quase sempre está em perder reuso de `Transport`, espalhar configuração e tratar cliente/round trip como descartáveis.",
       undefined,
       "go-http-roundtrip-flow",
       [
-        "Em Go, o `http.Client` usa um `Transport` que gerencia conexões, keep-alive e outros detalhes críticos. Reutilizar o cliente significa reaproveitar essa infraestrutura em vez de pagar o custo de criar tudo de novo a cada chamada.",
-        "Quando se cria cliente por requisição, o efeito mais comum é destruir o benefício do pool, aumentar handshakes e espalhar latência desnecessária. O sistema parece 'funcionar', mas trabalha mais do que precisa.",
-        "A consequência prática é importante: parte da otimização HTTP não está no parser ou no JSON, e sim em não desperdiçar conexão saudável que já existe.",
+        "Em Go, quem carrega o estado de pooling e conexões em cache é o `Transport`. O `Client` é a camada de política mais alta: timeout, cookies, redirecionamento e o uso daquele round trip. Na prática, reusar `Client` costuma ser o jeito mais seguro de também reusar `Transport` e manter a configuração consistente.",
+        "A formulação correta, portanto, é mais precisa do que um slogan do tipo 'nunca crie client por requisição'. Um `Client` novo com `Transport` nulo ainda recorre ao `DefaultTransport`, mas o antipadrão perigoso continua sendo criar `Transport` descartável, perder a política compartilhada do cliente ou espalhar configurações divergentes a cada chamada.",
+        "A consequência prática é importante: parte da otimização HTTP não está no parser ou no JSON, e sim em preservar reuso de conexão, timeout coerente e uma fronteira clara entre política de cliente e transporte.",
       ],
       [
-        block("mistake", "Cliente por requisição", "Esse padrão costuma impedir reaproveitamento eficiente do transporte e das conexões."),
+        block("mistake", "Cliente e transporte descartáveis", "O problema clássico é perder reuso de `Transport`, handshakes e política consistente ao recriar a pilha HTTP sem necessidade."),
         block("definition", "Transport", "Componente responsável por detalhes de conexão, reuso, proxy, TLS e round trips no cliente HTTP."),
       ],
     ),
@@ -1360,6 +1360,7 @@ export const goNetHttpPerformanceContent: LessonContent = {
       "go-http-knobs-compare",
       [
         "Conexões reutilizadas economizam novas discagens, novos handshakes e parte do custo distribuído do transporte. Sob carga contínua, isso costuma aparecer como melhora de eficiência bem maior do que micro-otimizações isoladas.",
+        "Esse reuso também depende de higiene de `Body`: na API de cliente do `net/http`, a resposta precisa ser fechada e, quando você quer reaproveitar a conexão persistente, o corpo precisa ser lido até EOF antes do `Close`.",
         "Mas pool bom não é infinito automático: limites muito baixos podem serializar tráfego; limites irresponsáveis podem mascarar acúmulo de conexões e pressão em dependências.",
         "É por isso que `Transport` merece atenção de engenharia. Ele é uma peça de performance, e não mero detalhe de biblioteca.",
       ],
@@ -1436,11 +1437,12 @@ export const goNetHttpPerformanceContent: LessonContent = {
       "erros-comuns",
       "Armadilhas",
       "Os erros mais comuns são silenciosos: o serviço funciona, mas trabalha caro",
-      "Clientes descartáveis, ausência de timeout, falta de observabilidade e leitura incompleta do body sabotam eficiência ao longo do tempo.",
+      "Transports descartáveis, ausência de timeout, falta de observabilidade e higiene ruim de `Body` sabotam eficiência ao longo do tempo.",
       "go-net-http-performance-summary",
       undefined,
       [
         "Muitas falhas de `net/http` são traiçoeiras porque não derrubam o processo imediatamente. Elas apenas removem reuso, aumentam espera, escondem vazamentos de recurso ou dificultam identificar onde a latência realmente está nascendo.",
+        "Entre elas, uma das mais específicas da API do cliente é esquecer que a conexão persistente só volta ao pool quando o fluxo de resposta foi tratado corretamente. Fechar cedo demais ou abandonar `Body` no meio pode impedir o reaproveitamento daquela conexão.",
         "Isso explica por que times experientes tratam `Transport`, `Client`, contexto e observabilidade como parte do design de serviço, e não como detalhe de biblioteca.",
         "Em resumo: HTTP performático é mais disciplina de sistema do que truque de framework.",
       ],
@@ -1472,7 +1474,7 @@ export const goNetHttpPerformanceContent: LessonContent = {
   ],
   summaryCards: [
     { title: "HTTP é cadeia de custos", body: "DNS, conexão, TLS, handler e resposta somam a latência real." },
-    { title: "Cliente precisa viver", body: "Reutilizar `http.Client` e `Transport` preserva pooling e eficiência." },
+    { title: "Transport precisa viver", body: "Reutilizar `http.Client` e, principalmente, `Transport` preserva pooling, handshakes e política coerente." },
     { title: "Timeout protege capacidade", body: "Sem limites, falha remota vira custo local espalhado." },
     { title: "Transport é alavanca", body: "Pool e keep-alive mudam throughput, cauda e custo de rede." },
     { title: "httptrace reduz adivinhação", body: "Ele separa capítulos internos da latência do cliente." },
@@ -1490,12 +1492,12 @@ export const goNetHttpPerformanceContent: LessonContent = {
     ),
     q(
       "q2",
-      "Por que criar `http.Client` por requisição costuma ser ruim?",
-      "Porque prejudica o reaproveitamento do transporte e das conexões.",
-      "Porque o compilador do Go proíbe esse padrão.",
-      "Porque desativa automaticamente o contexto.",
+      "Qual anti-pattern prejudica mais claramente o pooling HTTP em Go?",
+      "Recriar `Transport` ou a pilha de cliente sem reutilização coerente entre chamadas.",
+      "Instanciar `http.Client` sempre desativa keep-alive, mesmo quando o `Transport` é compartilhado.",
+      "Pooling depende só do handler do servidor, não do cliente.",
       "a",
-      "O custo aparece em pooling pior, mais dials e mais handshakes.",
+      "O estado de conexão em cache mora no `Transport`; recriá-lo sem necessidade aumenta dials, handshakes e dispersa configuração.",
     ),
     q(
       "q3",

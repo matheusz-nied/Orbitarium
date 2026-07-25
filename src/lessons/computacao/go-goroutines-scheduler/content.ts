@@ -220,8 +220,8 @@ export const goGoroutinesSchedulerContent: LessonContent = {
       undefined,
       "go-gomaxprocs-dial",
       [
-        "O material oficial mais recente enfatiza um ponto importante: GOMAXPROCS fala sobre paralelo simultâneo disponível para o runtime, não apenas sobre 'quantos núcleos eu tenho'. Em uma máquina nua, usar o número de CPUs lógicas costuma ser um bom começo. Em container, isso pode ser enganoso se o limite de CPU real for menor.",
-        "O post sobre GOMAXPROCS container-aware mostra por que oversubscription pode ferir latência. Se o processo acredita que pode usar muito mais CPU do que o ambiente realmente permite, o kernel pode aplicar throttling. E throttling em períodos fixos é uma ferramenta brusca, capaz de aumentar caudas muito além do que um simples multiplexing mais suave faria.",
+        "O material oficial mais recente enfatiza um ponto importante: GOMAXPROCS fala sobre paralelo simultâneo disponível para o runtime, não apenas sobre 'quantos núcleos eu tenho'. Em uma máquina nua, usar o número de CPUs lógicas costuma ser um bom começo. Em containers, a leitura correta também depende da versão de Go e de você ter ou não sobrescrito esse default.",
+        "O post sobre GOMAXPROCS container-aware mostra por que oversubscription pode ferir latência e lembra um detalhe histórico relevante: antes do default container-aware introduzido no Go 1.25, o runtime costumava enxergar apenas a contagem de CPUs da máquina hospedeira quando GOMAXPROCS não era explicitamente configurado. Mesmo hoje, overrides manuais ou workloads muito espinhosos ainda exigem leitura crítica do ambiente. Se o processo acredita que pode usar muito mais CPU do que o limite efetivo permite, o kernel pode aplicar throttling. E throttling em períodos fixos é uma ferramenta brusca, capaz de aumentar caudas muito além do que um simples multiplexing mais suave faria.",
         "Por isso, tuning de GOMAXPROCS não deve ser superstição. Ele precisa conversar com workload, ambiente de execução e sinais de trace e runtime.",
       ],
       [
@@ -321,7 +321,7 @@ export const goGoroutinesSchedulerContent: LessonContent = {
     },
     {
       title: "GOMAXPROCS depende do ambiente",
-      body: "Especialmente em containers, paralelismo percebido e CPU efetivamente disponível podem divergir.",
+      body: "Especialmente em containers, paralelismo percebido, versão do runtime e CPU efetivamente disponível podem divergir.",
     },
     {
       title: "Trace vence narrativa improvisada",

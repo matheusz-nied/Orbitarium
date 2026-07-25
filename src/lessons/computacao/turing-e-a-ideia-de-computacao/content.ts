@@ -1,3 +1,4 @@
-import { turingEAIdeiaDeComputacaoContent } from "../shared/wave3PartAContent";
+import type { LessonContent } from "../../../types/content";
+import { turingEAIdeiaDeComputacaoContent as _content } from "../shared/wave3PartAContent";
 
-export { turingEAIdeiaDeComputacaoContent };
+export const turingEAIdeiaDeComputacaoContent: LessonContent = _content;

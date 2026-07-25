@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const balanceamentoECdnContent = {
+export const balanceamentoECdnContent: LessonContent = {
   "id": "balanceamento-e-cdn",
   "title": "Balanceamento de Carga e CDN",
   "subtitle": "Distribuir requisições e aproximar conteúdo do usuário sem tratar origem, cache e invalidação como a mesma coisa.",

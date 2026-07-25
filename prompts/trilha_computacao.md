@@ -251,8 +251,9 @@ Recomendação: **implementar Ondas 1 → 2 → 3**; só então avaliar Onda 4.
 
 - [x] Plano escrito (`prompts/trilha_computacao.md`)
 - [x] Manifesto de IDs (`prompts/manifesto_aulas_computacao.json`)
-- [ ] Onda 1 implementada
-- [ ] Onda 2 implementada
-- [ ] Onda 3 implementada
+- [x] Onda 1 implementada
+- [x] Onda 2 implementada
+- [x] Onda 3 implementada
+- [x] Onda 4 (opcional) implementada
 - [ ] Validação acadêmica + anti-alucinação
 - [ ] Registro completo no catálogo + build verde

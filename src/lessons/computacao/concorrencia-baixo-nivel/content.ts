@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const concorrenciaBaixoNivelContent = {
+export const concorrenciaBaixoNivelContent: LessonContent = {
   "id": "concorrencia-baixo-nivel",
   "title": "Concorrência em Baixo Nível",
   "subtitle": "Atomics, happens-before e ordens de memória: por que ver a mesma variável não significa ver o mesmo mundo entre cores.",

@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const monolitoVsMicroservicosContent = {
+export const monolitoVsMicroservicosContent: LessonContent = {
   "id": "monolito-vs-microservicos",
   "title": "Monolito vs Microserviços",
   "subtitle": "Fronteiras de deploy, coordenação e custo operacional: por que dividir um sistema nem sempre o torna mais simples.",

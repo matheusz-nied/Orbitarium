@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const graphqlComoContratoContent = {
+export const graphqlComoContratoContent: LessonContent = {
   "id": "graphql-como-contrato",
   "title": "GraphQL como Contrato de API",
   "subtitle": "Schema tipado, resolvers e custo de execução: o que muda quando o cliente escolhe o formato da resposta.",

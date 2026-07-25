@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const pcieBarramentosContent = {
+export const pcieBarramentosContent: LessonContent = {
   "id": "pcie-barramentos",
   "title": "Barramentos: PCIe e Comunicação Interna",
   "subtitle": "Como GPUs, SSDs e placas de rede falam com o host por links, lanes, DMA e topologia - e por que x16 nem sempre significa o que parece.",

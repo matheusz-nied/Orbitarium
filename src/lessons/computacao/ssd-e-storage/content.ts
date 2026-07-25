@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const ssdEStorageContent = {
+export const ssdEStorageContent: LessonContent = {
   "id": "ssd-e-storage",
   "title": "Como um SSD Funciona",
   "subtitle": "Por que storage sólido parece simples para o sistema operacional, mas esconde mapeamento, garbage collection e custo de regravação no controlador.",

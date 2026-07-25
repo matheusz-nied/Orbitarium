@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const transacoesAcidIsolamentoContent = {
+export const transacoesAcidIsolamentoContent: LessonContent = {
   "id": "transacoes-acid-isolamento",
   "title": "Transações, ACID e Isolamento",
   "subtitle": "O que um commit realmente promete quando várias operações disputam os mesmos dados ao mesmo tempo.",

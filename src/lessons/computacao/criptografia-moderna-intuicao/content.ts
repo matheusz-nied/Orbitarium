@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const criptografiaModernaIntuicaoContent = {
+export const criptografiaModernaIntuicaoContent: LessonContent = {
   "id": "criptografia-moderna-intuicao",
   "title": "Criptografia Moderna (Intuição)",
   "subtitle": "Chaves, sigilo, autenticidade e protocolos: como pensar cifragem sem misturar hash, cifra e assinatura no mesmo saco.",

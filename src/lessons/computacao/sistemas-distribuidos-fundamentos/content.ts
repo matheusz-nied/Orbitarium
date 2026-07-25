@@ -1,3 +1,4 @@
-import { sistemasDistribuidosFundamentosContent } from "../shared/wave3PartAContent";
+import type { LessonContent } from "../../../types/content";
+import { sistemasDistribuidosFundamentosContent as _content } from "../shared/wave3PartAContent";
 
-export { sistemasDistribuidosFundamentosContent };
+export const sistemasDistribuidosFundamentosContent: LessonContent = _content;

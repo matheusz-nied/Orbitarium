@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const bitsPortasLogicasCircuitosContent = {
+export const bitsPortasLogicasCircuitosContent: LessonContent = {
   "id": "bits-portas-logicas-circuitos",
   "title": "Bits, Portas Lógicas e Circuitos",
   "subtitle": "Da distinção entre 0 e 1 até o surgimento de somadores, multiplexadores e estado: a ponte entre álgebra booleana e hardware real.",

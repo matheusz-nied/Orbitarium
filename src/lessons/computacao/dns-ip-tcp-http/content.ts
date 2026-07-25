@@ -1,3 +1,4 @@
-import { dnsIpTcpHttpContent } from "../shared/wave3PartAContent";
+import type { LessonContent } from "../../../types/content";
+import { dnsIpTcpHttpContent as _content } from "../shared/wave3PartAContent";
 
-export { dnsIpTcpHttpContent };
+export const dnsIpTcpHttpContent: LessonContent = _content;

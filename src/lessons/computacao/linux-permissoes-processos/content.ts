@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const linuxPermissoesProcessosContent = {
+export const linuxPermissoesProcessosContent: LessonContent = {
   "id": "linux-permissoes-processos",
   "title": "Linux na Prática: Permissões e Processos",
   "subtitle": "Usuários, grupos, modos, PIDs, sinais e exec: como o modelo operacional do Linux realmente organiza acesso e execução.",

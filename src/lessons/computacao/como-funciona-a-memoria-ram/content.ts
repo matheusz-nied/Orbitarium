@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const comoFuncionaAMemoriaRamContent = {
+export const comoFuncionaAMemoriaRamContent: LessonContent = {
   "id": "como-funciona-a-memoria-ram",
   "title": "Como Funciona a Memória RAM",
   "subtitle": "A memória principal como área de trabalho ativa do computador: grande, volátil e rápida - mas nem de longe gratuita ou instantânea.",

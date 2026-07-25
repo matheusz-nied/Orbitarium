@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const hashesEIntegridadeContent = {
+export const hashesEIntegridadeContent: LessonContent = {
   "id": "hashes-e-integridade",
   "title": "Hashes e Integridade",
   "subtitle": "Como resumir bytes em uma impressão digital útil para detectar mudanças - sem transformar hash em magia criptográfica.",

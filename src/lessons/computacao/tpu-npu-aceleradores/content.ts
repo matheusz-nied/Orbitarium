@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const tpuNpuAceleradoresContent = {
+export const tpuNpuAceleradoresContent: LessonContent = {
   "id": "tpu-npu-aceleradores",
   "title": "TPU, NPU e Aceleradores",
   "subtitle": "Quando hardware especializado vence CPU generalista - e quando o movimento de dados destrói a vantagem prometida.",

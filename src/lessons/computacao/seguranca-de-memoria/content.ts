@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const segurancaDeMemoriaContent = {
+export const segurancaDeMemoriaContent: LessonContent = {
   "id": "seguranca-de-memoria",
   "title": "Segurança de Memória",
   "subtitle": "Por que bugs como buffer overflow e use-after-free são mais do que crashes: eles podem virar execução arbitrária, vazamento e corrupção silenciosa.",

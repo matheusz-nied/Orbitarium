@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const sistemaDeArquivosContent = {
+export const sistemaDeArquivosContent: LessonContent = {
   "id": "sistema-de-arquivos",
   "title": "Sistema de Arquivos",
   "subtitle": "A abstração que transforma blocos persistentes em nomes, diretórios, permissões e operações que fazem sentido para programas e pessoas.",

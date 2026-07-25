@@ -1,6 +1,6 @@
 import type { LessonContent } from "../../../types/content";
 
-export const httpCachingContent = {
+export const httpCachingContent: LessonContent = {
   "id": "http-caching",
   "title": "HTTP Caching",
   "subtitle": "Freshness, revalidation e reaproveitamento: como reduzir round trips sem perder o controle sobre conteúdo velho, privado ou incorreto.",

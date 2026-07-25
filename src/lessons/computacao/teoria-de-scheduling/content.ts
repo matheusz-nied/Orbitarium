@@ -6,7 +6,7 @@ export const teoriaDeSchedulingContent: LessonContent = {
   subtitle:
     "Escalonar nao e apenas repartir CPU: e escolher quem espera, quem responde cedo e quem corre o risco de passar fome.",
   description:
-    "Uma aula avancada sobre metricas de scheduling, politicas classicas, starvation, trade-offs entre latencia e throughput, afinidade em multicores e pontes conceituais para CFS e scheduler de goroutines.",
+    "Uma aula avancada sobre metricas de scheduling, politicas classicas, starvation, trade-offs entre latencia e throughput, afinidade em multicores e pontes conceituais para CFS/EEVDF e scheduler de goroutines.",
   primaryCategoryId: "computacao",
   secondaryCategoryId: "engenharia",
   level: "Avançado",
@@ -19,6 +19,7 @@ export const teoriaDeSchedulingContent: LessonContent = {
     "Latencia",
     "Throughput",
     "CFS",
+    "EEVDF",
     "Go",
   ],
   learningObjectives: [
@@ -27,7 +28,7 @@ export const teoriaDeSchedulingContent: LessonContent = {
     "Comparar FIFO, SJF, Round Robin e prioridade a partir dos seus compromissos reais.",
     "Reconhecer starvation e entender por que mecanismos como aging existem.",
     "Relacionar mix de CPU e I/O, afinidade e migracao a decisoes modernas de scheduler.",
-    "Usar CFS e o scheduler de Go como pontes conceituais, sem confundir politicas de processos com politicas de runtime.",
+    "Usar CFS/EEVDF e o scheduler de Go como pontes conceituais, sem confundir politicas de processos com politicas de runtime.",
   ],
   prerequisites: [
     "Entender processos, threads e concorrencia ajuda a enxergar o que esta sendo escalonado.",
@@ -56,8 +57,14 @@ export const teoriaDeSchedulingContent: LessonContent = {
     {
       title: "CFS Scheduler",
       source: "Linux Kernel Documentation",
-      url: "https://docs.kernel.org/next/scheduler/sched-design-CFS.html",
-      note: "Documento oficial que apresenta o CFS como aproximacao de uma CPU multitarefa ideal via vruntime.",
+      url: "https://docs.kernel.org/scheduler/sched-design-CFS.html",
+      note: "Documento oficial que apresenta o CFS como aproximacao de uma CPU multitarefa ideal via vruntime e aponta a transicao para EEVDF.",
+    },
+    {
+      title: "EEVDF Scheduler",
+      source: "Linux Kernel Documentation",
+      url: "https://docs.kernel.org/scheduler/sched-eevdf.html",
+      note: "Documento oficial do fair scheduler atual do Linux, sucessao conceitual do CFS com foco em elegibilidade e deadline virtual.",
     },
     {
       title: "runtime/HACKING",
@@ -277,12 +284,12 @@ export const teoriaDeSchedulingContent: LessonContent = {
     s(
       "pontes-cfs-go-e-escolha-de-objetivo",
       "Pratica moderna",
-      "CFS, scheduler de Go e escolha de objetivo mostram a mesma licao em roupas diferentes",
+      "CFS, EEVDF, scheduler de Go e escolha de objetivo mostram a mesma licao em roupas diferentes",
       "Implementacoes reais variam muito, mas todas precisam explicitar o que tentam proteger quando distribuem tempo de execucao.",
       "scheduling-summary",
       "scheduling-goal-selector",
       [
-        "A documentacao oficial do Linux apresenta o CFS como uma aproximacao de uma CPU multitarefa ideal. A intuicao do vruntime e simples: acompanhar quem recebeu menos tempo relativo e oferecer chance de recuperacao. Nao e a unica politica possivel, mas deixa explicita a obsessao por fairness pratica.",
+        "A documentacao oficial do Linux apresenta o CFS como uma aproximacao de uma CPU multitarefa ideal. A intuicao do vruntime e simples: acompanhar quem recebeu menos tempo relativo e oferecer chance de recuperacao. A mesma documentacao deixa claro que o fair class moderno caminha para o EEVDF; o CFS continua util como modelo conceitual, nao como retrato completo do Linux atual.",
         "Ja o scheduler de Go vive em outro nivel de abstracao. Ele nao escolhe processos do sistema; escolhe goroutines sobre threads e Ps do runtime. Mesmo assim, o dilema persiste: throughput, latencia, bloqueios, preempcao e justica continuam em jogo, apenas com outras ferramentas e outra granularidade.",
         "O mapa final e este: scheduling bom nao e o que parece sofisticado, e sim o que casa a politica com o objetivo certo. Se voce sabe qual sofrimento quer evitar, as escolhas deixam de ser misticas e passam a ser engenharia.",
       ],
@@ -290,7 +297,7 @@ export const teoriaDeSchedulingContent: LessonContent = {
         {
           type: "insight",
           title: "Politicas modernas sao compromissos explicitos",
-          body: "CFS e scheduler de runtime diferem no mecanismo, mas ambos tornam visivel a luta entre fairness, localidade e responsividade.",
+          body: "CFS/EEVDF e scheduler de runtime diferem no mecanismo, mas ambos tornam visivel a luta entre fairness, localidade e responsividade.",
         },
         {
           type: "example",
@@ -382,11 +389,11 @@ export const teoriaDeSchedulingContent: LessonContent = {
     q(
       "q7",
       "Qual leitura conceitual do CFS esta mais alinhada com a documentacao oficial?",
-      "Ele imita uma CPU multitarefa ideal acompanhando quanto tempo relativo cada tarefa recebeu.",
+      "Ele modela uma CPU multitarefa ideal acompanhando quanto tempo relativo cada tarefa recebeu, e hoje serve principalmente como ponte para entender o fair class do Linux.",
       "Ele roda sempre o processo mais antigo.",
       "Ele evita qualquer forma de preempcao.",
       "a",
-      "A intuicao do CFS parte justamente de aproximar a justica de uma CPU ideal compartilhada.",
+      "A intuicao do CFS parte de aproximar a justica de uma CPU ideal compartilhada; a documentacao atual tambem aponta a sucessao pelo EEVDF.",
     ),
     q(
       "q8",
@@ -412,7 +419,8 @@ export const teoriaDeSchedulingContent: LessonContent = {
     g("Aging", "Tecnica que aumenta a prioridade de quem espera demais para reduzir starvation."),
     g("Afinidade", "Preferencia por manter uma tarefa no mesmo nucleo para aproveitar cache e reduzir migracao."),
     g("Migracao", "Movimento de uma tarefa de um nucleo para outro ao longo da execucao."),
-    g("vruntime", "Medida usada pelo CFS para aproximar quanto tempo relativo cada tarefa recebeu."),
+    g("vruntime", "Medida usada no fair scheduling do Linux para aproximar quanto tempo relativo cada tarefa recebeu; e central na intuicao do CFS e permanece na linhagem do EEVDF."),
+    g("EEVDF", "Earliest Eligible Virtual Deadline First, politica do fair class moderno do Linux que sucede o CFS na selecao de tarefas elegiveis."),
   ],
   relatedTopics: [
     {

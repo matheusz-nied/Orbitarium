@@ -133,7 +133,7 @@ export const consistenciaDeMemoriaEOrderingContent: LessonContent = {
     ref(
       "Linux kernel memory barriers",
       "Linux Kernel Documentation",
-      "https://docs.kernel.org/7.1/core-api/wrappers/memory-barriers.html",
+      "https://docs.kernel.org/core-api/wrappers/memory-barriers.html",
       "Mostra como pensar em barreiras e ordering sem confundir compilador, CPU e observacao externa.",
     ),
     ref(

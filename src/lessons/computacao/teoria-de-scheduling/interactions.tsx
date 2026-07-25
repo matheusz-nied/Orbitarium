@@ -180,7 +180,7 @@ const goalProfiles: Record<
     caution: "Fairness pura pode reduzir localidade ou throughput maximo em certos cenarios.",
     metrics: [
       { label: "Foco", value: "Fairness" },
-      { label: "Politica-alvo", value: "CFS / aging" },
+      { label: "Politica-alvo", value: "CFS/EEVDF / aging" },
       { label: "Risco", value: "Perder locality" },
       { label: "Pergunta-chave", value: "Quem esperou demais?" },
     ],

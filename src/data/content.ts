@@ -1,8 +1,15 @@
 export { categories } from "./categories";
-export { contents, getLessonModuleById, lessonModules } from "../lessons";
 
-import { contents } from "../lessons";
+import { lessonModules as baseLessonModules } from "../lessons";
+import { computacaoLessonModules } from "../lessons/computacao";
 import { categories } from "./categories";
+
+export const lessonModules = [...baseLessonModules, ...computacaoLessonModules];
+export const contents = lessonModules.map((lessonModule) => lessonModule.content);
+
+export function getLessonModuleById(contentId: string) {
+  return lessonModules.find((lessonModule) => lessonModule.content.id === contentId);
+}
 
 export function getCategoryById(categoryId: string) {
   return categories.find((category) => category.id === categoryId);

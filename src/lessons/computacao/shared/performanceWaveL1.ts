@@ -1810,7 +1810,7 @@ const latenciaVsThroughput = (() => {
           undefined,
           undefined,
           [
-            "A forma clássica é L = λW: o número médio de itens no sistema é igual à taxa média de chegada efetiva multiplicada pelo tempo médio gasto no sistema. Não é um modelo completo de fila, mas é uma regra extremamente útil para raciocinar.",
+            "A forma clássica é L = λW: em regime estável, o número médio de itens no sistema é igual à taxa média efetiva de chegada — que coincide com a taxa média de saída, isto é, o throughput observado — multiplicada pelo tempo médio gasto no sistema. Não é um modelo completo de fila, mas é uma regra extremamente útil para raciocinar.",
             "A intuição operacional é forte: se a vazão fica parecida, mais itens acumulados significam mais tempo médio no sistema. Se o tempo cresce e a vazão não sobe junto, o backlog está dizendo algo importante.",
           ],
           [
@@ -2026,7 +2026,7 @@ const latenciaVsThroughput = (() => {
         g("Fila", "Acúmulo de itens esperando serviço."),
         g("Tempo de serviço", "Tempo gasto efetivamente processando um item."),
         g("Backlog", "Trabalho acumulado que ainda não foi drenado."),
-        g("Little's Law", "Relação entre ocupação média, vazão média e tempo médio no sistema."),
+        g("Little's Law", "Relação entre ocupação média, vazão efetiva e tempo médio no sistema em regime estável."),
         g("Cauda de latência", "Extremo mais lento da distribuição de tempos."),
         g("Percentil", "Ponto da distribuição que mostra quão ruim é a experiência de uma fração dos casos."),
         g("Batching", "Agrupamento de itens para amortizar custos fixos."),
@@ -3011,7 +3011,7 @@ const flamegraphsEProfiling = (() => {
           why:
             "O tooling oficial já entrega coleta e visualizações suficientes para muitas investigações.",
           caution:
-            "Habilitar perfil sem medir o overhead é melhor do que nada, mas ainda pode distorcer sistemas sensíveis.",
+            "Em produção, estime o overhead e prefira janelas curtas ou réplicas selecionadas; do contrário, o profiler pode distorcer justamente o comportamento que você quer explicar.",
         },
       ],
       tone: "emerald",

@@ -81,6 +81,14 @@ import { goPprofEBenchmarksLesson } from "./go-pprof-e-benchmarks";
 import { goNetHttpPerformanceLesson } from "./go-net-http-performance";
 import { goContextCancelamentoLesson } from "./go-context-cancelamento";
 import { goVsRustQuandoUsarLesson } from "./go-vs-rust-quando-usar";
+import { metodologiaDeOtimizacaoLesson } from "./metodologia-de-otimizacao";
+import { contencaoLocksEFilasLesson } from "./contencao-locks-e-filas";
+import { lockFreeComCuidadoLesson } from "./lock-free-com-cuidado";
+import { syscallsEOverheadDeIoLesson } from "./syscalls-e-overhead-de-io";
+import { networkPerformanceBasicsLesson } from "./network-performance-basics";
+import { compiladoresEOtimizacoesLesson } from "./compiladores-e-otimizacoes";
+import { debuggingNativoLesson } from "./debugging-nativo";
+import { performanceEmProducaoLesson } from "./performance-em-producao";
 
 export const computacaoLessonModules = [
   bitsBytesRepresentacaoDadosLesson,
@@ -165,5 +173,13 @@ export const computacaoLessonModules = [
   goNetHttpPerformanceLesson,
   goContextCancelamentoLesson,
   goVsRustQuandoUsarLesson,
+  metodologiaDeOtimizacaoLesson,
+  contencaoLocksEFilasLesson,
+  lockFreeComCuidadoLesson,
+  syscallsEOverheadDeIoLesson,
+  networkPerformanceBasicsLesson,
+  compiladoresEOtimizacoesLesson,
+  debuggingNativoLesson,
+  performanceEmProducaoLesson,
 ] satisfies LessonModule[];
 

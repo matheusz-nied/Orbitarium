@@ -247,6 +247,17 @@ Recomendação: **implementar Ondas 1 → 2 → 3**; só então avaliar Onda 4.
 
 ---
 
+## Especialização seguinte
+
+Para baixo nível + performance + **Rust** + **Go**, use a trilha irmã:
+
+- Plano: `prompts/trilha_baixo_nivel_performance.md`
+- Manifesto: `prompts/manifesto_aulas_baixo_nivel.json`
+
+Ela assume as aulas de CPU/cache/memória/SO/syscalls desta trilha como pré-requisito e aprofunda (não duplica).
+
+---
+
 ## Status
 
 - [x] Plano escrito (`prompts/trilha_computacao.md`)
@@ -257,3 +268,4 @@ Recomendação: **implementar Ondas 1 → 2 → 3**; só então avaliar Onda 4.
 - [x] Onda 4 (opcional) implementada
 - [x] Validação acadêmica + anti-alucinação
 - [x] Registro completo no catálogo + build verde
+- [x] Plano da especialização baixo nível / Rust / Go linkado

@@ -253,5 +253,5 @@ L3.1–L3.6 ↔ L4.1–L4.6 → L4.10 → L5.1
 - [x] Onda L4 (Go) implementada
 - [ ] Onda L5 implementada
 - [ ] Onda L6 opcional
-- [ ] Validação acadêmica + anti-alucinação
-- [ ] Registro no catálogo + build verde
+- [x] Validação acadêmica + anti-alucinação
+- [x] Registro no catálogo + build verde

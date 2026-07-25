@@ -89,6 +89,10 @@ import { networkPerformanceBasicsLesson } from "./network-performance-basics";
 import { compiladoresEOtimizacoesLesson } from "./compiladores-e-otimizacoes";
 import { debuggingNativoLesson } from "./debugging-nativo";
 import { performanceEmProducaoLesson } from "./performance-em-producao";
+import { capstoneFlamegraphParaPatchLesson } from "./capstone-flamegraph-para-patch";
+import { capstoneHttpGoP99Lesson } from "./capstone-http-go-p99";
+import { capstoneParserRustOwnershipLesson } from "./capstone-parser-rust-ownership";
+import { capstoneGoVsRustCriterioLesson } from "./capstone-go-vs-rust-criterio";
 
 export const computacaoLessonModules = [
   bitsBytesRepresentacaoDadosLesson,
@@ -181,5 +185,9 @@ export const computacaoLessonModules = [
   compiladoresEOtimizacoesLesson,
   debuggingNativoLesson,
   performanceEmProducaoLesson,
+  capstoneFlamegraphParaPatchLesson,
+  capstoneHttpGoP99Lesson,
+  capstoneParserRustOwnershipLesson,
+  capstoneGoVsRustCriterioLesson,
 ] satisfies LessonModule[];
 

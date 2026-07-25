@@ -70,11 +70,11 @@ export const alinhamentoSftRlhfContent: LessonContent = {
         "Trabalho relevante para discutir objetivos múltiplos, preferências e limites do alinhamento via feedback humano.",
     },
     {
-      title: "Aligning language models to follow instructions",
-      source: "OpenAI",
-      url: "https://openai.com/index/instruction-following/",
+      title: "Training language models to follow instructions with human feedback",
+      source: "Ouyang et al., 2022 — arXiv (InstructGPT)",
+      url: "https://arxiv.org/abs/2203.02155",
       note:
-        "Material explicativo sobre a lógica operacional por trás do InstructGPT e RLHF em instruções.",
+        "Artigo do InstructGPT descrevendo SFT e RLHF para alinhar modelos a seguir instruções humanas.",
     },
   ],
   heroVisual: "hero",

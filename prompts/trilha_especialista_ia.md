@@ -280,12 +280,16 @@ MIT OCW, Stanford CS231n/CS224n, DeepLearning.AI, Hugging Face docs, OpenAI/Anth
 
 ---
 
-## Como marcar progresso
+## Status de implementação (atualizado)
 
-Ao concluir uma aula, atualize este arquivo:
+**Todas as 59 aulas planejadas foram implementadas e registradas no catálogo** (`src/lessons/index.ts` → 78 aulas no total, incluindo as já existentes de LLM, visão, matemática e astrofísica).
 
-- mova o tema para a seção “O que já existe”
-- risque da fase correspondente ou marque `Status: Feito`
-- se o tema veio de `ia.md`, marque lá também para evitar duplicata
+Validação:
+- Estrutural: `npm run validate:lessons` (78 aulas)
+- Typecheck + build: OK
+- Auditoria acadêmica: `prompts/validation/academic-fase-0-2.md`, `academic-fase-3-4.md`, `academic-fase-5-7.md`
+- Auditoria anti-alucinação: `prompts/validation/hallucination-audit.md`
+
+Manifesto canônico dos IDs: `prompts/manifesto_aulas_ia.json`.
 
 Backlog legado relacionado: `prompts/ia.md` (temas LLM/visão) e `prompts/computer.md` (fundamentos de computação que sustentam IA).

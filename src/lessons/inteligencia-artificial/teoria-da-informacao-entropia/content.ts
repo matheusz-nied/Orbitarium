@@ -66,8 +66,8 @@ export const teoriaDaInformacaoEntropiaContent: LessonContent = {
     },
     {
       title: "Elements of Information Theory",
-      source: "Cover & Thomas — Wiley Online Library",
-      url: "https://onlinelibrary.wiley.com/doi/book/10.1002/047174882X",
+      source: "Cover & Thomas — DOI 10.1002/047174882X",
+      url: "https://doi.org/10.1002/047174882X",
       note:
         "Referência clássica sobre entropia, informação mútua, compressão e codificação.",
     },

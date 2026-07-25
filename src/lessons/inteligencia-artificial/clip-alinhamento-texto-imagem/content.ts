@@ -42,11 +42,11 @@ export const clipAlinhamentoTextoImagemContent: LessonContent = {
         "Paper seminal do CLIP, base científica central desta aula.",
     },
     {
-      title: "CLIP: Connecting text and images",
-      source: "OpenAI — página oficial",
-      url: "https://openai.com/index/clip/",
+      title: "Learning Transferable Visual Models From Natural Language Supervision (PMLR)",
+      source: "Radford et al., 2021 — Proceedings of Machine Learning Research",
+      url: "https://proceedings.mlr.press/v139/radford21a.html",
       note:
-        "Explicação oficial da OpenAI sobre CLIP, seu objetivo e capacidades zero-shot.",
+        "Versão publicada do CLIP no PMLR, com abstract e metadados oficiais do artigo.",
     },
     {
       title: "openai/CLIP",

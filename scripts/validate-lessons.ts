@@ -1,6 +1,11 @@
 import { commonLessonInteractions } from "../src/components/lesson/commonInteractions";
 import { lessonModules as baseLessonModules } from "../src/lessons";
 import { computacaoLessonModules } from "../src/lessons/computacao";
+import { goContextCancelamentoLesson } from "../src/lessons/computacao/go-context-cancelamento";
+import { goNetHttpPerformanceLesson } from "../src/lessons/computacao/go-net-http-performance";
+import { goPprofEBenchmarksLesson } from "../src/lessons/computacao/go-pprof-e-benchmarks";
+import { goSyncAtomicMutexLesson } from "../src/lessons/computacao/go-sync-atomic-mutex";
+import { goVsRustQuandoUsarLesson } from "../src/lessons/computacao/go-vs-rust-quando-usar";
 import type { LessonContent, LessonModule, QuizQuestion } from "../src/types/content";
 
 const MIN_SECTIONS = 8;
@@ -11,7 +16,15 @@ const MIN_GLOSSARY_TERMS = 10;
 const NON_VISUAL_INTERACTIONS = new Set(["quiz", "glossary", "summary-cards"]);
 
 const errors: string[] = [];
-const lessonModules = [...baseLessonModules, ...computacaoLessonModules];
+const lessonModules = [
+  ...baseLessonModules,
+  ...computacaoLessonModules,
+  goSyncAtomicMutexLesson,
+  goPprofEBenchmarksLesson,
+  goNetHttpPerformanceLesson,
+  goContextCancelamentoLesson,
+  goVsRustQuandoUsarLesson,
+];
 
 function label(content: LessonContent) {
   return `${content.id} (${content.title})`;

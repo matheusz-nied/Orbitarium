@@ -30,7 +30,7 @@ const visualConfig = {
   "impactRows": [
     {
       "label": "Unidade crítica",
-      "value": "a operação atômica e a borda de happens before que ela estabelece"
+      "value": "a operação atômica e a relação de sincronização que ela pode estabelecer quando combinada corretamente"
     },
     {
       "label": "Primeira etapa",

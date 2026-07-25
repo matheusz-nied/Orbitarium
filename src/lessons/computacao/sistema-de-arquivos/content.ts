@@ -188,7 +188,7 @@ export const sistemaDeArquivosContent: LessonContent = {
       "lead": "A maioria dos incidentes não nasce da teoria errada, e sim de suposições implícitas que ninguém modelou até o sistema crescer.",
       "paragraphs": [
         "O erro recorrente é pensar que arquivo é apenas uma sequência de bytes com nome, ignorando metadados, diretórios e persistência adiada. Isso costuma soar plausível porque a abstração superficial parece simples demais.",
-        "Na prática, o limite aparece quando uma queda acontece entre escrever dados, atualizar metadados e registrar a intenção de recuperação. É nesse ponto que o sistema revela o que realmente estava sendo garantido - ou apenas assumido.",
+        "Na prática, o limite aparece quando uma queda acontece entre escrever dados, atualizar metadados e registrar a intenção de recuperação. Rename atômico ajuda na troca de nome, mas não substitui o cuidado com durabilidade dos dados e da entrada de diretório. É nesse ponto que o sistema revela o que realmente estava sendo garantido - ou apenas assumido.",
         "Tratar esses limites como detalhes raros é caro. Tratá-los como parte do desenho inicial economiza incidentes, retrabalho e debates improdutivos depois."
       ],
       "blocks": [
@@ -221,7 +221,7 @@ export const sistemaDeArquivosContent: LessonContent = {
           "title": "Heurística de decisão",
           "body": "As recomendações abaixo não são receitas eternas; elas são pontos de partida guiados pelo mecanismo que a aula explicou.",
           "items": [
-            "Usar operação atômica compatível com o caso e forçar persistência quando a semântica realmente exigir.",
+            "Ao substituir arquivo crítico, escrever em temporário, fsync no arquivo, rename e fsync no diretório para alinhar atomicidade de nome com durabilidade.",
             "Observar o custo de diretórios, metadados e cache antes de culpar apenas o dispositivo.",
             "Confiar em mecanismos de journal e operações pensadas para recuperação, em vez de assumir escrita instantânea in-place."
           ]
@@ -472,7 +472,7 @@ export const sistemaDeArquivosContent: LessonContent = {
     },
     {
       "term": "fsync",
-      "definition": "Operação que solicita a persistência dos dados e/ou metadados de um arquivo."
+      "definition": "Operação que solicita a persistência dos dados e dos metadados relevantes do arquivo, mas que não torna a entrada do diretório durável por si só."
     },
     {
       "term": "Metadados",

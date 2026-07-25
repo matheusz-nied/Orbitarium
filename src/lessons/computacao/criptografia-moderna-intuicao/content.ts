@@ -3,7 +3,7 @@ import type { LessonContent } from "../../../types/content";
 export const criptografiaModernaIntuicaoContent: LessonContent = {
   "id": "criptografia-moderna-intuicao",
   "title": "Criptografia Moderna (Intuição)",
-  "subtitle": "Chaves, sigilo, autenticidade e protocolos: como pensar cifragem sem misturar hash, cifra e assinatura no mesmo saco.",
+  "subtitle": "Chaves, sigilo, integridade, autenticidade e protocolos: como pensar cifragem sem misturar hash, cifra e assinatura no mesmo saco.",
   "description": "Uma aula intuitiva sobre criptografia simétrica, assimétrica, AEAD, assinaturas, certificados, nonces e por que protocolos padrão vencem invenções caseiras.",
   "primaryCategoryId": "computacao",
   "secondaryCategoryId": "engenharia",
@@ -81,10 +81,10 @@ export const criptografiaModernaIntuicaoContent: LessonContent = {
       "id": "motivacao",
       "eyebrow": "Motivação",
       "title": "Por que Criptografia Moderna (Intuição) aparece em sistemas sérios",
-      "lead": "Proteger confidencialidade e autenticidade de dados em ambientes onde não podemos confiar no canal muda latência, custo, previsibilidade ou segurança. Por isso, o tema aparece cedo em qualquer sistema que sai do protótipo.",
+      "lead": "Proteger confidencialidade, integridade e autenticidade de dados em ambientes onde não podemos confiar no canal muda latência, custo, previsibilidade ou segurança. Por isso, o tema aparece cedo em qualquer sistema que sai do protótipo.",
       "visual": "lesson-hero",
       "paragraphs": [
-        "Criptografia Moderna (Intuição) existe para proteger confidencialidade e autenticidade de dados em ambientes onde não podemos confiar no canal. Sem isso, escuta, adulteração e impersonação se tornam triviais em trânsito ou armazenamento exposto.",
+        "Criptografia Moderna (Intuição) existe para proteger confidencialidade, integridade e autenticidade de dados em ambientes onde não podemos confiar no canal. Sem isso, escuta, adulteração e impersonação se tornam triviais em trânsito ou armazenamento exposto.",
         "Um bom modelo intuitivo é pensar em duas famílias complementares: criptografia simétrica protege dados em volume e criptografia assimétrica ajuda a estabelecer confiança e distribuir chaves. Pense em um navegador negociando chaves por tls antes de enviar cookies, formulários e tokens de autenticação.",
         "Esse assunto importa porque afeta confidencialidade, integridade e identidade em canais inseguros. Quando você o entende, decisões de arquitetura deixam de parecer um conjunto de truques desconexos."
       ],
@@ -276,7 +276,7 @@ export const criptografiaModernaIntuicaoContent: LessonContent = {
   "summaryCards": [
     {
       "title": "Problema que resolve",
-      "body": "proteger confidencialidade e autenticidade de dados em ambientes onde não podemos confiar no canal"
+      "body": "proteger confidencialidade, integridade e autenticidade de dados em ambientes onde não podemos confiar no canal"
     },
     {
       "title": "Modelo mental",
@@ -298,7 +298,7 @@ export const criptografiaModernaIntuicaoContent: LessonContent = {
       "options": [
         {
           "id": "a",
-          "label": "proteger confidencialidade e autenticidade de dados em ambientes onde não podemos confiar no canal"
+          "label": "proteger confidencialidade, integridade e autenticidade de dados em ambientes onde não podemos confiar no canal"
         },
         {
           "id": "b",
@@ -310,7 +310,7 @@ export const criptografiaModernaIntuicaoContent: LessonContent = {
         }
       ],
       "correctOptionId": "a",
-      "feedback": "A ideia central da aula é proteger confidencialidade e autenticidade de dados em ambientes onde não podemos confiar no canal. O tema melhora o projeto do sistema, mas não apaga restrições físicas nem substitui todas as outras camadas."
+      "feedback": "A ideia central da aula é proteger confidencialidade, integridade e autenticidade de dados em ambientes onde não podemos confiar no canal. O tema melhora o projeto do sistema, mas não apaga restrições físicas nem substitui todas as outras camadas."
     },
     {
       "id": "q2",
@@ -468,7 +468,7 @@ export const criptografiaModernaIntuicaoContent: LessonContent = {
     },
     {
       "term": "AEAD",
-      "definition": "Modo que oferece confidencialidade e autenticação ao mesmo tempo."
+      "definition": "Modo de cifra autenticada que oferece confidencialidade e tambem verifica integridade e autenticidade do ciphertext e dos dados associados."
     },
     {
       "term": "Assinatura digital",

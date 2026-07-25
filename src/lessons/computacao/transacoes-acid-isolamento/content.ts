@@ -19,7 +19,7 @@ export const transacoesAcidIsolamentoContent: LessonContent = {
   ],
   "learningObjectives": [
     "Entender transação como unidade de publicação de mudanças.",
-    "Diferenciar atomicidade, isolamento e durabilidade sem confundir as garantias.",
+    "Diferenciar atomicidade, consistência, isolamento e durabilidade sem confundir as garantias.",
     "Relacionar níveis de isolamento com throughput, anomalias e necessidade de retry.",
     "Perceber o papel da aplicação na manutenção de invariantes mais amplos."
   ],
@@ -108,7 +108,7 @@ export const transacoesAcidIsolamentoContent: LessonContent = {
       "lead": "Boas decisões de engenharia nascem de uma abstração operacional simples: o que está sendo movido, validado, sincronizado ou reaproveitado?",
       "visual": "concept-grid",
       "paragraphs": [
-        "Definição operacional: mecanismo de banco de dados que delimita um conjunto de operações entre begin e commit ou rollback com regras explícitas de atomicidade, isolamento e durabilidade.",
+        "Definição operacional: mecanismo de banco de dados que delimita um conjunto de operações entre begin e commit ou rollback com regras explícitas de atomicidade, isolamento e durabilidade, usado para preservar a consistência declarada quando as invariantes são modeladas corretamente.",
         "A unidade crítica para raciocinar sobre custo e comportamento é o conjunto de leituras, escritas e a visibilidade de versões para uma operação lógica. É nela que atrasos, contenção ou corrupção costumam aparecer primeiro.",
         "Quando você enxerga a unidade certa, fica mais fácil separar sintoma de causa. Isso evita o atalho mental de achar que achar que acid faz qualquer regra de negócio ficar correta automaticamente, independentemente de nível de isolamento ou lógica da aplicação."
       ],
@@ -116,7 +116,7 @@ export const transacoesAcidIsolamentoContent: LessonContent = {
         {
           "type": "definition",
           "title": "Definição",
-          "body": "mecanismo de banco de dados que delimita um conjunto de operações entre begin e commit ou rollback com regras explícitas de atomicidade, isolamento e durabilidade"
+          "body": "mecanismo de banco de dados que delimita um conjunto de operações entre begin e commit ou rollback com regras explícitas de atomicidade, isolamento e durabilidade, usado para preservar consistência declarada"
         },
         {
           "type": "example",
@@ -464,7 +464,7 @@ export const transacoesAcidIsolamentoContent: LessonContent = {
     },
     {
       "term": "Consistência",
-      "definition": "Manutenção de invariantes declarados pelo banco e pela aplicação."
+      "definition": "Preservação das invariantes declaradas pelo banco e pela aplicação quando as transações e restrições foram modeladas corretamente."
     },
     {
       "term": "Isolamento",

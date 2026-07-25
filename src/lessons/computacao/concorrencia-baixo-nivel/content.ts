@@ -65,7 +65,7 @@ export const concorrenciaBaixoNivelContent: LessonContent = {
   "quickFacts": [
     {
       "title": "Unidade crítica",
-      "body": "a operação atômica e a borda de happens before que ela estabelece"
+      "body": "a operação atômica e a relação de sincronização que ela pode estabelecer quando combinada corretamente"
     },
     {
       "title": "Trade-off central",
@@ -109,7 +109,7 @@ export const concorrenciaBaixoNivelContent: LessonContent = {
       "visual": "concept-grid",
       "paragraphs": [
         "Definição operacional: conjunto de primitivas e regras de ordem de memória que define quando leituras e escritas se tornam visíveis entre threads.",
-        "A unidade crítica para raciocinar sobre custo e comportamento é a operação atômica e a borda de happens before que ela estabelece. É nela que atrasos, contenção ou corrupção costumam aparecer primeiro.",
+        "A unidade crítica para raciocinar sobre custo e comportamento é a operação atômica junto da relação de sincronização que ela pode formar com outras operações. É nela que atrasos, contenção ou corrupção costumam aparecer primeiro.",
         "Quando você enxerga a unidade certa, fica mais fácil separar sintoma de causa. Isso evita o atalho mental de achar que assumir que a ordem escrita no código é a mesma ordem observada por todas as threads."
       ],
       "blocks": [
@@ -456,7 +456,7 @@ export const concorrenciaBaixoNivelContent: LessonContent = {
   "glossary": [
     {
       "term": "Atomic",
-      "definition": "Operação com garantias especiais de indivisibilidade e, em geral, ordem de memória."
+      "definition": "Operação sobre um objeto atômico com indivisibilidade garantida; a visibilidade extra depende da ordem de memória e da sincronização com outra operação compatível."
     },
     {
       "term": "Data race",
@@ -464,11 +464,11 @@ export const concorrenciaBaixoNivelContent: LessonContent = {
     },
     {
       "term": "Acquire",
-      "definition": "Semântica de leitura que impede observar certas reordenações antes da sincronização."
+      "definition": "Semântica de leitura que, ao sincronizar com um release compatível, impede reordenações indevidas e permite observar efeitos publicados antes daquele release."
     },
     {
       "term": "Release",
-      "definition": "Semântica de escrita que publica efeitos anteriores para consumidores sincronizados."
+      "definition": "Semântica de escrita que publica efeitos anteriores da thread para leitores que depois a observam por um acquire compatível."
     },
     {
       "term": "Sequential consistency",
@@ -484,7 +484,7 @@ export const concorrenciaBaixoNivelContent: LessonContent = {
     },
     {
       "term": "Happens-before",
-      "definition": "Relação que garante ordem observável e visibilidade entre eventos concorrentes."
+      "definition": "Relação que nasce de sequenciamento local ou sincronização bem formada e permite afirmar que certos efeitos devem ser visíveis antes de outros."
     },
     {
       "term": "Lock-free",

@@ -275,19 +275,19 @@ Soundness (intuição): se o tipo aceita, certas classes de erro em runtime não
 ## Ordem de implementação (checklist)
 
 ### Sprint B.1
-- [ ] `roofline-modelo-de-performance`
-- [ ] `consistencia-de-memoria-e-ordering`
+- [x] `roofline-modelo-de-performance`
+- [x] `consistencia-de-memoria-e-ordering`
 
 ### Sprint B.2
-- [ ] `teoria-de-scheduling`
-- [ ] `ssa-e-otimizacoes-de-compilador`
+- [x] `teoria-de-scheduling`
+- [x] `ssa-e-otimizacoes-de-compilador`
 
 ### Sprint B.3
-- [ ] `sistemas-de-tipos-e-soundness`
-- [ ] Registrar as 5 no `src/lessons/computacao/index.ts`
-- [ ] `npm run validate:lessons` + typecheck + build
-- [ ] Validação acadêmica + anti-alucinação
-- [ ] Atualizar checklist em `trilha_capstones_e_teoria.md` (Fase B)
+- [x] `sistemas-de-tipos-e-soundness`
+- [x] Registrar as 5 no `src/lessons/computacao/index.ts`
+- [x] `npm run validate:lessons` + typecheck + build
+- [x] Validação acadêmica + anti-alucinação
+- [x] Atualizar checklist em `trilha_capstones_e_teoria.md` (Fase B)
 
 ---
 

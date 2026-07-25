@@ -21,9 +21,9 @@ export const interactions = buildComputacaoInteractions({
         "cue": "mapeamentos e isolamento"
       },
       {
-        "label": "Bibliotecas e segmentos",
-        "detail": "Código, dados, bibliotecas compartilhadas e páginas auxiliares são mapeados com permissões adequadas.",
-        "cue": "RX, RW e compartilhamento"
+        "label": "Executável e loader dinâmico",
+        "detail": "O kernel mapeia o programa e, quando há linking dinâmico, entrega o controle ao interpretador indicado para que ele resolva bibliotecas e mapeamentos auxiliares.",
+        "cue": "PT_INTERP, RX, RW e compartilhamento"
       },
       {
         "label": "Stack inicial",
@@ -32,8 +32,8 @@ export const interactions = buildComputacaoInteractions({
       },
       {
         "label": "Entry point",
-        "detail": "Com registradores e stack preparados, a CPU transfere o controle para o ponto de entrada do novo programa.",
-        "cue": "a primeira instrução útil"
+        "detail": "Com registradores e stack preparados, a CPU transfere o controle para o ponto de entrada apropriado, que pode ser o loader dinâmico antes da aplicação.",
+        "cue": "primeiro salto útil"
       }
     ]
   },

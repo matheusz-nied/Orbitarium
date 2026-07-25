@@ -112,11 +112,11 @@ export const comoUmProgramaViraProcessoContent: LessonContent = {
     {
       "id": "loader-e-exec",
       "eyebrow": "Fluxo",
-      "title": "O loader transforma o executável em espaço de endereços utilizável",
-      "lead": "Entre o arquivo no disco e a primeira instrução executada existe uma sequência bem definida de decisões do kernel.",
+      "title": "Kernel e loader dinâmico cooperam para transformar o executável em processo",
+      "lead": "Entre o arquivo no disco e a primeira instrução útil existe uma sequência bem definida de decisões do kernel e, em muitos casos, do interpretador dinâmico.",
       "interactive": "loader-pipeline-lab",
       "paragraphs": [
-        "Ao receber um pedido para executar um binário, o kernel valida o formato, cria a nova imagem de memória, mapeia segmentos com permissões adequadas e prepara estruturas auxiliares. Em executáveis dinâmicos, ainda há o passo de localizar e carregar bibliotecas compartilhadas antes que o programa “real” assuma o controle.",
+        "Ao receber um pedido para executar um binário, o kernel valida o formato, cria a nova imagem de memória, mapeia segmentos com permissões adequadas e prepara estruturas auxiliares. Em executáveis ELF dinamicamente ligados, o kernel também transfere o controle ao interpretador indicado no executável; esse loader dinâmico, já em espaço de usuário, é quem resolve e carrega as bibliotecas compartilhadas antes que a aplicação assuma o controle.",
         "Esse momento explica por que permissões de execução, path do interpretador dinâmico, variáveis de ambiente e local de bibliotecas podem quebrar um processo antes mesmo de a lógica da aplicação começar."
       ],
       "blocks": [

@@ -111,8 +111,8 @@ export const interactions = buildComputacaoInteractions({
         ]
       },
       {
-        "label": "REST coerente",
-        "summary": "Recurso, método e status colaboram para contar a história principal do contrato.",
+        "label": "HTTP semântico",
+        "summary": "Recurso, método e status colaboram para contar a história principal do contrato, mesmo quando a API não implementa todas as restrições de REST em sentido estrito.",
         "leftLabel": "Simplicidade imediata",
         "leftValue": 60,
         "rightLabel": "Robustez semântica",
@@ -138,7 +138,7 @@ export const interactions = buildComputacaoInteractions({
         ]
       },
       {
-        "label": "REST + assíncrono",
+        "label": "HTTP semântico + assíncrono",
         "summary": "A API assume operações longas com 202, polling ou webhooks sem abandonar a semântica do protocolo.",
         "leftLabel": "Simplicidade imediata",
         "leftValue": 34,

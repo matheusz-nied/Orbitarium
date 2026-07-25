@@ -19,7 +19,7 @@ export const apisRestContent: LessonContent = {
     "Integrações"
   ],
   "learningObjectives": [
-    "Explicar REST como estilo de organização de contratos sobre HTTP.",
+    "Explicar REST como estilo arquitetural e distinguir seu sentido acadêmico estrito do uso pragmático comum em APIs HTTP.",
     "Distinguir recursos, representações e operações.",
     "Relacionar métodos HTTP à semântica de leitura, criação, substituição e remoção.",
     "Entender por que idempotência importa para retries, caches e confiabilidade.",
@@ -64,11 +64,11 @@ export const apisRestContent: LessonContent = {
     }
   ],
   "heroVisual": "rest-hero",
-  "openingText": "Uma API REST bem desenhada não é uma coleção arbitrária de endpoints com verbos em inglês. Ela é um contrato que usa o vocabulário do HTTP de forma coerente: recursos têm nomes estáveis, operações têm semântica previsível e respostas contam ao cliente o que aconteceu e o que fazer em seguida. Isso parece detalhe de estilo até o dia em que retries, caches, debuggers, logs e consumidores múltiplos entram em cena. Aí a semântica deixa de ser estética e vira engenharia de confiabilidade.",
+  "openingText": "Uma API REST bem desenhada não é uma coleção arbitrária de endpoints com verbos em inglês. Ela é um contrato que usa o vocabulário do HTTP de forma coerente: recursos têm nomes estáveis, operações têm semântica previsível e respostas contam ao cliente o que aconteceu e o que fazer em seguida. No sentido acadêmico estrito de Roy Fielding, REST ainda inclui restrições como statelessness, cache, mensagens autodescritivas e hipermídia; na indústria, porém, o nome costuma ser usado de modo mais pragmático para APIs HTTP orientadas a recursos. Isso parece detalhe de estilo até o dia em que retries, caches, debuggers, logs e consumidores múltiplos entram em cena. Aí a semântica deixa de ser estética e vira engenharia de confiabilidade.",
   "quickFacts": [
     {
-      "title": "REST organiza recursos",
-      "body": "A unidade mental principal deixa de ser a função e passa a ser o recurso representado."
+      "title": "Nem toda HTTP API é REST completo",
+      "body": "No uso de mercado, “REST” muitas vezes nomeia APIs orientadas a recursos; academicamente, o estilo também envolve restrições como statelessness, cache e hipermídia."
     },
     {
       "title": "Métodos carregam semântica",
@@ -201,7 +201,8 @@ export const apisRestContent: LessonContent = {
       "lead": "REST é um estilo; a meta não é dogma, e sim previsibilidade e interoperabilidade.",
       "visual": "rest-resumo",
       "paragraphs": [
-        "Há casos em que operações assíncronas, comandos específicos ou workflows complexos pedem adaptações. O problema não é sair do purismo; o problema é abandonar semântica a ponto de tornar retries, observabilidade e evolução do contrato imprevisíveis.",
+        "No sentido acadêmico estrito, REST combina restrições como cliente-servidor, ausência de estado na interação, cache, interface uniforme, camadas e, opcionalmente, code-on-demand. Dentro da interface uniforme entram identificação de recursos, manipulação por representações, mensagens autodescritivas e hipermídia como motor do estado da aplicação.",
+        "Há casos em que operações assíncronas, comandos específicos ou workflows complexos pedem adaptações. O problema não é sair do purismo; o problema é abandonar semântica a ponto de tornar retries, observabilidade e evolução do contrato imprevisíveis. Muitas APIs chamadas de REST no mercado são, mais precisamente, APIs HTTP orientadas a recursos com apenas parte dessas restrições.",
         "A boa pergunta é: o protocolo continua ajudando os consumidores ou tudo foi empurrado para convenções implícitas no corpo?"
       ],
       "blocks": [
@@ -427,7 +428,7 @@ export const apisRestContent: LessonContent = {
   "glossary": [
     {
       "term": "REST",
-      "definition": "Estilo arquitetural para sistemas em rede que explora recursos, representações e semântica do protocolo."
+      "definition": "Estilo arquitetural descrito por Roy Fielding com restrições como cliente-servidor, statelessness, cache, interface uniforme e hipermídia; em uso comum, o nome também é aplicado a muitas APIs HTTP orientadas a recursos."
     },
     {
       "term": "Recurso",

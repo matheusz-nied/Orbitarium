@@ -70,7 +70,7 @@ export const comoFuncionaUmCompiladorContent: LessonContent = {
     }
   ],
   "heroVisual": "compilador-hero",
-  "openingText": "Compilar não é um salto mágico do arquivo fonte para um executável. É uma sequência de representações cada vez mais estruturadas e apropriadas para decisões diferentes. Primeiro o compilador precisa reconhecer símbolos; depois entender a estrutura; depois representar o significado da árvore; depois produzir uma forma intermediária que favoreça análise e otimização; por fim, precisa respeitar uma ISA real, registradores, calling conventions e formatos de objeto. O poder do compilador está justamente em separar essas responsabilidades.",
+  "openingText": "Compilar não é um salto mágico do arquivo fonte para um executável. Em toolchains reais, o compilador costuma produzir código de máquina, assembly ou código objeto, e etapas como montagem e linking completam o caminho até o binário final. Ainda assim, o coração conceitual continua sendo uma sequência de representações cada vez mais estruturadas e apropriadas para decisões diferentes. Primeiro o compilador precisa reconhecer símbolos; depois entender a estrutura; depois representar o significado da árvore; depois produzir uma forma intermediária que favoreça análise e otimização; por fim, precisa respeitar uma ISA real, registradores, calling conventions e formatos de objeto. O poder do compilador está justamente em separar essas responsabilidades.",
   "quickFacts": [
     {
       "title": "Lexer não entende gramática",
@@ -207,7 +207,7 @@ export const comoFuncionaUmCompiladorContent: LessonContent = {
       "lead": "No fim do pipeline, ideias abstratas viram registradores, instruções, calling conventions e formato de objeto.",
       "visual": "compilador-resumo",
       "paragraphs": [
-        "Gerar código não é apenas trocar operações por assembly. O backend precisa conhecer registradores disponíveis, convenções de chamada, alinhamento, layout de dados e formato de arquivo esperado pelo ecossistema da plataforma.",
+        "Gerar código não é apenas trocar operações por assembly. O backend precisa conhecer registradores disponíveis, convenções de chamada, alinhamento, layout de dados e formato de arquivo esperado pelo ecossistema da plataforma. Em muitos fluxos, o resultado direto ainda é um arquivo objeto ou assembly, e o executável final depende do restante da toolchain, como assembler e linker.",
         "Essa separação explica por que um mesmo frontend pode, em princípio, mirar múltiplas ISAs: a linguagem fica mais desacoplada do hardware desde que exista um backend capaz de honrar o contrato do alvo."
       ],
       "blocks": [

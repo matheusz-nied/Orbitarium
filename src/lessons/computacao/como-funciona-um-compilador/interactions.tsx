@@ -32,8 +32,8 @@ export const interactions = buildComputacaoInteractions({
       },
       {
         "label": "Backend",
-        "detail": "A representação final passa a obedecer a ISA e ao formato do alvo escolhido.",
-        "cue": "registradores e objeto"
+        "detail": "A representação final passa a obedecer a ISA e ao formato do alvo escolhido, frequentemente produzindo assembly ou código objeto para a toolchain continuar.",
+        "cue": "registradores, objeto e linker"
       }
     ]
   },

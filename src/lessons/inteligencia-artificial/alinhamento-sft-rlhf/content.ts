@@ -70,11 +70,11 @@ export const alinhamentoSftRlhfContent: LessonContent = {
         "Trabalho relevante para discutir objetivos múltiplos, preferências e limites do alinhamento via feedback humano.",
     },
     {
-      title: "Training language models to follow instructions with human feedback",
-      source: "Ouyang et al., 2022 — arXiv (InstructGPT)",
-      url: "https://arxiv.org/abs/2203.02155",
+      title: "Illustrating Reinforcement Learning from Human Feedback (RLHF)",
+      source: "Hugging Face Blog",
+      url: "https://huggingface.co/blog/rlhf",
       note:
-        "Artigo do InstructGPT descrevendo SFT e RLHF para alinhar modelos a seguir instruções humanas.",
+        "Explicação didática e amplamente usada sobre o pipeline SFT → reward model → RLHF.",
     },
   ],
   heroVisual: "hero",

@@ -1,0 +1,68 @@
+{
+  "note": "Trilha de Computação. Implementar por ondas. primaryCategoryId sempre computacao. Agents não devem editar src/lessons/index.ts em paralelo — orquestrador registra.",
+  "categoryPrimary": "computacao",
+  "folder": "computacao",
+  "waves": {
+    "onda1": [
+      {"id": "bits-bytes-representacao-dados", "title": "Bits, Bytes e Representação de Dados", "level": "Iniciante", "secondary": "matematica", "sprint": "A"},
+      {"id": "como-funciona-uma-cpu", "title": "Como Funciona uma CPU", "level": "Intermediário", "secondary": "engenharia", "sprint": "A"},
+      {"id": "memoria-stack-heap-ponteiros", "title": "Memória: Stack, Heap e Ponteiros", "level": "Intermediário", "secondary": "engenharia", "sprint": "A"},
+      {"id": "cache-de-cpu", "title": "Cache de CPU", "level": "Intermediário", "secondary": "engenharia", "sprint": "A"},
+      {"id": "como-funciona-um-sistema-operacional", "title": "Como Funciona um Sistema Operacional", "level": "Intermediário", "secondary": "engenharia", "sprint": "B"},
+      {"id": "processos-threads-concorrencia", "title": "Processos, Threads e Concorrência", "level": "Intermediário", "secondary": "engenharia", "sprint": "B"},
+      {"id": "memoria-virtual", "title": "Memória Virtual", "level": "Intermediário", "secondary": "engenharia", "sprint": "B"},
+      {"id": "gpu-para-ia", "title": "GPU: Por Que Ela É Boa para IA", "level": "Intermediário", "secondary": "inteligencia-artificial", "sprint": "B"},
+      {"id": "como-funciona-a-internet", "title": "Como Funciona a Internet", "level": "Iniciante", "secondary": "engenharia", "sprint": "C"},
+      {"id": "como-funciona-um-banco-de-dados", "title": "Como Funciona um Banco de Dados", "level": "Intermediário", "secondary": "engenharia", "sprint": "C"},
+      {"id": "indices-e-b-trees", "title": "Índices e B-Trees", "level": "Intermediário", "secondary": "matematica", "sprint": "C"},
+      {"id": "docker-e-containers", "title": "Docker e Containers", "level": "Intermediário", "secondary": "engenharia", "sprint": "C"}
+    ],
+    "onda2": [
+      {"id": "como-um-programa-vira-processo", "title": "Como um Programa Vira Processo", "level": "Intermediário", "secondary": "engenharia", "sprint": "D"},
+      {"id": "syscalls-kernel", "title": "Syscalls: Como Programas Conversam com o Kernel", "level": "Intermediário", "secondary": "engenharia", "sprint": "D"},
+      {"id": "como-funciona-um-compilador", "title": "Como Funciona um Compilador", "level": "Intermediário", "secondary": "engenharia", "sprint": "D"},
+      {"id": "pipeline-de-cpu", "title": "Pipeline de CPU", "level": "Avançado", "secondary": "engenharia", "sprint": "D"},
+      {"id": "isa-x86-arm-riscv", "title": "ISA: x86, ARM e RISC-V", "level": "Intermediário", "secondary": "engenharia", "sprint": "D"},
+      {"id": "apis-rest", "title": "APIs REST", "level": "Intermediário", "secondary": "engenharia", "sprint": "D"},
+      {"id": "autenticacao-e-autorizacao", "title": "Autenticação e Autorização", "level": "Intermediário", "secondary": "engenharia", "sprint": "D"},
+      {"id": "tls-e-https", "title": "TLS e HTTPS", "level": "Intermediário", "secondary": "engenharia", "sprint": "D"},
+      {"id": "observabilidade-de-sistemas", "title": "Observabilidade de Sistemas", "level": "Intermediário", "secondary": "engenharia", "sprint": "D"},
+      {"id": "filas-e-arquitetura-event-driven", "title": "Filas e Arquitetura Event-Driven", "level": "Intermediário", "secondary": "engenharia", "sprint": "D"}
+    ],
+    "onda3": [
+      {"id": "turing-e-a-ideia-de-computacao", "title": "Turing e a Ideia de Computação", "level": "Intermediário", "secondary": "historia-da-ciencia", "block": "A"},
+      {"id": "algoritmos-e-complexidade", "title": "Algoritmos e Complexidade (Big-O na prática)", "level": "Intermediário", "secondary": "matematica", "block": "A"},
+      {"id": "estruturas-de-dados-essenciais", "title": "Estruturas de Dados Essenciais", "level": "Intermediário", "secondary": "matematica", "block": "A"},
+      {"id": "recursao-e-dividir-para-conquistar", "title": "Recursão e Dividir para Conquistar", "level": "Intermediário", "secondary": "matematica", "block": "A"},
+      {"id": "dns-ip-tcp-http", "title": "DNS, IP, TCP e HTTP em Camadas", "level": "Intermediário", "secondary": "engenharia", "block": "B"},
+      {"id": "tcp-vs-udp-latencia-confiabilidade", "title": "TCP vs UDP: Latência e Confiabilidade", "level": "Intermediário", "secondary": "engenharia", "block": "B"},
+      {"id": "sistemas-distribuidos-fundamentos", "title": "Sistemas Distribuídos: Fundamentos", "level": "Avançado", "secondary": "engenharia", "block": "B"},
+      {"id": "cap-consistencia-disponibilidade", "title": "CAP, Consistência e Disponibilidade", "level": "Avançado", "secondary": "engenharia", "block": "B"},
+      {"id": "balanceamento-e-cdn", "title": "Balanceamento de Carga e CDN", "level": "Intermediário", "secondary": "engenharia", "block": "B"},
+      {"id": "sistema-de-arquivos", "title": "Sistema de Arquivos", "level": "Intermediário", "secondary": "engenharia", "block": "C"},
+      {"id": "transacoes-acid-isolamento", "title": "Transações, ACID e Isolamento", "level": "Avançado", "secondary": "engenharia", "block": "C"},
+      {"id": "como-funciona-a-memoria-ram", "title": "Como Funciona a Memória RAM", "level": "Intermediário", "secondary": "engenharia", "block": "C", "note": "Pode adiantar no Sprint A da Onda 1"},
+      {"id": "bits-portas-logicas-circuitos", "title": "Bits, Portas Lógicas e Circuitos", "level": "Iniciante", "secondary": "matematica", "block": "C", "note": "Pode adiantar no Sprint A da Onda 1"},
+      {"id": "hashes-e-integridade", "title": "Hashes e Integridade", "level": "Intermediário", "secondary": "engenharia", "block": "D"},
+      {"id": "criptografia-moderna-intuicao", "title": "Criptografia Moderna (Intuição)", "level": "Intermediário", "secondary": "engenharia", "block": "D"},
+      {"id": "seguranca-de-memoria", "title": "Segurança de Memória", "level": "Avançado", "secondary": "engenharia", "block": "D"}
+    ],
+    "onda4_opcional": [
+      {"id": "monolito-vs-microservicos", "title": "Monolito vs Microserviços", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "graphql-como-contrato", "title": "GraphQL como Contrato de API", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "tpu-npu-aceleradores", "title": "TPU, NPU e Aceleradores", "level": "Avançado", "secondary": "inteligencia-artificial"},
+      {"id": "ssd-e-storage", "title": "Como um SSD Funciona", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "pcie-barramentos", "title": "Barramentos: PCIe e Comunicação Interna", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "concorrencia-baixo-nivel", "title": "Concorrência em Baixo Nível", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "linux-permissoes-processos", "title": "Linux na Prática: Permissões e Processos", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "http-caching", "title": "HTTP Caching", "level": "Intermediário", "secondary": "engenharia"}
+    ]
+  },
+  "totals": {
+    "onda1": 12,
+    "onda2": 10,
+    "onda3": 16,
+    "coreTotal": 38,
+    "onda4Optional": 8
+  }
+}

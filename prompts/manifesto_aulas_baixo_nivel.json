@@ -1,0 +1,96 @@
+{
+  "note": "Especialização Baixo Nível / Performance / Rust / Go. primaryCategoryId: computacao. Implementar na branch de Computação. Não duplicar pré-requisitos já existentes na trilha_computacao.",
+  "categoryPrimary": "computacao",
+  "folder": "computacao",
+  "parentPlan": "prompts/trilha_computacao.md",
+  "plan": "prompts/trilha_baixo_nivel_performance.md",
+  "prerequisitesFromComputacao": [
+    "como-funciona-uma-cpu",
+    "memoria-stack-heap-ponteiros",
+    "cache-de-cpu",
+    "como-funciona-a-memoria-ram",
+    "como-funciona-um-sistema-operacional",
+    "processos-threads-concorrencia",
+    "memoria-virtual",
+    "syscalls-kernel",
+    "pipeline-de-cpu",
+    "isa-x86-arm-riscv",
+    "concorrencia-baixo-nivel",
+    "seguranca-de-memoria"
+  ],
+  "waves": {
+    "L1_mentalidade": [
+      {"id": "performance-mental-model", "title": "Modelo Mental de Performance", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "medir-antes-de-otimizar", "title": "Medir Antes de Otimizar", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "cpu-bound-io-bound-memory-bound", "title": "CPU-bound, I/O-bound e Memory-bound", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "latencia-vs-throughput", "title": "Latência vs Throughput", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "ampdal-e-limites-do-paralelismo", "title": "Amdahl e os Limites do Paralelismo", "level": "Intermediário", "secondary": "matematica"},
+      {"id": "custo-de-abstracoes", "title": "Custo de Abstrações", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "flamegraphs-e-profiling", "title": "Flamegraphs e Profiling", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "benchmarking-honesto", "title": "Benchmarking Honesto", "level": "Avançado", "secondary": "engenharia"}
+    ],
+    "L2_memoria_dados": [
+      {"id": "locality-data-oriented-design", "title": "Locality e Data-Oriented Design", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "false-sharing-e-cache-lines", "title": "False Sharing e Cache Lines", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "alocacao-arena-pool-bump", "title": "Alocação: Arena, Pool e Bump", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "stack-vs-heap-na-pratica", "title": "Stack vs Heap na Prática", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "zero-copy-e-buffers", "title": "Zero-Copy e Buffers", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "simd-intuicao", "title": "SIMD: Intuição de Paralelismo de Dados", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "branch-prediction-e-codigo-quente", "title": "Branch Prediction e Código Quente", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "undefined-behavior-mindset", "title": "Mindset de Undefined Behavior", "level": "Avançado", "secondary": "engenharia"}
+    ],
+    "L3_rust": [
+      {"id": "rust-ownership-borrowing", "title": "Rust: Ownership e Borrowing", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "rust-lifetimes-intuicao", "title": "Rust: Lifetimes (Intuição)", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "rust-tipos-traits-zero-cost", "title": "Rust: Tipos, Traits e Zero-Cost", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "rust-error-handling", "title": "Rust: Erros com Result e ?", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "rust-collections-e-alocacao", "title": "Rust: Collections e Alocação", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "rust-concurrency-send-sync", "title": "Rust: Concurrency, Send e Sync", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "rust-async-intuicao", "title": "Rust: Async (Intuição)", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "rust-unsafe-boundaries", "title": "Rust: Unsafe e Fronteiras Seguras", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "rust-ffi-e-c", "title": "Rust: FFI com C", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "rust-tooling-cargo-perf", "title": "Rust: Cargo, Tests e Perf Tooling", "level": "Intermediário", "secondary": "engenharia"}
+    ],
+    "L4_go": [
+      {"id": "go-modelo-mental", "title": "Go: Modelo Mental da Linguagem", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "go-goroutines-scheduler", "title": "Go: Goroutines e Scheduler", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "go-channels-vs-memoria-compartilhada", "title": "Go: Channels vs Memória Compartilhada", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "go-escape-analysis", "title": "Go: Escape Analysis e Alocação", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "go-gc-e-latencia", "title": "Go: GC e Latência", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "go-sync-atomic-mutex", "title": "Go: sync, Atomic e Mutex", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "go-pprof-e-benchmarks", "title": "Go: pprof e Benchmarks", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "go-net-http-performance", "title": "Go: net/http e Performance", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "go-context-cancelamento", "title": "Go: context e Cancelamento", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "go-vs-rust-quando-usar", "title": "Go vs Rust: Quando Usar Cada Um", "level": "Intermediário", "secondary": "engenharia"}
+    ],
+    "L5_pratica": [
+      {"id": "metodologia-de-otimizacao", "title": "Metodologia de Otimização", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "contencao-locks-e-filas", "title": "Contenção, Locks e Filas", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "lock-free-com-cuidado", "title": "Lock-Free (com Cuidado)", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "syscalls-e-overhead-de-io", "title": "Syscalls e Overhead de I/O", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "network-performance-basics", "title": "Network Performance Basics", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "compiladores-e-otimizacoes", "title": "Compiladores e Otimizações", "level": "Intermediário", "secondary": "engenharia"},
+      {"id": "debugging-nativo", "title": "Debugging Nativo: perf, strace, gdb/dlv", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "performance-em-producao", "title": "Performance em Produção", "level": "Avançado", "secondary": "engenharia"}
+    ],
+    "L6_opcional": [
+      {"id": "linux-perf-events-avancado", "title": "Linux perf Avançado", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "io-uring-intuicao", "title": "io_uring (Intuição)", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "ebpf-observabilidade", "title": "eBPF para Observabilidade", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "rust-unsafe-avancado", "title": "Rust Unsafe Avançado", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "go-assembly-e-intrinsics", "title": "Go: Assembly e Intrinsics", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "memory-allocators-internos", "title": "Allocators Internos", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "numa-e-afinidade", "title": "NUMA e Afinidade de CPU", "level": "Avançado", "secondary": "engenharia"},
+      {"id": "writing-fast-code-checklist", "title": "Checklist de Código Rápido", "level": "Intermediário", "secondary": "engenharia"}
+    ]
+  },
+  "totals": {
+    "L1": 8,
+    "L2": 8,
+    "L3": 10,
+    "L4": 10,
+    "L5": 8,
+    "coreTotal": 44,
+    "L6Optional": 8
+  }
+}

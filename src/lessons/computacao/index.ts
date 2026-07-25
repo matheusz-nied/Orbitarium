@@ -1,16 +1,22 @@
 import type { LessonModule } from "../../types/content";
 import { bitsBytesRepresentacaoDadosLesson } from "./bits-bytes-representacao-dados";
-import { bitsPortasLogicasCircuitosLesson } from "./bits-portas-logicas-circuitos";
-import { cacheDeCpuLesson } from "./cache-de-cpu";
-import { comoFuncionaAMemoriaRamLesson } from "./como-funciona-a-memoria-ram";
-import { comoFuncionaUmaCpuLesson } from "./como-funciona-uma-cpu";
-import { memoriaStackHeapPonteirosLesson } from "./memoria-stack-heap-ponteiros";
+import { comoFuncionaUmSistemaOperacionalLesson } from "./como-funciona-um-sistema-operacional";
+import { processosThreadsConcorrenciaLesson } from "./processos-threads-concorrencia";
+import { memoriaVirtualLesson } from "./memoria-virtual";
+import { gpuParaIaLesson } from "./gpu-para-ia";
+import { comoFuncionaAInternetLesson } from "./como-funciona-a-internet";
+import { comoFuncionaUmBancoDeDadosLesson } from "./como-funciona-um-banco-de-dados";
+import { indicesEBTreesLesson } from "./indices-e-b-trees";
+import { dockerEContainersLesson } from "./docker-e-containers";
 
 export const computacaoLessonModules = [
   bitsBytesRepresentacaoDadosLesson,
-  bitsPortasLogicasCircuitosLesson,
-  comoFuncionaUmaCpuLesson,
-  memoriaStackHeapPonteirosLesson,
-  cacheDeCpuLesson,
-  comoFuncionaAMemoriaRamLesson,
+  comoFuncionaUmSistemaOperacionalLesson,
+  processosThreadsConcorrenciaLesson,
+  memoriaVirtualLesson,
+  gpuParaIaLesson,
+  comoFuncionaAInternetLesson,
+  comoFuncionaUmBancoDeDadosLesson,
+  indicesEBTreesLesson,
+  dockerEContainersLesson,
 ] satisfies LessonModule[];

@@ -1,10 +1,11 @@
 import type { LessonModule } from "../../../types/content";
-import { backpropagationContent } from "./content";
+import { probabilidadeParaIaContent } from "./content";
 import { interactions } from "./interactions";
 import { visuals } from "./visuals";
 
-export const backpropagationLesson = {
-  content: backpropagationContent,
+export const probabilidadeParaIaLesson = {
+  content: probabilidadeParaIaContent,
   visuals,
   interactions,
 } satisfies LessonModule;
+

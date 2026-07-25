@@ -1,10 +1,11 @@
 import type { LessonModule } from "../../../types/content";
-import { redesNeuraisDoZeroContent } from "./content";
+import { teoriaDaInformacaoEntropiaContent } from "./content";
 import { interactions } from "./interactions";
 import { visuals } from "./visuals";
 
-export const redesNeuraisDoZeroLesson = {
-  content: redesNeuraisDoZeroContent,
+export const teoriaDaInformacaoEntropiaLesson = {
+  content: teoriaDaInformacaoEntropiaContent,
   visuals,
   interactions,
 } satisfies LessonModule;
+

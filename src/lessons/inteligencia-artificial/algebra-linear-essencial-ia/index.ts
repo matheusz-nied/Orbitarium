@@ -1,10 +1,11 @@
 import type { LessonModule } from "../../../types/content";
-import { funcoesDePerdaContent } from "./content";
+import { algebraLinearEssencialIaContent } from "./content";
 import { interactions } from "./interactions";
 import { visuals } from "./visuals";
 
-export const funcoesDePerdaLesson = {
-  content: funcoesDePerdaContent,
+export const algebraLinearEssencialIaLesson = {
+  content: algebraLinearEssencialIaContent,
   visuals,
   interactions,
 } satisfies LessonModule;
+

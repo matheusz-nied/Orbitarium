@@ -1,10 +1,11 @@
 import type { LessonModule } from "../../../types/content";
-import { funcoesDeAtivacaoContent } from "./content";
+import { gradientesOtimizacaoIntuitivaContent } from "./content";
 import { interactions } from "./interactions";
 import { visuals } from "./visuals";
 
-export const funcoesDeAtivacaoLesson = {
-  content: funcoesDeAtivacaoContent,
+export const gradientesOtimizacaoIntuitivaLesson = {
+  content: gradientesOtimizacaoIntuitivaContent,
   visuals,
   interactions,
 } satisfies LessonModule;
+

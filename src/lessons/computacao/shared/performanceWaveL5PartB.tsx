@@ -1945,6 +1945,18 @@ export const performanceEmProducaoContent: LessonContent = {
       "Material pratico sobre autoscaling, folga, load balancing e protecao contra gargalos.",
     ),
     ref(
+      "Implementing Service Level Objectives",
+      "Google SRE Workbook",
+      "https://sre.google/workbook/implementing-slos/",
+      "Aprofunda a definicao pratica de SLI/SLO e mostra como error budgets entram na priorizacao do trabalho.",
+    ),
+    ref(
+      "Error Budget Policy",
+      "Google SRE Workbook",
+      "https://sre.google/workbook/error-budget-policy/",
+      "Exemplo oficial de como transformar SLO em regra operacional para releases e foco em confiabilidade.",
+    ),
+    ref(
       "SRE Best Practices for Capacity Management",
       "Google SRE / USENIX ;login:",
       "https://sre.google/static/pdf/login_winter20_10_torres.pdf",
@@ -2002,8 +2014,8 @@ export const performanceEmProducaoContent: LessonContent = {
       undefined,
       [
         "Um SLI e o sinal observado que representa uma faceta importante da experiencia do servico. Um SLO define a meta ou limite desejado para esse sinal ao longo de uma janela. Juntos, eles conectam telemetria a compromisso.",
-        "Na pratica, isso protege o time de duas armadilhas. A primeira e otimizar metricas internas que o usuario nao sente. A segunda e tratar qualquer oscilacao tecnica como crise, mesmo quando ela nao fere a promessa relevante.",
-        "SLO bem escolhido tambem ajuda a priorizar. Se uma mudanca ameaca o indicador que importa, ela pede acao. Se nao ameaca, talvez o investimento correto esteja em outro lugar.",
+        "O passo operacional seguinte e o error budget: a margem explicita de falha aceitavel derivada do SLO e usada para decidir quando o time pode seguir mudando com conforto e quando precisa frear para recuperar confiabilidade.",
+        "Na pratica, isso protege o time de tres armadilhas. A primeira e otimizar metricas internas que o usuario nao sente. A segunda e tratar qualquer oscilacao tecnica como crise, mesmo quando ela nao fere a promessa relevante. A terceira e ter um SLO bonito no dashboard sem politica clara de reacao quando a margem se esgota.",
       ],
       [
         block(
@@ -2013,8 +2025,8 @@ export const performanceEmProducaoContent: LessonContent = {
         ),
         block(
           "insight",
-          "Sem promessa clara nao ha regressao clara",
-          "Voce pode observar variacao, mas nao sabe se ela realmente rompeu um compromisso importante.",
+          "SLO sem error budget vira painel, nao politica",
+          "Voce pode observar variacao, mas sem margem explicitada e resposta combinada fica dificil decidir quando priorizar confiabilidade sobre novas mudancas.",
         ),
       ],
     ),
@@ -2175,7 +2187,7 @@ export const performanceEmProducaoContent: LessonContent = {
       "impact-board",
       undefined,
       [
-        "SLO claro, dashboards por percentil e rota, comparacao por release, capacidade planejada, playbook de overload e ownership definido formam um conjunto dificil de substituir por talento individual.",
+        "SLO claro, politica de error budget, dashboards por percentil e rota, comparacao por release, capacidade planejada, playbook de overload e ownership definido formam um conjunto dificil de substituir por talento individual.",
         "Sem esse conjunto, a equipe pode ate corrigir um gargalo especifico, mas continua cega para o proximo. Com ele, performance deixa de ser campanha pontual e vira capacidade operacional permanente.",
         "Esse e o nivel de maturidade que separa times que apenas reagem a lentidao de times que constroem servicos previsiveis sob mudanca constante.",
       ],
@@ -2210,8 +2222,8 @@ export const performanceEmProducaoContent: LessonContent = {
   ],
   summaryCards: [
     {
-      title: "SLO da foco",
-      body: "Sem promessa explicita, toda degradacao parece opiniao e toda otimização parece virtude.",
+      title: "SLO com error budget da foco",
+      body: "Sem promessa explicita e sem regra de reacao, toda degradacao parece opiniao e toda otimização parece virtude.",
     },
     {
       title: "Percentil protege UX",
@@ -2246,12 +2258,12 @@ export const performanceEmProducaoContent: LessonContent = {
     ),
     q(
       "q2",
-      "Por que SLO e tao importante?",
-      "Porque transforma uma expectativa de qualidade em compromisso observavel e priorizavel.",
+      "Por que SLO sem error budget operacional fica incompleto?",
+      "Porque falta um criterio claro para decidir quando continuar acelerando mudancas e quando priorizar confiabilidade.",
       "Porque elimina a necessidade de monitorar o sistema.",
       "Porque garante que nao havera regressao.",
       "a",
-      "Sem SLO, faltam criterio e foco para avaliar o que realmente importa.",
+      "SLO define a promessa; o error budget ajuda a transformar essa promessa em politica de decisao.",
     ),
     q(
       "q3",
@@ -2311,6 +2323,7 @@ export const performanceEmProducaoContent: LessonContent = {
   glossary: [
     g("SLI", "Indicador observado que representa uma faceta relevante da experiencia do servico."),
     g("SLO", "Meta ou limite operacional definido para um ou mais SLIs."),
+    g("Error budget", "Margem explicita de falha aceitavel derivada do SLO e usada para orientar risco, releases e prioridades de confiabilidade."),
     g("Percentil", "Valor abaixo do qual certa porcentagem das observacoes se encontra."),
     g("Baseline", "Referencia historica usada para comparar comportamento atual ou entre releases."),
     g("Regressao", "Piora relevante apos mudanca de software, configuracao ou ambiente."),

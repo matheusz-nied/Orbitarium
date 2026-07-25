@@ -5,13 +5,23 @@ import {
   contents as baseContents,
   lessonModules as baseLessonModules,
 } from "../lessons";
+import { alucinacoesEmIaLesson } from "../lessons/inteligencia-artificial/alucinacoes-em-ia";
+import { avaliacaoDeLlmsLesson } from "../lessons/inteligencia-artificial/avaliacao-de-llms";
+import { chunkingRankingBasesVetoriaisLesson } from "../lessons/inteligencia-artificial/chunking-ranking-bases-vetoriais";
 import { oQueEAprendizadoDeMaquinaLesson } from "../lessons/inteligencia-artificial/o-que-e-aprendizado-de-maquina";
 import { overfittingUnderfittingRegularizacaoLesson } from "../lessons/inteligencia-artificial/overfitting-underfitting-regularizacao";
 import { paradigmasAprendizadoLesson } from "../lessons/inteligencia-artificial/paradigmas-aprendizado-supervisionado-nao-supervisionado-reforco";
+import { promptEngineeringComFundamentoLesson } from "../lessons/inteligencia-artificial/prompt-engineering-com-fundamento";
+import { ragRetrievalAugmentedGenerationLesson } from "../lessons/inteligencia-artificial/rag-retrieval-augmented-generation";
 import { treinoValidacaoTesteLesson } from "../lessons/inteligencia-artificial/treino-validacao-teste-vazamento-dados";
 import { categories } from "./categories";
 
 const extraLessonModules: LessonModule[] = [
+  alucinacoesEmIaLesson,
+  promptEngineeringComFundamentoLesson,
+  ragRetrievalAugmentedGenerationLesson,
+  chunkingRankingBasesVetoriaisLesson,
+  avaliacaoDeLlmsLesson,
   oQueEAprendizadoDeMaquinaLesson,
   paradigmasAprendizadoLesson,
   treinoValidacaoTesteLesson,

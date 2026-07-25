@@ -1,5 +1,5 @@
 import { commonLessonInteractions } from "../src/components/lesson/commonInteractions";
-import { lessonModules } from "../src/lessons";
+import { lessonModules } from "../src/data/content";
 import type { LessonContent, LessonModule, QuizQuestion } from "../src/types/content";
 
 const MIN_SECTIONS = 8;

@@ -310,7 +310,7 @@ Seguir para **Fase C — Teoria de IA** (`trilha_capstones_e_teoria.md`), sem ab
 ## Status
 
 - [x] Plano detalhado da Fase B escrito (`prompts/trilha_fase_b_teoria_low_level.md`)
-- [ ] Sprint B.1 implementado
-- [ ] Sprint B.2 implementado
-- [ ] Sprint B.3 + validação
+- [x] Sprint B.1 implementado
+- [x] Sprint B.2 implementado
+- [x] Sprint B.3 + validação
 - [ ] Merge na `main`

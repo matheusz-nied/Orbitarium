@@ -1,45 +1,97 @@
 import { motion } from "motion/react";
-import { BookOpen, Compass, Layers, Sparkles } from "lucide-react";
-import { useMemo, useState } from "react";
+import {
+  ArrowRight,
+  BookOpen,
+  Compass,
+  Layers,
+  ListOrdered,
+  Sparkles,
+} from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { CategoryCard } from "../components/CategoryCard";
+import { CatalogPagination } from "../components/CatalogPagination";
 import { ContentCard } from "../components/ContentCard";
 import { SearchBar } from "../components/SearchBar";
-import { categories, contents, getCategoryById } from "../data/content";
+import { categories, contents, getCategoryById, getContentsByCategory } from "../data/content";
+import { compareContentsByRecommendedOrder, getStudyPathInfo } from "../data/studyPath";
+import type { LessonContent } from "../types/content";
 
-function normalizeSearch(value: string) {
-  return value
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
-}
+const HOME_SEARCH_PAGE_SIZE = 12;
 
 export function HomePage() {
   const [search, setSearch] = useState("");
+  const [searchPage, setSearchPage] = useState(1);
+  const hasSearch = search.trim().length > 0;
 
-  const filteredContents = useMemo(() => {
+  const starterContents = useMemo(
+    () =>
+      [...contents]
+        .filter((content) => getStudyPathInfo(content.id))
+        .sort(compareContentsByRecommendedOrder)
+        .slice(0, 4),
+    [],
+  );
+
+  const featuredContents = useMemo(() => {
+    const starterIds = new Set(starterContents.map((content) => content.id));
+    const selectedIds = new Set<string>();
+    const selectedContents: LessonContent[] = [];
+
+    for (const category of categories) {
+      const categoryContents = getContentsByCategory(category.id);
+      const orderedContents =
+        category.id === "inteligencia-artificial"
+          ? [...categoryContents].sort(compareContentsByRecommendedOrder)
+          : categoryContents;
+      const featuredContent = orderedContents.find(
+        (content) => !starterIds.has(content.id) && !selectedIds.has(content.id),
+      );
+
+      if (featuredContent) {
+        selectedContents.push(featuredContent);
+        selectedIds.add(featuredContent.id);
+      }
+    }
+
+    return selectedContents.slice(0, 6);
+  }, [starterContents]);
+
+  const searchResults = useMemo(() => {
     const query = normalizeSearch(search.trim());
 
     if (!query) {
-      return contents;
+      return [];
     }
 
-    return contents.filter((content) => {
-      const primaryCategory = getCategoryById(content.primaryCategoryId)?.name ?? "";
-      const secondaryCategory = content.secondaryCategoryId
-        ? getCategoryById(content.secondaryCategoryId)?.name
-        : "";
-      const searchableText = [
-        content.title,
-        content.description,
-        primaryCategory,
-        secondaryCategory,
-        content.level,
-        ...content.tags,
-      ].join(" ");
-
-      return normalizeSearch(searchableText).includes(query);
-    });
+    return contents
+      .filter((content) => getSearchableText(content).includes(query))
+      .sort(compareContentsByRecommendedOrder);
   }, [search]);
+
+  useEffect(() => {
+    setSearchPage(1);
+  }, [search]);
+
+  const searchTotalPages = Math.max(1, Math.ceil(searchResults.length / HOME_SEARCH_PAGE_SIZE));
+  const currentSearchPage = Math.min(searchPage, searchTotalPages);
+  const visibleSearchResults = searchResults.slice(
+    (currentSearchPage - 1) * HOME_SEARCH_PAGE_SIZE,
+    currentSearchPage * HOME_SEARCH_PAGE_SIZE,
+  );
+  const firstSearchResult = searchResults.length === 0 ? 0 : (currentSearchPage - 1) * HOME_SEARCH_PAGE_SIZE + 1;
+  const lastSearchResult = Math.min(currentSearchPage * HOME_SEARCH_PAGE_SIZE, searchResults.length);
+
+  const selectSearchPage = (nextPage: number) => {
+    const safePage = Math.min(Math.max(nextPage, 1), searchTotalPages);
+    setSearchPage(safePage);
+    window.requestAnimationFrame(() => {
+      document.getElementById("home-search-results")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  };
 
   return (
     <>
@@ -62,6 +114,11 @@ export function HomePage() {
             </p>
             <div className="mt-9 max-w-2xl">
               <SearchBar value={search} onChange={setSearch} />
+              <p className="mt-3 text-sm font-semibold text-slate-500">
+                {hasSearch
+                  ? `${searchResults.length} resultado${searchResults.length === 1 ? "" : "s"} encontrado${searchResults.length === 1 ? "" : "s"}`
+                  : "Pesquise por tema ou escolha uma trilha para começar."}
+              </p>
             </div>
           </motion.div>
 
@@ -103,89 +160,199 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.22em] text-blue-700">
-              Categorias
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-              Escolha uma trilha de estudo
-            </h2>
-          </div>
-          <p className="max-w-xl text-sm leading-6 text-slate-600">
-            A estrutura já está preparada para receber novos temas sem mudar o layout principal.
-          </p>
-        </div>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map((category) => (
-            <CategoryCard category={category} key={category.id} />
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.22em] text-orange-700">
-              Conteúdos
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-              Aulas disponíveis
-            </h2>
-          </div>
-          <p className="text-sm font-semibold text-slate-500">
-            {filteredContents.length} conteúdo{filteredContents.length === 1 ? "" : "s"}
-          </p>
-        </div>
-
-        <div className="mt-8 grid gap-5 lg:grid-cols-2">
-          {filteredContents.map((content) => (
-            <ContentCard content={content} key={content.id} />
-          ))}
-        </div>
-
-        {filteredContents.length === 0 ? (
-          <div className="mt-8 rounded-[2rem] border border-dashed border-slate-300 bg-white p-8 text-center">
-            <p className="font-semibold text-slate-950">Nenhum conteúdo encontrado.</p>
-            <p className="mt-2 text-sm text-slate-600">Tente buscar por Newton, cálculo ou matemática.</p>
-          </div>
-        ) : null}
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-12 pb-20 sm:px-6 lg:px-8">
-        <div className="rounded-[2.5rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5 sm:p-8 lg:p-10">
-          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+      {hasSearch ? (
+        <section
+          className="mx-auto max-w-7xl scroll-mt-24 px-4 py-12 sm:px-6 lg:px-8"
+          id="home-search-results"
+          aria-labelledby="home-search-title"
+        >
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <span className="grid size-14 place-items-center rounded-2xl bg-emerald-100 text-emerald-700">
-                <BookOpen size={26} aria-hidden="true" />
-              </span>
-              <h2 className="mt-5 font-display text-3xl font-semibold tracking-tight text-slate-950">
-                Como estudar por aqui
+              <p className="text-sm font-black uppercase tracking-[0.22em] text-orange-700">Busca global</p>
+              <h2 id="home-search-title" className="mt-3 font-display text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+                Resultados para “{search.trim()}”
               </h2>
-              <p className="mt-4 leading-7 text-slate-600">
-                Cada conteúdo combina explicação progressiva, diagramas e revisão para transformar
-                temas densos em uma sequência de estudo clara.
-              </p>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[
-                "visão geral do tema",
-                "explicação progressiva",
-                "diagramas e ilustrações",
-                "blocos de definição",
-                "exemplos e erros comuns",
-                "revisão e perguntas",
-              ].map((item) => (
-                <div className="rounded-2xl bg-slate-50 p-4" key={item}>
-                  <Layers className="text-slate-500" size={18} aria-hidden="true" />
-                  <p className="mt-3 text-sm font-bold text-slate-800">{item}</p>
-                </div>
+            <p className="text-right text-sm font-semibold text-slate-500" aria-live="polite">
+              {searchResults.length === 0
+                ? "Nenhum resultado"
+                : `Mostrando ${firstSearchResult}–${lastSearchResult} de ${searchResults.length}`}
+            </p>
+          </div>
+
+          {visibleSearchResults.length > 0 ? (
+            <div className="mt-8 grid gap-5 lg:grid-cols-2">
+              {visibleSearchResults.map((content) => (
+                <ContentCard content={content} key={content.id} />
               ))}
             </div>
-          </div>
-        </div>
-      </section>
+          ) : (
+            <div className="mt-8 rounded-[2rem] border border-dashed border-slate-300 bg-white p-8 text-center">
+              <p className="font-semibold text-slate-950">Nenhum conteúdo encontrado.</p>
+              <p className="mt-2 text-sm text-slate-600">
+                Tente buscar por outro tema, categoria ou palavra-chave.
+              </p>
+              <button
+                className="mt-5 inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+                type="button"
+                onClick={() => setSearch("")}
+              >
+                Voltar para explorar
+                <ArrowRight size={16} aria-hidden="true" />
+              </button>
+            </div>
+          )}
+
+          {searchResults.length > 0 ? (
+            <CatalogPagination
+              currentPage={currentSearchPage}
+              totalPages={searchTotalPages}
+              onPageChange={selectSearchPage}
+            />
+          ) : null}
+        </section>
+      ) : (
+        <>
+          <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.22em] text-blue-700">
+                  Categorias
+                </p>
+                <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+                  Escolha uma trilha de estudo
+                </h2>
+              </div>
+              <p className="max-w-xl text-sm leading-6 text-slate-600">
+                Explore por assunto e encontre uma sequência de aulas que faça sentido para você.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {categories.map((category) => (
+                <CategoryCard category={category} key={category.id} />
+              ))}
+            </div>
+          </section>
+
+          <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8" aria-labelledby="starter-title">
+            <div className="rounded-[2.5rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5 sm:p-8 lg:p-10">
+              <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+                <div>
+                  <div className="flex items-center gap-2 text-sm font-black uppercase tracking-[0.2em] text-emerald-700">
+                    <ListOrdered size={16} aria-hidden="true" />
+                    Roteiro recomendado
+                  </div>
+                  <h2 id="starter-title" className="mt-3 font-display text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+                    Comece pela base
+                  </h2>
+                  <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-600">
+                    Quatro aulas iniciais para construir intuição antes de avançar para modelos e
+                    sistemas mais complexos.
+                  </p>
+                </div>
+                <Link
+                  className="inline-flex shrink-0 items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+                  to="/categoria/inteligencia-artificial"
+                >
+                  Ver trilha completa
+                  <ArrowRight size={16} aria-hidden="true" />
+                </Link>
+              </div>
+
+              <div className="mt-8 grid gap-5 lg:grid-cols-2">
+                {starterContents.map((content) => (
+                  <ContentCard content={content} key={content.id} />
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {featuredContents.length > 0 ? (
+            <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8" aria-labelledby="featured-title">
+              <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+                <div>
+                  <p className="text-sm font-black uppercase tracking-[0.22em] text-orange-700">
+                    Para explorar
+                  </p>
+                  <h2 id="featured-title" className="mt-3 font-display text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+                    Uma aula em cada direção
+                  </h2>
+                </div>
+                <p className="max-w-xl text-sm leading-6 text-slate-600">
+                  Uma seleção curta para descobrir outros temas sem abrir mão de contexto.
+                </p>
+              </div>
+              <div className="mt-8 grid gap-5 lg:grid-cols-3">
+                {featuredContents.map((content) => (
+                  <ContentCard content={content} key={content.id} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          <section className="mx-auto max-w-7xl px-4 py-12 pb-20 sm:px-6 lg:px-8">
+            <div className="rounded-[2.5rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5 sm:p-8 lg:p-10">
+              <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+                <div>
+                  <span className="grid size-14 place-items-center rounded-2xl bg-emerald-100 text-emerald-700">
+                    <BookOpen size={26} aria-hidden="true" />
+                  </span>
+                  <h2 className="mt-5 font-display text-3xl font-semibold tracking-tight text-slate-950">
+                    Como estudar por aqui
+                  </h2>
+                  <p className="mt-4 leading-7 text-slate-600">
+                    Cada conteúdo combina explicação progressiva, diagramas e revisão para transformar
+                    temas densos em uma sequência de estudo clara.
+                  </p>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {[
+                    "visão geral do tema",
+                    "explicação progressiva",
+                    "diagramas e ilustrações",
+                    "blocos de definição",
+                    "exemplos e erros comuns",
+                    "revisão e perguntas",
+                  ].map((item) => (
+                    <div className="rounded-2xl bg-slate-50 p-4" key={item}>
+                      <Layers className="text-slate-500" size={18} aria-hidden="true" />
+                      <p className="mt-3 text-sm font-bold text-slate-800">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
     </>
+  );
+}
+
+function normalizeSearch(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+function getSearchableText(content: LessonContent) {
+  const primaryCategory = getCategoryById(content.primaryCategoryId)?.name ?? "";
+  const secondaryCategory = content.secondaryCategoryId
+    ? getCategoryById(content.secondaryCategoryId)?.name ?? ""
+    : "";
+  const studyPath = getStudyPathInfo(content.id);
+
+  return normalizeSearch(
+    [
+      content.title,
+      content.subtitle,
+      content.description,
+      primaryCategory,
+      secondaryCategory,
+      content.level,
+      studyPath?.phase.title ?? "",
+      ...content.tags,
+    ].join(" "),
   );
 }

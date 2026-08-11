@@ -1,7 +1,10 @@
 import { commonLessonInteractions } from "../src/components/lesson/commonInteractions";
+import { categories } from "../src/data/categories";
+import { learningTracks } from "../src/data/studyPath";
 import { lessonModules as baseLessonModules } from "../src/lessons";
 import { computacaoLessonModules } from "../src/lessons/computacao";
 import type { LessonContent, LessonModule, QuizQuestion } from "../src/types/content";
+import type { LearningTrack } from "../src/data/studyPath";
 
 const MIN_SECTIONS = 8;
 const MAX_SECTIONS = 14;
@@ -148,6 +151,92 @@ for (const lessonModule of lessonModules) {
   lessonIds.add(lessonModule.content.id);
   validateLessonModule(lessonModule);
 }
+
+function validateLearningTracks(tracks: LearningTrack[]) {
+  const categoryIds = new Set(categories.map((category) => category.id));
+  const trackIds = new Set<string>();
+  const publishedTracksByCategory = new Map<string, number>();
+  const defaultTracksByCategory = new Map<string, number>();
+
+  for (const track of tracks) {
+    if (trackIds.has(track.id)) {
+      errors.push(`ID duplicado de trilha: ${track.id}`);
+    }
+    trackIds.add(track.id);
+
+    if (!categoryIds.has(track.categoryId)) {
+      errors.push(`Trilha ${track.id} aponta para categoria inexistente: ${track.categoryId}`);
+    }
+
+    if (track.status === "published") {
+      publishedTracksByCategory.set(
+        track.categoryId,
+        (publishedTracksByCategory.get(track.categoryId) ?? 0) + 1,
+      );
+    }
+
+    if (track.isDefault && track.status !== "published") {
+      errors.push(`Trilha planejada não pode ser padrão: ${track.id}`);
+    }
+
+    if (track.isDefault && track.status === "published") {
+      defaultTracksByCategory.set(
+        track.categoryId,
+        (defaultTracksByCategory.get(track.categoryId) ?? 0) + 1,
+      );
+    }
+
+    const phaseIds = new Set<string>();
+    const trackLessonIds = new Set<string>();
+    let lessonCount = 0;
+
+    for (const phase of track.phases) {
+      if (phaseIds.has(phase.id)) {
+        errors.push(`Trilha ${track.id} possui fase duplicada: ${phase.id}`);
+      }
+      phaseIds.add(phase.id);
+
+      requireTrackText(phase.label, `${track.id}.${phase.id}.label`);
+      requireTrackText(phase.title, `${track.id}.${phase.id}.title`);
+      requireTrackText(phase.description, `${track.id}.${phase.id}.description`);
+
+      for (const lessonId of phase.lessonIds) {
+        lessonCount += 1;
+
+        if (!lessonIds.has(lessonId)) {
+          errors.push(`Trilha ${track.id} aponta para aula inexistente: ${lessonId}`);
+        }
+
+        if (trackLessonIds.has(lessonId)) {
+          errors.push(`Aula ${lessonId} aparece mais de uma vez na trilha ${track.id}`);
+        }
+        trackLessonIds.add(lessonId);
+      }
+    }
+
+    if (track.status === "published" && lessonCount === 0) {
+      errors.push(`Trilha publicada sem aulas: ${track.id}`);
+    }
+  }
+
+  for (const [categoryId, publishedCount] of publishedTracksByCategory) {
+    const defaultCount = defaultTracksByCategory.get(categoryId) ?? 0;
+
+    if (defaultCount !== 1) {
+      errors.push(
+        `Categoria ${categoryId} possui ${publishedCount} trilha(s) publicada(s) e deve ter exatamente uma trilha padrão (encontradas: ${defaultCount})`,
+      );
+    }
+  }
+}
+
+function requireTrackText(value: unknown, field: string) {
+  if (typeof value !== "string" || value.trim().length === 0) {
+    errors.push(`Campo obrigatório vazio na trilha: ${field}`);
+  }
+}
+
+validateLearningTracks(learningTracks);
 
 if (errors.length > 0) {
   console.error("Validação de aulas falhou:");

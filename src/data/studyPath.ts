@@ -1,6 +1,9 @@
 import type { LessonContent } from "../types/content";
 
-export interface StudyPathPhase {
+export type LearningTrackStatus = "published" | "planned";
+export const ALL_TRACKS_QUERY_VALUE = "todas";
+
+export interface LearningTrackPhase {
   id: string;
   label: string;
   title: string;
@@ -8,11 +11,27 @@ export interface StudyPathPhase {
   lessonIds: string[];
 }
 
-export interface StudyPathInfo {
+export type StudyPathPhase = LearningTrackPhase;
+
+export interface LearningTrack {
+  id: string;
+  categoryId: string;
+  name: string;
+  description: string;
+  status: LearningTrackStatus;
+  isDefault?: boolean;
+  phases: LearningTrackPhase[];
+}
+
+export interface LessonTrackInfo {
+  track: LearningTrack;
   order: number;
   phaseIndex: number;
-  phase: StudyPathPhase;
+  phaseOrder: number;
+  phase: LearningTrackPhase;
 }
+
+export type StudyPathInfo = LessonTrackInfo;
 
 /**
  * Sequência pedagógica principal da trilha de IA.
@@ -166,24 +185,158 @@ export const studyPathPhases: StudyPathPhase[] = [
 ];
 
 const studyPathByContentId = new Map<string, StudyPathInfo>();
-let order = 1;
 
-studyPathPhases.forEach((phase, phaseIndex) => {
-  phase.lessonIds.forEach((contentId) => {
-    studyPathByContentId.set(contentId, { order, phase, phaseIndex });
-    order += 1;
+export const learningTracks: LearningTrack[] = [
+  {
+    id: "especialista-ia",
+    categoryId: "inteligencia-artificial",
+    name: "Especialista em Inteligência Artificial",
+    description: "Do fundamento matemático aos sistemas de IA em produção e à visão crítica.",
+    status: "published",
+    isDefault: true,
+    phases: studyPathPhases,
+  },
+  {
+    id: "sistemas-operacionais",
+    categoryId: "computacao",
+    name: "Sistemas Operacionais",
+    description: "Como o sistema operacional transforma hardware, memória e processos em uma plataforma utilizável.",
+    status: "published",
+    isDefault: true,
+    phases: [
+      {
+        id: "fundamentos-do-so",
+        label: "Módulo 1",
+        title: "Fundamentos do sistema operacional",
+        description: "Kernel, processos e a fronteira entre programas e recursos da máquina.",
+        lessonIds: [
+          "como-funciona-um-sistema-operacional",
+          "como-um-programa-vira-processo",
+          "syscalls-kernel",
+        ],
+      },
+      {
+        id: "processos-e-recursos",
+        label: "Módulo 2",
+        title: "Processos, concorrência e memória",
+        description: "Como tarefas compartilham CPU e como cada processo enxerga seu espaço de memória.",
+        lessonIds: [
+          "processos-threads-concorrencia",
+          "memoria-virtual",
+          "sistema-de-arquivos",
+        ],
+      },
+      {
+        id: "linux-e-isolamento",
+        label: "Módulo 3",
+        title: "Linux, isolamento e baixo nível",
+        description: "Permissões, containers e os custos reais da concorrência próxima do hardware.",
+        lessonIds: [
+          "linux-permissoes-processos",
+          "docker-e-containers",
+          "concorrencia-baixo-nivel",
+        ],
+      },
+    ],
+  },
+  {
+    id: "fenomenos-de-transporte",
+    categoryId: "engenharia",
+    name: "Fenômenos de Transporte",
+    description: "Uma trilha para entender movimento, energia e matéria atravessando sistemas físicos.",
+    status: "planned",
+    phases: [
+      {
+        id: "fundamentos-de-transporte",
+        label: "Módulo 1",
+        title: "Fundamentos e propriedades",
+        description: "Grandezas, balanços e propriedades necessárias para modelar transportes.",
+        lessonIds: [],
+      },
+      {
+        id: "mecanica-dos-fluidos",
+        label: "Módulo 2",
+        title: "Mecânica dos fluidos",
+        description: "Pressão, escoamento, conservação e resistência ao movimento.",
+        lessonIds: [],
+      },
+      {
+        id: "transferencia-de-calor",
+        label: "Módulo 3",
+        title: "Transferência de calor",
+        description: "Condução, convecção e radiação como formas de transporte de energia.",
+        lessonIds: [],
+      },
+      {
+        id: "transferencia-de-massa",
+        label: "Módulo 4",
+        title: "Transferência de massa",
+        description: "Difusão, convecção e balanços de espécies em sistemas reais.",
+        lessonIds: [],
+      },
+    ],
+  },
+];
+
+function registerTrack(track: LearningTrack) {
+  let trackOrder = 1;
+
+  track.phases.forEach((phase, phaseIndex) => {
+    phase.lessonIds.forEach((contentId, phaseOrder) => {
+      studyPathByContentId.set(`${track.id}:${contentId}`, {
+        track,
+        order: trackOrder,
+        phaseIndex,
+        phaseOrder,
+        phase,
+      });
+      trackOrder += 1;
+    });
   });
-});
+}
+
+learningTracks.forEach(registerTrack);
+
+export function getLearningTrackById(trackId: string) {
+  return learningTracks.find((track) => track.id === trackId);
+}
+
+export function getLearningTracksByCategory(categoryId: string, includePlanned = false) {
+  return learningTracks.filter(
+    (track) =>
+      track.categoryId === categoryId &&
+      (includePlanned || track.status === "published") &&
+      (includePlanned || getTrackLessonCount(track) > 0),
+  );
+}
+
+export function getDefaultLearningTrackForCategory(categoryId: string) {
+  return getLearningTracksByCategory(categoryId).find((track) => track.isDefault);
+}
+
+export function getLessonTrackInfo(trackId: string, contentId: string) {
+  return studyPathByContentId.get(`${trackId}:${contentId}`);
+}
+
+export function getTrackLessonCount(track: LearningTrack) {
+  return track.phases.reduce((total, phase) => total + phase.lessonIds.length, 0);
+}
+
+export function getTrackOrderComparator(trackId: string) {
+  return (first: LessonContent, second: LessonContent) => {
+    const firstInfo = getLessonTrackInfo(trackId, first.id);
+    const secondInfo = getLessonTrackInfo(trackId, second.id);
+    const firstOrder = firstInfo?.order ?? Number.MAX_SAFE_INTEGER;
+    const secondOrder = secondInfo?.order ?? Number.MAX_SAFE_INTEGER;
+
+    return firstOrder - secondOrder || first.title.localeCompare(second.title, "pt-BR");
+  };
+}
 
 export function getStudyPathInfo(contentId: string) {
-  return studyPathByContentId.get(contentId);
+  return getLessonTrackInfo("especialista-ia", contentId);
 }
 
 export function compareContentsByRecommendedOrder(first: LessonContent, second: LessonContent) {
-  const firstInfo = getStudyPathInfo(first.id);
-  const secondInfo = getStudyPathInfo(second.id);
-  const firstOrder = firstInfo?.order ?? Number.MAX_SAFE_INTEGER;
-  const secondOrder = secondInfo?.order ?? Number.MAX_SAFE_INTEGER;
-
-  return firstOrder - secondOrder || first.title.localeCompare(second.title, "pt-BR");
+  return getTrackOrderComparator("especialista-ia")(first, second);
 }

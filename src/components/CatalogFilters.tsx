@@ -1,5 +1,6 @@
 import { RotateCcw, SlidersHorizontal } from "lucide-react";
 import type { ReactNode } from "react";
+import { ALL_TRACKS_QUERY_VALUE } from "../data/studyPath";
 import { SearchBar } from "./SearchBar";
 import type { Level } from "../types/content";
 
@@ -13,20 +14,29 @@ export interface CatalogPhaseOption {
   title: string;
 }
 
+export interface CatalogTrackOption {
+  id: string;
+  name: string;
+  lessonCount: number;
+}
+
 interface CatalogFiltersProps {
   search: string;
   level: LevelFilter;
   tag: string;
   duration: DurationFilter;
+  track: string;
   phase: string;
   sort: CatalogSort;
   availableTags: string[];
+  availableTracks: CatalogTrackOption[];
   availablePhases: CatalogPhaseOption[];
   activeFilterCount: number;
   onSearchChange: (value: string) => void;
   onLevelChange: (value: LevelFilter) => void;
   onTagChange: (value: string) => void;
   onDurationChange: (value: DurationFilter) => void;
+  onTrackChange: (value: string) => void;
   onPhaseChange: (value: string) => void;
   onSortChange: (value: CatalogSort) => void;
   onClear: () => void;
@@ -37,15 +47,18 @@ export function CatalogFilters({
   level,
   tag,
   duration,
+  track,
   phase,
   sort,
   availableTags,
+  availableTracks,
   availablePhases,
   activeFilterCount,
   onSearchChange,
   onLevelChange,
   onTagChange,
   onDurationChange,
+  onTrackChange,
   onPhaseChange,
   onSortChange,
   onClear,
@@ -83,6 +96,17 @@ export function CatalogFilters({
         <div className="lg:col-span-2">
           <SearchBar value={search} onChange={onSearchChange} />
         </div>
+
+        {availableTracks.length > 0 ? (
+          <FilterSelect label="Trilha" value={track} onChange={onTrackChange}>
+            <option value={ALL_TRACKS_QUERY_VALUE}>Todas as aulas</option>
+            {availableTracks.map((availableTrack) => (
+              <option key={availableTrack.id} value={availableTrack.id}>
+                {availableTrack.name} ({availableTrack.lessonCount})
+              </option>
+            ))}
+          </FilterSelect>
+        ) : null}
 
         <FilterSelect
           label="Dificuldade"

@@ -14,10 +14,15 @@ import { CatalogPagination } from "../components/CatalogPagination";
 import { ContentCard } from "../components/ContentCard";
 import { SearchBar } from "../components/SearchBar";
 import { categories, contents, getCategoryById, getContentsByCategory } from "../data/content";
-import { compareContentsByRecommendedOrder, getStudyPathInfo } from "../data/studyPath";
+import {
+  getDefaultLearningTrackForCategory,
+  getLessonTrackInfo,
+  getTrackOrderComparator,
+} from "../data/studyPath";
 import type { LessonContent } from "../types/content";
 
 const HOME_SEARCH_PAGE_SIZE = 12;
+const homeTrack = getDefaultLearningTrackForCategory("inteligencia-artificial");
 
 export function HomePage() {
   const [search, setSearch] = useState("");
@@ -25,11 +30,16 @@ export function HomePage() {
   const hasSearch = search.trim().length > 0;
 
   const starterContents = useMemo(
-    () =>
-      [...contents]
-        .filter((content) => getStudyPathInfo(content.id))
-        .sort(compareContentsByRecommendedOrder)
-        .slice(0, 4),
+    () => {
+      if (!homeTrack) {
+        return [];
+      }
+
+      return [...contents]
+        .filter((content) => getLessonTrackInfo(homeTrack.id, content.id))
+        .sort(getTrackOrderComparator(homeTrack.id))
+        .slice(0, 4);
+    },
     [],
   );
 
@@ -41,8 +51,8 @@ export function HomePage() {
     for (const category of categories) {
       const categoryContents = getContentsByCategory(category.id);
       const orderedContents =
-        category.id === "inteligencia-artificial"
-          ? [...categoryContents].sort(compareContentsByRecommendedOrder)
+        category.id === homeTrack?.categoryId && homeTrack
+          ? [...categoryContents].sort(getTrackOrderComparator(homeTrack.id))
           : categoryContents;
       const featuredContent = orderedContents.find(
         (content) => !starterIds.has(content.id) && !selectedIds.has(content.id),
@@ -65,8 +75,17 @@ export function HomePage() {
     }
 
     return contents
-      .filter((content) => getSearchableText(content).includes(query))
-      .sort(compareContentsByRecommendedOrder);
+      .filter((content) =>
+        getSearchableText(
+          content,
+          homeTrack ? getLessonTrackInfo(homeTrack.id, content.id) : undefined,
+        ).includes(query),
+      )
+      .sort(
+        homeTrack
+          ? getTrackOrderComparator(homeTrack.id)
+          : (first, second) => first.title.localeCompare(second.title, "pt-BR"),
+      );
   }, [search]);
 
   useEffect(() => {
@@ -261,7 +280,11 @@ export function HomePage() {
 
               <div className="mt-8 grid gap-5 lg:grid-cols-2">
                 {starterContents.map((content) => (
-                  <ContentCard content={content} key={content.id} />
+                  <ContentCard
+                    content={content}
+                    key={content.id}
+                    trackInfo={homeTrack ? getLessonTrackInfo(homeTrack.id, content.id) : undefined}
+                  />
                 ))}
               </div>
             </div>
@@ -336,12 +359,11 @@ function normalizeSearch(value: string) {
     .toLowerCase();
 }
 
-function getSearchableText(content: LessonContent) {
+function getSearchableText(content: LessonContent, trackInfo?: ReturnType<typeof getLessonTrackInfo>) {
   const primaryCategory = getCategoryById(content.primaryCategoryId)?.name ?? "";
   const secondaryCategory = content.secondaryCategoryId
     ? getCategoryById(content.secondaryCategoryId)?.name ?? ""
     : "";
-  const studyPath = getStudyPathInfo(content.id);
 
   return normalizeSearch(
     [
@@ -351,7 +373,8 @@ function getSearchableText(content: LessonContent) {
       primaryCategory,
       secondaryCategory,
       content.level,
-      studyPath?.phase.title ?? "",
+      trackInfo?.track.name ?? "",
+      trackInfo?.phase.title ?? "",
       ...content.tags,
     ].join(" "),
   );

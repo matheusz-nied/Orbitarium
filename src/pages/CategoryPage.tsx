@@ -11,7 +11,6 @@ import {
   CatalogFilters,
   type CatalogSort,
   type CatalogTrackOption,
-  type DurationFilter,
   type LevelFilter,
 } from "../components/CatalogFilters";
 import { CatalogPagination } from "../components/CatalogPagination";
@@ -65,7 +64,6 @@ export function CategoryPage() {
   const [search, setSearch] = useState("");
   const [level, setLevel] = useState<LevelFilter>("Todos");
   const [tag, setTag] = useState("");
-  const [duration, setDuration] = useState<DurationFilter>("all");
   const [phaseId, setPhaseId] = useState("");
   const [sort, setSort] = useState<CatalogSort>("recommended");
   const [page, setPage] = useState(1);
@@ -74,7 +72,6 @@ export function CategoryPage() {
     setSearch("");
     setLevel("Todos");
     setTag("");
-    setDuration("all");
     setPhaseId("");
     setSort("recommended");
   }, [categoryId]);
@@ -86,7 +83,7 @@ export function CategoryPage() {
 
   useEffect(() => {
     setPage(1);
-  }, [search, level, tag, duration, phaseId, sort]);
+  }, [search, level, tag, phaseId, sort]);
 
   useEffect(() => {
     if (
@@ -174,10 +171,6 @@ export function CategoryPage() {
           return false;
         }
 
-        if (duration !== "all" && !matchesDuration(content.estimatedTime, duration)) {
-          return false;
-        }
-
         if (phaseId && trackInfo?.phase.id !== phaseId) {
           return false;
         }
@@ -185,7 +178,7 @@ export function CategoryPage() {
         return true;
       })
       .sort((first, second) => compareContents(first, second, sort, trackId));
-  }, [activeTrack, categoryContents, duration, level, phaseId, search, sort, tag]);
+  }, [activeTrack, categoryContents, level, phaseId, search, sort, tag]);
 
   const totalPages = Math.max(1, Math.ceil(filteredContents.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -217,7 +210,6 @@ export function CategoryPage() {
     search.trim(),
     level !== "Todos" ? level : "",
     tag,
-    duration !== "all" ? duration : "",
     phaseId,
     trackIdFromUrl,
     sort !== "recommended" ? sort : "",
@@ -233,7 +225,6 @@ export function CategoryPage() {
     setSearch("");
     setLevel("Todos");
     setTag("");
-    setDuration("all");
     setPhaseId("");
     setSort("recommended");
     clearTrack();
@@ -386,7 +377,6 @@ export function CategoryPage() {
             availablePhases={phaseOptions}
             availableTags={availableTags}
             availableTracks={trackOptions}
-            duration={duration}
             level={level}
             phase={phaseId}
             search={search}
@@ -394,7 +384,6 @@ export function CategoryPage() {
             tag={tag}
             track={isAllTracksView ? ALL_TRACKS_QUERY_VALUE : activeTrack?.id ?? ""}
             onClear={clearFilters}
-            onDurationChange={setDuration}
             onLevelChange={setLevel}
             onPhaseChange={setPhaseId}
             onSearchChange={setSearch}
@@ -635,23 +624,6 @@ function getMaxDurationInMinutes(estimatedTime: string) {
   return values.length > 0 ? Math.max(...values) : Number.MAX_SAFE_INTEGER;
 }
 
-function matchesDuration(estimatedTime: string, duration: DurationFilter) {
-  const maxDuration = getMaxDurationInMinutes(estimatedTime);
-
-  if (duration === "short") {
-    return maxDuration <= 40;
-  }
-
-  if (duration === "medium") {
-    return maxDuration > 40 && maxDuration <= 55;
-  }
-
-  if (duration === "long") {
-    return maxDuration > 55;
-  }
-
-  return true;
-}
 
 function compareContents(
   first: LessonContent,

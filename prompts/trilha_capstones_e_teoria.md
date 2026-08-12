@@ -151,12 +151,12 @@ Só abrir depois de A+B (e idealmente C).
 - [x] Validação A + registro no catálogo
 
 ### Sprint 2 — Teoria low-level
-- [ ] `roofline-modelo-de-performance`
-- [ ] `consistencia-de-memoria-e-ordering`
-- [ ] `teoria-de-scheduling`
-- [ ] `ssa-e-otimizacoes-de-compilador`
-- [ ] `sistemas-de-tipos-e-soundness`
-- [ ] Validação B
+- [x] `roofline-modelo-de-performance`
+- [x] `consistencia-de-memoria-e-ordering`
+- [x] `teoria-de-scheduling`
+- [x] `ssa-e-otimizacoes-de-compilador`
+- [x] `sistemas-de-tipos-e-soundness`
+- [x] Validação B
 
 ### Sprint 3 — Teoria IA
 - [ ] `generalizacao-e-capacidade-de-modelos`
@@ -216,7 +216,7 @@ Seguir `AGENTS.md` + briefs existentes:
 - [x] Plano escrito (`prompts/trilha_capstones_e_teoria.md`)
 - [x] Manifesto (`prompts/manifesto_aulas_capstones_teoria.json`)
 - [x] Fase A implementada
-- [ ] Fase B implementada
+- [x] Fase B implementada
 - [ ] Fase C implementada
 - [ ] Fase D opcional
-- [ ] Validação + build verdes por fase
+- [x] Validação + build verdes por fase (A e B)
